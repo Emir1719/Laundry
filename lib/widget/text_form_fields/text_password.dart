@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laundry/controller/password_controller.dart';
-import 'package:laundry/widget/text_form_field.dart';
+import 'package:laundry/widget/text_form_fields/text_form_field.dart';
 
 class TextPassword extends StatelessWidget {
   const TextPassword({super.key, this.onChanged, this.validator});

@@ -38,11 +38,6 @@ class AuthController extends GetxController {
     return "Lütfen email giriniz";
   }
 
-  String? nameValidator(String? value) {
-    if (value!.isNotEmpty) {}
-    return "Lütfen email giriniz";
-  }
-
   String? passwordValidator(String? value) {
     if (value!.isNotEmpty) {
       if (value.length > 6) {

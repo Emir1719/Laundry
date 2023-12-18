@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laundry/controller/auth_controller.dart';
-import 'package:laundry/widget/text_mail.dart';
-import 'package:laundry/widget/text_password.dart';
+import 'package:laundry/widget/text_form_fields/text_mail.dart';
+import 'package:laundry/widget/text_form_fields/text_password.dart';
 
 class AuthForm extends StatelessWidget {
   const AuthForm({super.key, required this.formKey});

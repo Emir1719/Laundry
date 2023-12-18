@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:laundry/widget/text_form_field.dart';
+import 'package:laundry/widget/text_form_fields/text_form_field.dart';
 
 class TextMail extends StatelessWidget {
   const TextMail({super.key, this.onChanged, this.validator});

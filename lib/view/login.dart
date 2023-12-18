@@ -2,29 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laundry/controller/auth_controller.dart';
 import 'package:laundry/widget/auth_form.dart';
-import 'package:laundry/widget/text_form_fields/text_name.dart';
 
-class RegisterView extends StatelessWidget {
-  const RegisterView({super.key});
+class LoginView extends StatelessWidget {
+  const LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(AuthController());
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Kayıt")),
+      appBar: AppBar(title: const Text("Giriş")),
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
-          TextName(
-            onChanged: (value) => controller.name.value = value,
-          ),
-          const SizedBox(height: 20),
-          AuthForm(formKey: controller.registerFormKey),
+          AuthForm(formKey: controller.loginFormKey),
           const SizedBox(height: 20),
           ElevatedButton.icon(
-            onPressed: controller.register,
-            label: const Text("Kayıt Ol"),
+            onPressed: controller.login,
+            label: const Text("Giriş Yap"),
             icon: const Icon(Icons.login_rounded),
           ),
         ],
