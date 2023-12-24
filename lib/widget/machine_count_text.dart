@@ -5,13 +5,16 @@ class MachineCountText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text(
-      "Makinelerin Doluluk Oranı:\n(3/6)",
-      style: TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.w500,
+    return const Padding(
+      padding: EdgeInsets.all(20.0),
+      child: Text(
+        "Makinelerin Doluluk Oranı:\n(3/6)",
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+        ),
+        textAlign: TextAlign.center,
       ),
-      textAlign: TextAlign.center,
     );
   }
 }

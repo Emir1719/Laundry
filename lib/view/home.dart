@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:laundry/constant/image.dart';
-import 'package:laundry/model/user.dart';
+import 'package:laundry/widget/buttons/control_clothes.dart';
+import 'package:laundry/widget/buttons/put_clothes.dart';
 import 'package:laundry/widget/machine_count_text.dart';
 
 class HomeView extends StatelessWidget {
@@ -8,32 +9,24 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppUser user = AppUser();
     final image = AppImage.getInstance();
-    user.isAdmin = true;
     const space = 20.0;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text("Ana Sayfa"),
-        actions: user.isAdmin == true ? [IconButton(onPressed: () {}, icon: const Icon(Icons.settings))] : null,
+        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.settings))],
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              image.washing,
-              const SizedBox(height: space),
-              const MachineCountText(),
-              const SizedBox(height: space),
-              ElevatedButton.icon(
-                onPressed: () {},
-                label: const Text("Çamaşırları Makineye Koydum"),
-                icon: const Icon(Icons.wash_outlined),
-              ),
-            ],
-          ),
+      body: Center(
+        child: ListView(
+          padding: const EdgeInsets.all(20),
+          children: [
+            image.washing,
+            const MachineCountText(),
+            const BtnPutClothes(),
+            const SizedBox(height: space),
+            const BtnControlClothes(),
+          ],
         ),
       ),
     );
