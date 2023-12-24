@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:laundry/locator.dart';
 import 'package:laundry/model/user.dart';
-import 'package:laundry/service/firebase_auth_service.dart';
+import 'package:laundry/service/database_repository.dart';
 
 class BtnControlClothes extends StatelessWidget {
   const BtnControlClothes({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final auth = locator<FirebaseAuthService>();
+    final repository = locator<DatabaseRepository>();
 
     return FutureBuilder<AppUser?>(
-      future: auth.currentUser(),
+      future: repository.currentUser(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator()); // Eğer kullanıcı yükleniyorsa gösterilecek widget

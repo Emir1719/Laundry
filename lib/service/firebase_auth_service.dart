@@ -31,7 +31,7 @@ class FirebaseAuthService implements AuthBase {
     try {
       User? user = _auth.currentUser;
       AppUser? appUser = await _database.getUser(user!.uid);
-      return _createUser(user, appUser!.isAdmin);
+      return appUser;
     } catch (e) {
       print("currentUser fonksiyonunda hata çıktı: ${e.toString()}");
     }
@@ -45,8 +45,8 @@ class FirebaseAuthService implements AuthBase {
       return true;
     } catch (e) {
       print("signOut fonksiyonunda hata çıktı: ${e.toString()}");
+      return false;
     }
-    return false;
   }
 
   @override

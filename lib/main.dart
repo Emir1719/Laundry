@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:laundry/constant/light_theme.dart';
 import 'package:laundry/firebase_options.dart';
 import 'package:laundry/locator.dart';
-import 'package:laundry/service/firebase_auth_service.dart';
+import 'package:laundry/service/database_repository.dart';
 import 'package:laundry/view/home.dart';
 import 'package:laundry/view/register.dart';
 
@@ -22,12 +22,12 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var auth = locator<FirebaseAuthService>();
+    final repository = locator<DatabaseRepository>();
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeLight().theme(),
-      home: auth.isUserLogin() ? const HomeView() : const RegisterView(),
+      home: repository.isUserLogin() ? const HomeView() : const RegisterView(),
     );
   }
 }

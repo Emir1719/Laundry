@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laundry/locator.dart';
 import 'package:laundry/model/user.dart';
-import 'package:laundry/service/firebase_auth_service.dart';
+import 'package:laundry/service/database_repository.dart';
 import 'package:laundry/view/home.dart';
 
 class AuthController extends GetxController {
@@ -11,12 +11,12 @@ class AuthController extends GetxController {
   var name = "".obs;
   final registerFormKey = GlobalKey<FormState>();
   final loginFormKey = GlobalKey<FormState>();
-  final auth = locator<FirebaseAuthService>();
+  final repository = locator<DatabaseRepository>();
 
   void register() async {
     if (registerFormKey.currentState!.validate()) {
       registerFormKey.currentState!.save();
-      AppUser? user = await auth.register(email.value, password.value);
+      AppUser? user = await repository.register(email.value, password.value);
       if (user != null) {
         Get.to(const HomeView(), popGesture: false);
       }
@@ -28,7 +28,7 @@ class AuthController extends GetxController {
   void login() async {
     if (loginFormKey.currentState!.validate()) {
       loginFormKey.currentState!.save();
-      AppUser? user = await auth.signIn(email.value, password.value);
+      AppUser? user = await repository.signIn(email.value, password.value);
       if (user != null) {
         Get.to(const HomeView(), popGesture: false);
       }

@@ -8,9 +8,9 @@ class MachineCountText extends StatelessWidget {
     return const Padding(
       padding: EdgeInsets.all(20.0),
       child: Text(
-        "Makinelerin Doluluk Oranı:\n(3/6)",
+        "Makinelerin Doluluk Oranı\n(3 / 6)",
         style: TextStyle(
-          fontSize: 18,
+          fontSize: 20,
           fontWeight: FontWeight.w500,
         ),
         textAlign: TextAlign.center,
