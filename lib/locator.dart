@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:laundry/constant/style.dart';
 import 'package:laundry/service/database_repository.dart';
 import 'package:laundry/service/firebase_auth_service.dart';
 import 'package:laundry/service/firestore.dart';
@@ -10,4 +11,5 @@ void setupLocator() {
   locator.registerLazySingleton(() => FirebaseAuthService());
   locator.registerLazySingleton(() => Firestore());
   locator.registerLazySingleton(() => DatabaseRepository());
+  locator.registerLazySingleton(() => AppStyle());
 }

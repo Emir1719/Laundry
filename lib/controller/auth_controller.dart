@@ -9,31 +9,41 @@ class AuthController extends GetxController {
   var email = "".obs;
   var password = "".obs;
   var name = "".obs;
+  var isLoading = false.obs;
   final registerFormKey = GlobalKey<FormState>();
   final loginFormKey = GlobalKey<FormState>();
   final repository = locator<DatabaseRepository>();
 
   void register() async {
-    if (registerFormKey.currentState!.validate()) {
-      registerFormKey.currentState!.save();
-      AppUser? user = await repository.register(email.value, password.value);
-      if (user != null) {
-        Get.to(const HomeView(), popGesture: false);
+    try {
+      if (registerFormKey.currentState!.validate()) {
+        registerFormKey.currentState!.save();
+        isLoading.value = true;
+        AppUser? user = await repository.register(email.value, password.value);
+        if (user != null) {
+          Get.to(const HomeView(), popGesture: false);
+          clearTexts();
+        }
       }
-    } else {
-      //hata
+    } finally {
+      isLoading.value = false;
     }
   }
 
   void login() async {
-    if (loginFormKey.currentState!.validate()) {
-      loginFormKey.currentState!.save();
-      AppUser? user = await repository.signIn(email.value, password.value);
-      if (user != null) {
-        Get.to(const HomeView(), popGesture: false);
+    try {
+      if (loginFormKey.currentState!.validate()) {
+        loginFormKey.currentState!.save();
+        isLoading.value = true;
+
+        AppUser? user = await repository.signIn(email.value, password.value);
+        if (user != null) {
+          Get.to(const HomeView(), popGesture: false);
+          clearTexts();
+        }
       }
-    } else {
-      //hata
+    } finally {
+      isLoading.value = false;
     }
   }
 
@@ -55,5 +65,11 @@ class AuthController extends GetxController {
       return "Şifre 6 karakterden uzun olmalı";
     }
     return "Lütfen şifre giriniz";
+  }
+
+  void clearTexts() {
+    password.value = "";
+    email.value = "";
+    name.value = "";
   }
 }

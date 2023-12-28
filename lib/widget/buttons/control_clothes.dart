@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:laundry/locator.dart';
 import 'package:laundry/model/user.dart';
 import 'package:laundry/service/database_repository.dart';
+import 'package:laundry/view/machine_control.dart';
 
 class BtnControlClothes extends StatelessWidget {
   const BtnControlClothes({super.key});
@@ -20,10 +22,28 @@ class BtnControlClothes extends StatelessWidget {
         } else {
           AppUser? user = snapshot.data;
           return user!.isAdmin == true
-              ? ElevatedButton.icon(
-                  onPressed: () {},
-                  label: const Text("Çamaşırları Kontrol Et"),
-                  icon: const Icon(Icons.control_point),
+              ? Column(
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          Get.to(const MachineControlView());
+                        },
+                        label: const Text("Makineleri Kontrol Et"),
+                        icon: const Icon(Icons.settings),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                        onPressed: () {},
+                        label: const Text("Duyuru Gir"),
+                        icon: const Icon(Icons.control_point),
+                      ),
+                    ),
+                  ],
                 )
               : const SizedBox();
         }

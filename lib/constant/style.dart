@@ -1,11 +1,31 @@
+import 'package:flutter/material.dart';
+
 class AppStyle {
-  static AppStyle? _instance;
+  TextStyle baseTextStyle = const TextStyle(
+    fontSize: 16,
+    color: Colors.black,
+  );
+  late TextStyle listTileTitle, listTileSubtitle, countText;
 
-  AppStyle._();
+  AppStyle() {
+    listTileTitle = baseTextStyle.copyWith(
+      fontSize: 18,
+      fontWeight: FontWeight.w500,
+    );
+    listTileSubtitle = baseTextStyle.copyWith(
+      fontWeight: FontWeight.w400,
+    );
+    countText = baseTextStyle.copyWith(
+      fontSize: 20,
+      fontWeight: FontWeight.w500,
+    );
+  }
 
-  // Singleton örneğine erişim sağlayan statik metot
-  static AppStyle getInstance() {
-    _instance ??= AppStyle._();
-    return _instance!;
+  Color? getColorListTile(int index) {
+    // Tek ve çift sıradaki elemanları belirle
+    bool isOdd = index % 2 != 1;
+    // Arka plan rengini belirle
+    Color? backgroundColor = isOdd ? Colors.grey[300] : Colors.grey[100];
+    return backgroundColor;
   }
 }

@@ -7,11 +7,36 @@ class ThemeLight {
 
   ThemeData theme() {
     return ThemeData(
-      //fontFamily: "Roboto",
       scaffoldBackgroundColor: _color.background,
       primarySwatch: _color.primary,
       appBarTheme: _appBarTheme(),
       elevatedButtonTheme: _elevatedButtonTheme(),
+      textButtonTheme: _textButtonThemeData(),
+      textSelectionTheme: _textSelectionTheme(),
+    );
+  }
+
+  TextSelectionThemeData _textSelectionTheme() {
+    return TextSelectionThemeData(
+      cursorColor: _color.primary,
+      selectionColor: _color.primary,
+      selectionHandleColor: _color.primary,
+    );
+  }
+
+  TextButtonThemeData _textButtonThemeData() {
+    return TextButtonThemeData(
+      style: ButtonStyle(
+        foregroundColor: MaterialStateProperty.resolveWith((states) {
+          return _color.primary;
+        }),
+        backgroundColor: MaterialStateProperty.resolveWith((states) {
+          if (states.contains(MaterialState.pressed)) {
+            return Colors.grey.shade100;
+          }
+          return Colors.transparent;
+        }),
+      ),
     );
   }
 
@@ -37,7 +62,7 @@ class ThemeLight {
     return ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         fixedSize: const Size.fromHeight(45),
-        backgroundColor: _color.background,
+        backgroundColor: Colors.transparent,
         foregroundColor: _color.primary,
         shadowColor: Colors.transparent,
         side: BorderSide(width: 1, color: _color.primary),

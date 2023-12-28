@@ -11,7 +11,7 @@ class AppColor {
     return _instance!;
   }
 
-  final primary = Colors.blue;
+  final primary = Colors.deepOrange;
   final background = const Color(0xffF8F9FA); //white
 
   ///primary rengi Color'dan MaterialColor'a çevrildi.
