@@ -1,5 +1,6 @@
 import 'package:laundry/locator.dart';
 import 'package:laundry/model/auth_base.dart';
+import 'package:laundry/model/note.dart';
 import 'package:laundry/model/user.dart';
 import 'package:laundry/service/firebase_auth_service.dart';
 import 'package:laundry/service/firestore.dart';
@@ -44,5 +45,10 @@ class DatabaseRepository implements AuthBase {
   @override
   bool isUserLogin() {
     return _authService.isUserLogin();
+  }
+
+  Future<bool> saveNote(Note note) async {
+    return await _firestore.saveNote(note);
+    //kuyruğa da ekle
   }
 }

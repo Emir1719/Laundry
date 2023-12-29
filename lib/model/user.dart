@@ -2,9 +2,7 @@ class AppUser {
   late String _id, _name, _email;
   late bool _isAdmin;
 
-  AppUser() {
-    //isAdmin = false;
-  }
+  AppUser();
 
   AppUser.create({required String id, required String email, required String name, required bool isAdmin}) {
     this.id = id;
