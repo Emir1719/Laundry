@@ -1,7 +1,12 @@
 class Note {
   late String _fileNo, _degree, _comment, _mode;
 
-  Note();
+  Note() {
+    _fileNo = "";
+    _degree = "";
+    _comment = "";
+    _mode = "";
+  }
 
   /*Note.create({required String id, required String email, required String name}) {
     this.id = id;
@@ -34,5 +39,5 @@ class Note {
   set fileNo(String fileNo) => _fileNo = fileNo;
   set degree(String degree) => _degree = degree;
   set comment(String comment) => _comment = comment;
-  set mode(String mode) => _comment = mode;
+  set mode(String mode) => _mode = mode;
 }

@@ -5,4 +5,6 @@ abstract class Database {
   Future<bool> saveUser(AppUser user);
   Future<AppUser?> getUser(String id);
   Future<bool> saveNote(Note note);
+  Future<Note?> getNote();
+  Future<bool> addQueue();
 }

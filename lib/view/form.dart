@@ -20,13 +20,13 @@ class FormView extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: [
-            TextFileNo(onChanged: controller.setFileNo),
+            TextFileNo(controller: controller.fileNo, onChanged: controller.setFileNo),
             space,
-            TextDegree(onChanged: controller.setDegree),
+            TextDegree(controller: controller.degree, onChanged: controller.setDegree),
             space,
-            TextWashMode(onChanged: controller.setMode),
+            TextWashMode(controller: controller.mode, onChanged: controller.setMode),
             space,
-            TextComment(onChanged: controller.setComment),
+            TextComment(controller: controller.comment, onChanged: controller.setComment),
             space,
             ElevatedButton(onPressed: controller.onTab, child: const Text("Onayla ve Sıraya Gir"))
           ],

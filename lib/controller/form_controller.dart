@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laundry/locator.dart';
 import 'package:laundry/model/note.dart';
@@ -5,7 +6,38 @@ import 'package:laundry/service/database_repository.dart';
 
 class FormController extends GetxController {
   var note = Note().obs;
+  var fileNo = TextEditingController(),
+      degree = TextEditingController(),
+      mode = TextEditingController(),
+      comment = TextEditingController();
   final _repository = locator<DatabaseRepository>();
+
+  FormController() {
+    getValues();
+  }
+
+  Future<void> getValues() async {
+    Note? note = await _repository.getNote();
+    if (note != null) {
+      fileNo.text = note.fileNo;
+      degree.text = note.degree;
+      comment.text = note.comment;
+      mode.text = note.mode;
+      setFileNo(fileNo.text);
+      setComment(comment.text);
+      setDegree(degree.text);
+      setMode(mode.text);
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    fileNo.dispose();
+    degree.dispose();
+    mode.dispose();
+    comment.dispose();
+  }
 
   void setFileNo(String value) {
     note.value.fileNo = value;

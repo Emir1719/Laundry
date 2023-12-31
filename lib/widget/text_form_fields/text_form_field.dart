@@ -15,6 +15,7 @@ class AppTextField extends StatelessWidget {
     this.labelText,
     this.minLines = 1,
     this.maxLines = 1,
+    this.controller,
   });
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
@@ -24,10 +25,12 @@ class AppTextField extends StatelessWidget {
   final Widget? prefixIcon, suffixIcon;
   final String? hintText, labelText;
   final int? minLines, maxLines;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       onChanged: (value) => onChanged!(value),
       validator: (value) => validator!(value),
       obscureText: obscureText,

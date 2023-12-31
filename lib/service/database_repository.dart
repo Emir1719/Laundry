@@ -48,7 +48,16 @@ class DatabaseRepository implements AuthBase {
   }
 
   Future<bool> saveNote(Note note) async {
-    return await _firestore.saveNote(note);
-    //kuyruğa da ekle
+    bool result = await _firestore.saveNote(note);
+    if (result) {
+      await _firestore.addQueue();
+      return true;
+    }
+    return false;
+  }
+
+  Future<Note?> getNote() async {
+    Note? note = await _firestore.getNote();
+    return note;
   }
 }

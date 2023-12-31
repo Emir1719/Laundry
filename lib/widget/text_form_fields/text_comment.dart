@@ -1,16 +1,20 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
 import 'package:laundry/widget/text_form_fields/text_form_field.dart';
 
 class TextComment extends StatelessWidget {
-  const TextComment({super.key, this.onChanged, this.validator});
+  const TextComment({Key? key, this.onChanged, this.validator, this.controller}) : super(key: key);
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
     return AppTextField(
       onChanged: (value) => onChanged!(value),
       validator: (value) => validator!(value),
+      controller: controller,
       hintText: "Açıklama giriniz",
       labelText: "Bilgilendirme Notu",
       minLines: 3,
