@@ -1,18 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AppColor {
-  static AppColor? _instance;
-
-  AppColor._();
-
-  // Singleton örneğine erişim sağlayan statik metot
-  static AppColor getInstance() {
-    _instance ??= AppColor._();
-    return _instance!;
-  }
-
   final primary = Colors.deepOrange;
   final background = const Color(0xffF8F9FA); //white
+  final green = Colors.green[700];
 
   ///primary rengi Color'dan MaterialColor'a çevrildi.
   late MaterialColor primaryMaterialColor;

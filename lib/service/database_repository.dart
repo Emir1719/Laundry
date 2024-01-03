@@ -1,5 +1,6 @@
 import 'package:laundry/locator.dart';
 import 'package:laundry/model/auth_base.dart';
+import 'package:laundry/model/machine.dart';
 import 'package:laundry/model/note.dart';
 import 'package:laundry/model/user.dart';
 import 'package:laundry/service/firebase_auth_service.dart';
@@ -59,5 +60,13 @@ class DatabaseRepository implements AuthBase {
   Future<Note?> getNote() async {
     Note? note = await _firestore.getNote();
     return note;
+  }
+
+  Future<List<Machine>> getMachines() async {
+    return await _firestore.getMachines();
+  }
+
+  Future<AppUser?> getUser(String id) async {
+    return await _firestore.getUser(id);
   }
 }

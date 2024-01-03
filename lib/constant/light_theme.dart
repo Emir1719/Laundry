@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:laundry/constant/color.dart';
+import 'package:laundry/locator.dart';
 
 class ThemeLight {
-  final _color = AppColor.getInstance();
+  final _color = locator<AppColor>();
 
   ThemeData theme() {
     return ThemeData(

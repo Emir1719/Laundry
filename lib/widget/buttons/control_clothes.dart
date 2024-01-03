@@ -16,7 +16,7 @@ class BtnControlClothes extends StatelessWidget {
       future: repository.currentUser(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator()); // Eğer kullanıcı yükleniyorsa gösterilecek widget
+          return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
           return Text('Hata: ${snapshot.error}');
         } else {
@@ -28,7 +28,7 @@ class BtnControlClothes extends StatelessWidget {
                       width: double.infinity,
                       child: ElevatedButton.icon(
                         onPressed: () {
-                          Get.to(const MachineControlView());
+                          Get.to(() => const MachineControlView());
                         },
                         label: const Text("Makineleri Kontrol Et"),
                         icon: const Icon(Icons.settings),

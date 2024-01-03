@@ -39,7 +39,7 @@ class RegisterView extends StatelessWidget {
                 ),
               ],
             ),
-            const AppCircleProgress(),
+            if (controller.isLoading.value) const AppCircleProgress(),
           ],
         ),
       ),

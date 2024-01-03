@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:laundry/constant/snackbar_message.dart';
 import 'package:laundry/locator.dart';
 import 'package:laundry/model/note.dart';
 import 'package:laundry/service/database_repository.dart';
@@ -11,6 +12,7 @@ class FormController extends GetxController {
       mode = TextEditingController(),
       comment = TextEditingController();
   final _repository = locator<DatabaseRepository>();
+  var isValueLoaded = false.obs;
 
   FormController() {
     getValues();
@@ -27,6 +29,7 @@ class FormController extends GetxController {
       setComment(comment.text);
       setDegree(degree.text);
       setMode(mode.text);
+      isValueLoaded.value = true;
     }
   }
 
@@ -56,8 +59,11 @@ class FormController extends GetxController {
   }
 
   void onTab() {
+    final message = locator<AppMessage>();
+
     if (note.value.fileNo.isNotEmpty && note.value.degree.isNotEmpty && note.value.mode.isNotEmpty) {
       _repository.saveNote(note.value);
+      message.showSuccessMessage(title: "İşlem Başarılı", message: "Kıyafetleriniz Sıraya Alınmıştır.");
     }
   }
 }

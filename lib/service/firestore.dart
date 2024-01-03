@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:laundry/model/database.dart';
+import 'package:laundry/model/machine.dart';
 import 'package:laundry/model/note.dart';
 import 'package:laundry/model/user.dart';
 
@@ -77,5 +78,12 @@ class Firestore implements Database {
       print("Not kayıt edilemedi. Hata: ${e.toString()}");
       return false;
     }
+  }
+
+  @override
+  Future<List<Machine>> getMachines() async {
+    var docRef = await _firestore.collection("machines").get();
+    List<Machine> machines = docRef.docs.map((e) => Machine.fromMap(e.data())).toList();
+    return machines;
   }
 }
