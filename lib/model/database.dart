@@ -6,7 +6,8 @@ abstract class Database {
   Future<bool> saveUser(AppUser user);
   Future<AppUser?> getUser(String id);
   Future<bool> saveNote(Note note);
-  Future<Note?> getNote();
+  Future<Note?> getNote(String id);
+  Future<bool> updateMachineActive(String id, bool active);
   Future<bool> addQueue();
   Future<List<Machine>> getMachines();
 }

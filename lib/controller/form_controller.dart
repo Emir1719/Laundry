@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:laundry/constant/snackbar_message.dart';
 import 'package:laundry/locator.dart';
 import 'package:laundry/model/note.dart';
+import 'package:laundry/model/user.dart';
 import 'package:laundry/service/database_repository.dart';
 
 class FormController extends GetxController {
@@ -19,7 +20,11 @@ class FormController extends GetxController {
   }
 
   Future<void> getValues() async {
-    Note? note = await _repository.getNote();
+    AppUser? user = await _repository.currentUser();
+    if (user == null) {
+      return;
+    }
+    Note? note = await _repository.getNote(user.id);
     if (note != null) {
       fileNo.text = note.fileNo;
       degree.text = note.degree;

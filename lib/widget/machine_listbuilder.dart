@@ -16,7 +16,7 @@ class MachineListBuilder extends StatelessWidget {
       future: controller.getUsers(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
+          return const Center(child: CircularProgressIndicator());
         }
         return ListView.builder(
           itemCount: controller.machines.length,
@@ -30,15 +30,17 @@ class MachineListBuilder extends StatelessWidget {
 
   Widget _buildListTile(int index) {
     final style = locator<AppStyle>();
-    final controller = Get.put(MachineController());
-
-    return ListTile(
-      onTap: () => controller.onTab(index),
-      contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-      tileColor: style.getColorListTile(index),
-      title: Text("${index + 1}. Makine", style: style.listTileTitle),
-      subtitle: Text(controller.user[index]?.name ?? "Boş", style: style.listTileSubtitle),
-      trailing: const BtnMachine(),
+    return GetBuilder<MachineController>(
+      builder: (controller) {
+        return ListTile(
+          onTap: () => controller.onTab(index),
+          contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+          tileColor: style.getColorListTile(index),
+          title: Text("${index + 1}. Makine", style: style.listTileTitle),
+          subtitle: Text(controller.getSubtitle(index), style: style.listTileSubtitle),
+          trailing: controller.machines[index].isActive ? BtnMachine(index: index) : null,
+        );
+      },
     );
   }
 }

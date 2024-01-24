@@ -48,9 +48,9 @@ class Firestore implements Database {
 
   ///Kullanıcının yıkama hakkındaki notunu ekler.
   @override
-  Future<Note?> getNote() async {
+  Future<Note?> getNote(String id) async {
     try {
-      var docRef = _firestore.collection("notes").doc(_auth.currentUser!.uid);
+      var docRef = _firestore.collection("notes").doc(id);
       var snapshot = await docRef.get();
       if (snapshot.exists) {
         Map<String, dynamic>? map = snapshot.data();
@@ -82,8 +82,22 @@ class Firestore implements Database {
 
   @override
   Future<List<Machine>> getMachines() async {
-    var docRef = await _firestore.collection("machines").get();
-    List<Machine> machines = docRef.docs.map((e) => Machine.fromMap(e.data())).toList();
-    return machines;
+    try {
+      var docRef = await _firestore.collection("machines").get();
+      List<Machine> machines = docRef.docs.map((e) => Machine.fromMap(e.data())).toList();
+      return machines;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  @override
+  Future<bool> updateMachineActive(String id, bool active) async {
+    try {
+      await _firestore.collection("machines").doc(id).update({"isActive": active});
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }

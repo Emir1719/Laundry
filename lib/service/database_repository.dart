@@ -57,8 +57,8 @@ class DatabaseRepository implements AuthBase {
     return false;
   }
 
-  Future<Note?> getNote() async {
-    Note? note = await _firestore.getNote();
+  Future<Note?> getNote(String id) async {
+    Note? note = await _firestore.getNote(id);
     return note;
   }
 
@@ -68,5 +68,9 @@ class DatabaseRepository implements AuthBase {
 
   Future<AppUser?> getUser(String id) async {
     return await _firestore.getUser(id);
+  }
+
+  Future<bool> updateMachineActive(String id, bool active) async {
+    return await _firestore.updateMachineActive(id, active);
   }
 }
