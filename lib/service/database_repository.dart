@@ -1,3 +1,4 @@
+import 'package:laundry/constant/snackbar_message.dart';
 import 'package:laundry/locator.dart';
 import 'package:laundry/model/auth_base.dart';
 import 'package:laundry/model/machine.dart';
@@ -51,6 +52,16 @@ class DatabaseRepository implements AuthBase {
   Future<bool> saveNote(Note note) async {
     bool result = await _firestore.saveNote(note);
     if (result) {
+      /// Kullanıcı daha önceden kuyruğa girdi mi?
+      bool isHaveQueue = await _firestore.getQueue();
+      if (isHaveQueue) {
+        AppMessage.show(
+          title: "Zaten sıradasınız",
+          message: "Yıkama sırasına ikinci defa katılamazsınız.",
+          type: Type.warning,
+        );
+        return false;
+      }
       await _firestore.addQueue();
       return true;
     }
@@ -72,5 +83,13 @@ class DatabaseRepository implements AuthBase {
 
   Future<bool> updateMachineActive(String id, bool active) async {
     return await _firestore.updateMachineActive(id, active);
+  }
+
+  Future<AppUser?> getUserFromQueue() async {
+    return await _firestore.getUserFromQueue();
+  }
+
+  Future<bool> updateMachineUserId(String id, String userId) async {
+    return await _firestore.updateMachineUserId(id, userId);
   }
 }

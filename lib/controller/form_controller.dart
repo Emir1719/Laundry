@@ -63,12 +63,12 @@ class FormController extends GetxController {
     note.value.comment = value;
   }
 
-  void onTab() {
-    final message = locator<AppMessage>();
-
+  void onTab() async {
     if (note.value.fileNo.isNotEmpty && note.value.degree.isNotEmpty && note.value.mode.isNotEmpty) {
-      _repository.saveNote(note.value);
-      message.showSuccessMessage(title: "İşlem Başarılı", message: "Kıyafetleriniz Sıraya Alınmıştır.");
+      bool result = await _repository.saveNote(note.value);
+      if (result) {
+        AppMessage.show(title: "İşlem Başarılı", message: "Kıyafetleriniz Sıraya Alınmıştır.");
+      }
     }
   }
 }

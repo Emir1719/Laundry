@@ -8,13 +8,17 @@ class BtnMachine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(MachineController());
-
-    return IconButton(
-      icon: controller.machines[index].userId.isEmpty ? const Icon(Icons.add) : const Icon(Icons.remove),
-      iconSize: 35,
-      color: Colors.black,
-      onPressed: () => controller.onTabIconBtn(index),
+    return GetBuilder<MachineController>(
+      builder: (controller) {
+        return IconButton(
+          icon: controller.iconBtnStates[index] ? const Icon(Icons.add) : const Icon(Icons.remove),
+          iconSize: 35,
+          color: Colors.black,
+          onPressed: () => controller.iconBtnStates[index]
+              ? controller.onTabIconBtnAdd(index)
+              : controller.onTabIconBtnRemove(index),
+        );
+      },
     );
   }
 }

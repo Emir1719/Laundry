@@ -21,14 +21,20 @@ class MachineCountText extends StatelessWidget {
           } else if (snapshot.hasError) {
             return Text('Hata: ${snapshot.error}');
           } else {
-            var count = 0;
+            var count = 0, activeMachineCount = 0;
             for (var element in snapshot.data!) {
+              // Makineyi kullanan kaç kişi varsa belirlenir.
               if (element.userId.isNotEmpty) {
                 count++;
               }
+
+              // Kaç tane aktif makine varsa belirlenir.
+              if (element.isActive) {
+                activeMachineCount++;
+              }
             }
             return Text(
-              "Makinelerin Doluluk Oranı\n($count / ${snapshot.data!.length})",
+              "Makinelerin Doluluk Oranı\n($count / $activeMachineCount)",
               style: style.countText,
               textAlign: TextAlign.center,
             );

@@ -100,4 +100,37 @@ class Firestore implements Database {
       return false;
     }
   }
+
+  @override
+  Future<AppUser?> getUserFromQueue() async {
+    var querySnapshot = await _firestore.collection("queue").orderBy("date", descending: true).get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      // En son tarihe sahip belgeyi al
+      var latestDoc = querySnapshot.docs.first;
+      var appUser = getUser(latestDoc.id);
+
+      // Belgeyi sil
+      await _firestore.collection("queue").doc(latestDoc.id).delete();
+
+      return appUser;
+    }
+    return null;
+  }
+
+  @override
+  Future<bool> updateMachineUserId(String id, String userId) async {
+    try {
+      await _firestore.collection("machines").doc(id).update({"userId": userId});
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> getQueue() async {
+    var querySnapshot = await _firestore.collection("queue").doc(_auth.currentUser!.uid).get();
+    return querySnapshot.exists;
+  }
 }

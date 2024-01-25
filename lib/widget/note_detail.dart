@@ -28,14 +28,16 @@ class NotDetail extends StatelessWidget {
               return const Text("Not yok");
             }
             Note note = snapshot.data!;
-            return Column(
-              children: [
-                _createRow("File No", note.fileNo),
-                _createRow("Derece", "${note.degree} °C"),
-                _createRow("Yıkama Modu", note.mode),
-                _createRow("Not", note.comment),
-              ],
-            );
+            return GetBuilder<MachineController>(builder: (controller) {
+              return Column(
+                children: [
+                  _createRow("File No", note.fileNo),
+                  _createRow("Derece", "${note.degree} °C"),
+                  _createRow("Yıkama Modu", note.mode),
+                  _createRow("Not", note.comment),
+                ],
+              );
+            });
           },
         ),
       ],

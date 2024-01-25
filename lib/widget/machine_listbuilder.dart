@@ -28,6 +28,7 @@ class MachineListBuilder extends StatelessWidget {
     );
   }
 
+  /// Listtile öğesini oluşturur.
   Widget _buildListTile(int index) {
     final style = locator<AppStyle>();
     return GetBuilder<MachineController>(
@@ -38,7 +39,9 @@ class MachineListBuilder extends StatelessWidget {
           tileColor: style.getColorListTile(index),
           title: Text("${index + 1}. Makine", style: style.listTileTitle),
           subtitle: Text(controller.getSubtitle(index), style: style.listTileSubtitle),
-          trailing: controller.machines[index].isActive ? BtnMachine(index: index) : null,
+          trailing: controller.machines[index].isActive
+              ? BtnMachine(index: index)
+              : null, // makine aktif değilse icon gözükmesin
         );
       },
     );
