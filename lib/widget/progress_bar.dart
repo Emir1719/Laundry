@@ -5,6 +5,6 @@ class AppCircleProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Positioned.fill(child: Center(child: CircularProgressIndicator()));
+    return const Center(child: CircularProgressIndicator());
   }
 }

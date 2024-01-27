@@ -4,6 +4,7 @@ import 'package:laundry/widget/buttons/control_clothes.dart';
 import 'package:laundry/widget/buttons/goto_settings.dart';
 import 'package:laundry/widget/buttons/scan_qr.dart';
 import 'package:laundry/widget/machine_count_text.dart';
+import 'package:laundry/widget/short_announcement.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -11,7 +12,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final image = AppImage.getInstance();
-    const space = 20.0;
+    const space = SizedBox(height: 20);
 
     return PopScope(
       canPop: false,
@@ -24,12 +25,13 @@ class HomeView extends StatelessWidget {
         body: Center(
           child: ListView(
             padding: const EdgeInsets.all(20),
-            children: [
-              image.washingDone,
-              const MachineCountText(),
-              const BtnScanQR(),
-              const SizedBox(height: space),
-              const BtnControlClothes(),
+            children: const [
+              //image.washing,
+              ShortAnnouncement(),
+              MachineCountText(),
+              BtnScanQR(),
+              space,
+              BtnControlClothes(),
             ],
           ),
         ),

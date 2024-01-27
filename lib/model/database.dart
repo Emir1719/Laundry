@@ -14,4 +14,6 @@ abstract class Database {
   Future<bool> addQueue();
   Future<AppUser?> getUserFromQueue();
   Future<List<Machine>> getMachines();
+  Future<Machine> addMachine();
+  Future<bool> deleteMachine(String id);
 }

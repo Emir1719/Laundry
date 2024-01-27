@@ -5,6 +5,7 @@ import 'package:laundry/locator.dart';
 import 'package:laundry/model/note.dart';
 import 'package:laundry/model/user.dart';
 import 'package:laundry/service/database_repository.dart';
+import 'package:laundry/widget/loading_bar.dart';
 
 class FormController extends GetxController {
   var note = Note().obs;
@@ -20,8 +21,10 @@ class FormController extends GetxController {
   }
 
   Future<void> getValues() async {
+    LoadingBar.open();
     AppUser? user = await _repository.currentUser();
     if (user == null) {
+      LoadingBar.close();
       return;
     }
     Note? note = await _repository.getNote(user.id);
@@ -36,6 +39,7 @@ class FormController extends GetxController {
       setMode(mode.text);
       isValueLoaded.value = true;
     }
+    LoadingBar.close();
   }
 
   @override
@@ -64,11 +68,15 @@ class FormController extends GetxController {
   }
 
   void onTab() async {
-    if (note.value.fileNo.isNotEmpty && note.value.degree.isNotEmpty && note.value.mode.isNotEmpty) {
-      bool result = await _repository.saveNote(note.value);
-      if (result) {
-        AppMessage.show(title: "İşlem Başarılı", message: "Kıyafetleriniz Sıraya Alınmıştır.");
+    try {
+      if (note.value.fileNo.isNotEmpty && note.value.degree.isNotEmpty && note.value.mode.isNotEmpty) {
+        bool result = await _repository.saveNote(note.value);
+        if (result) {
+          AppMessage.show(title: "İşlem Başarılı", message: "Kıyafetleriniz Sıraya Alınmıştır.");
+        }
       }
+    } catch (e) {
+      print(e);
     }
   }
 }

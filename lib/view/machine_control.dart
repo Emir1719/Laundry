@@ -15,21 +15,25 @@ class MachineControlView extends StatelessWidget {
         title: const Text("Makine Ayarları"),
         actions: [
           IconButton(onPressed: controller.onTabShowQueue, icon: const Icon(Icons.manage_accounts_outlined)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.add_circle_outline_outlined)),
+          IconButton(onPressed: controller.addMachine, icon: const Icon(Icons.add_circle_outline_outlined)),
         ],
       ),
-      body: FutureBuilder(
-        future: controller.repository.getMachines(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (snapshot.hasError) {
-            return Text("Hata: ${snapshot.error}");
-          }
-          controller.machines.value = snapshot.data!;
+      body: GetBuilder<MachineController>(
+        builder: (controller) {
+          return FutureBuilder(
+            future: controller.repository.getMachines(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (snapshot.hasError) {
+                return Text("Hata: ${snapshot.error}");
+              }
+              controller.machines.value = snapshot.data!;
 
-          return const MachineListBuilder();
+              return const MachineListBuilder();
+            },
+          );
         },
       ),
     );

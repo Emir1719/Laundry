@@ -5,7 +5,14 @@ class AppStyle {
     fontSize: 16,
     color: Colors.black,
   );
-  late TextStyle listTileTitle, listTileSubtitle, countText, machineSetting, machineSettingTitle, machineSettingOption;
+  late TextStyle listTileTitle,
+      listTileSubtitle,
+      countText,
+      machineSetting,
+      machineSettingTitle,
+      machineSettingOption,
+      announcementTitle,
+      announcementContent;
 
   AppStyle() {
     listTileTitle = baseTextStyle.copyWith(
@@ -30,6 +37,11 @@ class AppStyle {
       fontSize: 20,
       fontWeight: FontWeight.w500,
     );
+    announcementTitle = baseTextStyle.copyWith(
+      fontSize: 18,
+      fontWeight: FontWeight.w500,
+    );
+    announcementContent = baseTextStyle;
   }
 
   Color? getColorListTile(int index) {
@@ -38,5 +50,18 @@ class AppStyle {
     // Arka plan rengini belirle
     Color? backgroundColor = isOdd ? Colors.grey[300] : Colors.grey[100];
     return backgroundColor;
+  }
+
+  BoxDecoration shortAnnouncementContainer() {
+    return const BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.all(Radius.circular(10)),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey,
+          blurRadius: 2,
+        ),
+      ],
+    );
   }
 }

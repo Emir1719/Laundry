@@ -49,9 +49,10 @@ class NotDetail extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text("$title: ", style: style.machineSettingOption),
-          Text(value, style: style.machineSetting),
+          Expanded(child: Text(value, style: style.machineSetting, maxLines: 6)),
         ],
       ),
     );

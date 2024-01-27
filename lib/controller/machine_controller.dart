@@ -56,35 +56,60 @@ class MachineController extends GetxController {
     );
   }
 
+  void addMachine() async {
+    machines.add(await repository.addMachine());
+    for (var i = 0; i < machines.length; i++) {
+      print(machines[i].id);
+    }
+    update();
+  }
+
+  void deleteMachine() async {
+    String id = currentMachine!.id;
+    machines.remove(currentMachine);
+    await repository.deleteMachine(id);
+    Navigator.pop(Get.context!);
+    update();
+  }
+
   /// Icon butona kullanıcı eklemek için tıklandığında
   void onTabIconBtnAdd(int i) async {
-    LoadingBar.open();
-    AppUser? lastUser = await repository.getUserFromQueue();
-    if (lastUser == null) {
-      AppMessage.show(title: "Sırada kimse yok", message: "Sıra boş olduğu için ekleme yapılamaz.", type: Type.warning);
+    try {
+      LoadingBar.open();
+      AppUser? lastUser = await repository.getUserFromQueue();
+      if (lastUser == null) {
+        AppMessage.show(
+            title: "Sırada kimse yok", message: "Sıra boş olduğu için ekleme yapılamaz.", type: Type.warning);
+        LoadingBar.close();
+        return;
+      }
+      user[i] = lastUser;
+      await repository.updateMachineUserId(machines[i].id, lastUser.id);
+      iconBtnStates[i] = false;
+      update();
       LoadingBar.close();
-      return;
+    } catch (e) {
+      print(e);
     }
-    user[i] = lastUser;
-    await repository.updateMachineUserId(machines[i].id, lastUser.id);
-    iconBtnStates[i] = false;
-    update();
-    LoadingBar.close();
   }
 
   /// Icon butona kullanıcı silmek için tıklandığında
   void onTabIconBtnRemove(int i) async {
-    LoadingBar.open();
-    deleteUserFromMachine(i);
-    iconBtnStates[i] = true;
-    update();
-    LoadingBar.close();
+    try {
+      LoadingBar.open();
+      deleteUserFromMachine(i);
+      iconBtnStates[i] = true;
+      LoadingBar.close();
+    } catch (e) {
+      print(e);
+    }
   }
 
   void deleteUserFromMachine(int i) async {
     bool result = await repository.updateMachineUserId(machines[i].id, "");
     if (result) {
       user[i] = null;
+      update();
     } else {
       AppMessage.show(title: "Hata! Silinemedi", message: "İnterneti vb. kontrol ediniz.", type: Type.error);
     }
@@ -111,7 +136,6 @@ class MachineController extends GetxController {
         }
       }
     }
-    update();
     LoadingBar.close();
   }
 

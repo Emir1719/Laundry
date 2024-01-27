@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:laundry/constant/style.dart';
 import 'package:laundry/locator.dart';
+import 'package:laundry/widget/buttons/delete_machine.dart';
 import 'package:laundry/widget/buttons/machine_setting.dart';
 import 'package:laundry/widget/note_detail.dart';
 
@@ -26,14 +27,7 @@ class MachineSetting extends StatelessWidget {
               const BtnMachineSetting(),
             ],
           ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: ElevatedButton.icon(
-              onPressed: () {},
-              icon: const Icon(Icons.delete),
-              label: const Text("Makineyi Sil"),
-            ),
-          ),
+          const BtnDeleteMachine(),
           space,
           const NotDetail(),
         ],

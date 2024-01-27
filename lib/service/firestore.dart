@@ -151,4 +151,39 @@ class Firestore implements Database {
       return null;
     }
   }
+
+  @override
+  Future<Machine> addMachine() async {
+    try {
+      var ref = await _firestore.collection("machines").add(Machine().toMap());
+
+      // Belge referansından belge ID'sini al
+      String documentId = ref.id;
+
+      // Machine nesnesini Firestore'dan çekilen verilerle oluştur
+      var machineData = await _firestore.collection("machines").doc(documentId).get();
+      var machine = Machine.fromMap(machineData.data() as Map<String, dynamic>);
+
+      // Machine nesnesine belge ID'sini ekle
+      machine.id = documentId;
+
+      // Machine nesnesini güncelleyerek Firestore'a kaydet
+      await _firestore.collection("machines").doc(documentId).update(machine.toMap());
+
+      return machine;
+    } catch (e) {
+      print("Error adding machine to Firestore: $e");
+      rethrow;
+    }
+  }
+
+  @override
+  Future<bool> deleteMachine(String id) async {
+    try {
+      await _firestore.collection("machines").doc(id).delete();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 }
