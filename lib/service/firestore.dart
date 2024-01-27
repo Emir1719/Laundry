@@ -103,7 +103,7 @@ class Firestore implements Database {
 
   @override
   Future<AppUser?> getUserFromQueue() async {
-    var querySnapshot = await _firestore.collection("queue").orderBy("date", descending: true).get();
+    var querySnapshot = await _firestore.collection("queue").orderBy("date", descending: false).get();
 
     if (querySnapshot.docs.isNotEmpty) {
       // En son tarihe sahip belgeyi al
@@ -130,7 +130,25 @@ class Firestore implements Database {
 
   @override
   Future<bool> getQueue() async {
-    var querySnapshot = await _firestore.collection("queue").doc(_auth.currentUser!.uid).get();
-    return querySnapshot.exists;
+    try {
+      var querySnapshot = await _firestore.collection("queue").doc(_auth.currentUser!.uid).get();
+      return querySnapshot.exists;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  @override
+  Future<List<AppUser>?> getAllUserFromQueue() async {
+    try {
+      List<AppUser> list = [];
+      var querySnapshot = await _firestore.collection("queue").get();
+      for (var item in querySnapshot.docs) {
+        list.add((await getUser(item.id))!);
+      }
+      return list;
+    } catch (e) {
+      return null;
+    }
   }
 }

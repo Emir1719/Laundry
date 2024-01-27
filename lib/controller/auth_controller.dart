@@ -21,7 +21,7 @@ class AuthController extends GetxController {
         isLoading.value = true;
         AppUser? user = await repository.register(email.value, password.value);
         if (user != null) {
-          Get.to(const HomeView(), popGesture: false);
+          Get.to(() => const HomeView(), popGesture: false);
           clearTexts();
         }
       }
@@ -38,7 +38,7 @@ class AuthController extends GetxController {
 
         AppUser? user = await repository.signIn(email.value, password.value);
         if (user != null) {
-          Get.to(const HomeView(), popGesture: false);
+          Get.to(() => const HomeView(), popGesture: false);
           clearTexts();
         }
       }

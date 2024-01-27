@@ -1,3 +1,4 @@
+// ignore_for_file: unnecessary_getters_setters
 class Note {
   late String _fileNo, _degree, _comment, _mode;
 

@@ -7,6 +7,7 @@ import 'package:laundry/model/note.dart';
 import 'package:laundry/model/user.dart';
 import 'package:laundry/service/database_repository.dart';
 import 'package:laundry/view/machine_setting.dart';
+import 'package:laundry/view/users_at_queue.dart';
 import 'package:laundry/widget/loading_bar.dart';
 
 class MachineController extends GetxController {
@@ -44,6 +45,14 @@ class MachineController extends GetxController {
       context: Get.context!,
       useSafeArea: true,
       builder: (context) => const MachineSetting(),
+    );
+  }
+
+  void onTabShowQueue() {
+    showModalBottomSheet(
+      context: Get.context!,
+      useSafeArea: true,
+      builder: (context) => const UsersAtQueue(),
     );
   }
 

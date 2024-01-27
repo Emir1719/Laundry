@@ -11,7 +11,13 @@ class MachineControlView extends StatelessWidget {
     final controller = Get.put(MachineController());
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Makine Ayarları")),
+      appBar: AppBar(
+        title: const Text("Makine Ayarları"),
+        actions: [
+          IconButton(onPressed: controller.onTabShowQueue, icon: const Icon(Icons.manage_accounts_outlined)),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.add_circle_outline_outlined)),
+        ],
+      ),
       body: FutureBuilder(
         future: controller.repository.getMachines(),
         builder: (context, snapshot) {

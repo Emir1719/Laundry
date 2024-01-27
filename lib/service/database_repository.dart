@@ -92,4 +92,8 @@ class DatabaseRepository implements AuthBase {
   Future<bool> updateMachineUserId(String id, String userId) async {
     return await _firestore.updateMachineUserId(id, userId);
   }
+
+  Future<List<AppUser>?> getAllUserFromQueue() async {
+    return await _firestore.getAllUserFromQueue();
+  }
 }

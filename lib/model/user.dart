@@ -1,3 +1,4 @@
+// ignore_for_file: unnecessary_getters_setters
 class AppUser {
   late String _id, _name, _email;
   late bool _isAdmin;

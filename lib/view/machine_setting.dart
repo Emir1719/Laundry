@@ -26,6 +26,14 @@ class MachineSetting extends StatelessWidget {
               const BtnMachineSetting(),
             ],
           ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: ElevatedButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.delete),
+              label: const Text("Makineyi Sil"),
+            ),
+          ),
           space,
           const NotDetail(),
         ],

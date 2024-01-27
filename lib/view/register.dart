@@ -33,7 +33,9 @@ class RegisterView extends StatelessWidget {
                 AuthForm(formKey: controller.registerFormKey),
                 const BtnRegister(),
                 TextButton.icon(
-                  onPressed: () => Get.to(const LoginView(), popGesture: false),
+                  onPressed: () {
+                    Get.to(() => const LoginView(), popGesture: false);
+                  },
                   icon: const Icon(Icons.person),
                   label: const Text("Hesabınız var mı? Giriş yapın"),
                 ),

@@ -29,7 +29,10 @@ class QRCodeScannerViewState extends State<QRCodeScannerView> {
           Expanded(
             flex: 1,
             child: Center(
-              child: Text('Sonuç: ${result != null ? "Başarılı" : "Henüz bir karekod okunmadı."}'),
+              child: Text(
+                'Sonuç: ${result != null ? "Bir karekod algılandı" : "Henüz bir karekod okunmadı."}',
+                style: const TextStyle(fontSize: 18),
+              ),
             ),
           ),
         ],
