@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:laundry/view/form.dart';
+import 'package:laundry/constant/route.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QRCodeScannerView extends StatefulWidget {
@@ -48,7 +48,7 @@ class QRCodeScannerViewState extends State<QRCodeScannerView> {
         if (result!.code == qrResult) {
           // Eğer okunan karekod tanımlanan değerle eşleşiyorsa, başka bir sayfaya geçiş yapabilirsiniz.
           controller.pauseCamera();
-          Get.to(() => const FormView());
+          Get.toNamed(AppRoute.form);
         }
       });
     });

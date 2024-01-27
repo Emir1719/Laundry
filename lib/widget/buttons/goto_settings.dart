@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:laundry/view/settings.dart';
+import 'package:laundry/constant/route.dart';
 
 class BtnGotoSettings extends StatelessWidget {
   const BtnGotoSettings({super.key});
@@ -8,9 +8,7 @@ class BtnGotoSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () {
-        Get.to(const SettingsView());
-      },
+      onPressed: () => Get.toNamed(AppRoute.setting),
       icon: const Icon(Icons.settings),
     );
   }

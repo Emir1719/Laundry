@@ -37,8 +37,7 @@ class DatabaseRepository implements AuthBase {
   Future<AppUser?> signIn(String email, String password) async {
     try {
       AppUser? user = await _authService.signIn(email, password);
-      await _firestore.saveUser(user!);
-      return _firestore.getUser(user.id);
+      return _firestore.getUser(user!.id);
     } catch (e) {
       return null;
     }

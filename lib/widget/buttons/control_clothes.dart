@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:laundry/constant/route.dart';
 import 'package:laundry/locator.dart';
 import 'package:laundry/model/user.dart';
 import 'package:laundry/service/database_repository.dart';
-import 'package:laundry/view/machine_control.dart';
 
 class BtnControlClothes extends StatelessWidget {
   const BtnControlClothes({super.key});
@@ -27,9 +27,7 @@ class BtnControlClothes extends StatelessWidget {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton.icon(
-                        onPressed: () {
-                          Get.to(() => const MachineControlView());
-                        },
+                        onPressed: () => Get.toNamed(AppRoute.machineControl),
                         label: const Text("Makineleri Kontrol Et"),
                         icon: const Icon(Icons.settings),
                       ),

@@ -11,7 +11,7 @@ class BtnDeleteAnnouncement extends StatelessWidget {
       future: locator<DatabaseRepository>().currentUser(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return const SizedBox();
         }
         if (snapshot.data!.isAdmin) {
           return TextButton.icon(onPressed: () {}, icon: const Icon(Icons.delete), label: const Text("Sil"));

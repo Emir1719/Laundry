@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:laundry/constant/route.dart';
 import 'package:laundry/locator.dart';
 import 'package:laundry/model/user.dart';
 import 'package:laundry/service/database_repository.dart';
-import 'package:laundry/view/home.dart';
+import 'package:laundry/widget/loading_bar.dart';
 
 class AuthController extends GetxController {
   var email = "".obs;
   var password = "".obs;
   var name = "".obs;
-  var isLoading = false.obs;
   final registerFormKey = GlobalKey<FormState>();
   final loginFormKey = GlobalKey<FormState>();
   final repository = locator<DatabaseRepository>();
@@ -18,33 +18,32 @@ class AuthController extends GetxController {
     try {
       if (registerFormKey.currentState!.validate()) {
         registerFormKey.currentState!.save();
-        isLoading.value = true;
+        LoadingBar.open();
         AppUser? user = await repository.register(email.value, password.value);
+        LoadingBar.close();
         if (user != null) {
-          Get.to(() => const HomeView(), popGesture: false);
+          Get.toNamed(AppRoute.home);
           clearTexts();
+          return;
         }
       }
-    } finally {
-      isLoading.value = false;
-    }
+    } finally {}
   }
 
   void login() async {
     try {
       if (loginFormKey.currentState!.validate()) {
         loginFormKey.currentState!.save();
-        isLoading.value = true;
-
+        LoadingBar.open();
         AppUser? user = await repository.signIn(email.value, password.value);
+        LoadingBar.close();
         if (user != null) {
-          Get.to(() => const HomeView(), popGesture: false);
+          Get.toNamed(AppRoute.home);
           clearTexts();
+          return;
         }
       }
-    } finally {
-      isLoading.value = false;
-    }
+    } finally {}
   }
 
   String? emailValidator(String? value) {

@@ -27,6 +27,7 @@ class MachineSetting extends StatelessWidget {
               const BtnMachineSetting(),
             ],
           ),
+          const SizedBox(height: 10),
           const BtnDeleteMachine(),
           space,
           const NotDetail(),

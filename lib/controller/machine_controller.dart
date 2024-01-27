@@ -135,6 +135,8 @@ class MachineController extends GetxController {
           deleteUserFromMachine(i);
         }
       }
+    } else {
+      update();
     }
     LoadingBar.close();
   }

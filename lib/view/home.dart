@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:laundry/constant/image.dart';
 import 'package:laundry/widget/buttons/control_clothes.dart';
 import 'package:laundry/widget/buttons/goto_settings.dart';
 import 'package:laundry/widget/buttons/scan_qr.dart';
@@ -11,7 +10,6 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final image = AppImage.getInstance();
     const space = SizedBox(height: 20);
 
     return PopScope(
@@ -22,18 +20,24 @@ class HomeView extends StatelessWidget {
           actions: const [BtnGotoSettings()],
           automaticallyImplyLeading: false,
         ),
-        body: Center(
-          child: ListView(
-            padding: const EdgeInsets.all(20),
-            children: const [
-              //image.washing,
-              ShortAnnouncement(),
-              MachineCountText(),
-              BtnScanQR(),
-              space,
-              BtnControlClothes(),
-            ],
-          ),
+        body: Column(
+          children: [
+            const ShortAnnouncement(),
+            Expanded(
+              child: Center(
+                child: ListView(
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.all(20),
+                  children: const [
+                    MachineCountText(),
+                    BtnScanQR(),
+                    space,
+                    BtnControlClothes(),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

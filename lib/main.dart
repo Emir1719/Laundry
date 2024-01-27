@@ -2,11 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laundry/constant/light_theme.dart';
+import 'package:laundry/constant/route.dart';
 import 'package:laundry/firebase_options.dart';
 import 'package:laundry/locator.dart';
 import 'package:laundry/service/database_repository.dart';
-import 'package:laundry/view/home.dart';
-import 'package:laundry/view/register.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +26,9 @@ class MainApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeLight().theme(),
-      home: repository.isUserLogin() ? const HomeView() : const RegisterView(),
+      getPages: AppRoute.appRoutes(),
+      initialRoute: repository.isUserLogin() ? AppRoute.home : AppRoute.register,
+      //home: repository.isUserLogin() ? const HomeView() : const RegisterView(),
     );
   }
 }

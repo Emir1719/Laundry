@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:laundry/view/qr_scanner.dart';
+import 'package:laundry/constant/route.dart';
 
 class BtnScanQR extends StatelessWidget {
   const BtnScanQR({super.key});
@@ -8,10 +8,7 @@ class BtnScanQR extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
-      onPressed: () {
-        Get.to(const QRCodeScannerView());
-        //Get.to(() => const FormView());
-      },
+      onPressed: () => Get.toNamed(AppRoute.qr),
       label: const Text("QR Okut"),
       icon: const Icon(Icons.task_alt_outlined),
     );

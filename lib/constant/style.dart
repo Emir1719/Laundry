@@ -61,6 +61,12 @@ class AppStyle {
           color: Colors.grey,
           blurRadius: 2,
         ),
+        BoxShadow(
+          color: Colors.deepOrange,
+          blurRadius: 5,
+          blurStyle: BlurStyle.inner,
+          offset: Offset(0, 3),
+        ),
       ],
     );
   }

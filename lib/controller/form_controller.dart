@@ -21,12 +21,11 @@ class FormController extends GetxController {
   }
 
   Future<void> getValues() async {
-    LoadingBar.open();
     AppUser? user = await _repository.currentUser();
     if (user == null) {
-      LoadingBar.close();
       return;
     }
+    LoadingBar.open();
     Note? note = await _repository.getNote(user.id);
     if (note != null) {
       fileNo.text = note.fileNo;

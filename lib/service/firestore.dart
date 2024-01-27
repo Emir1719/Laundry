@@ -142,7 +142,7 @@ class Firestore implements Database {
   Future<List<AppUser>?> getAllUserFromQueue() async {
     try {
       List<AppUser> list = [];
-      var querySnapshot = await _firestore.collection("queue").get();
+      var querySnapshot = await _firestore.collection("queue").orderBy("date", descending: false).get();
       for (var item in querySnapshot.docs) {
         list.add((await getUser(item.id))!);
       }

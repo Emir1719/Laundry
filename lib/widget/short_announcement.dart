@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:laundry/constant/route.dart';
 import 'package:laundry/constant/style.dart';
 import 'package:laundry/locator.dart';
-import 'package:laundry/view/announcement.dart';
 
 class ShortAnnouncement extends StatelessWidget {
   const ShortAnnouncement({super.key});
@@ -13,13 +13,13 @@ class ShortAnnouncement extends StatelessWidget {
     const space = SizedBox(height: 10);
 
     return Container(
-      padding: const EdgeInsets.all(20),
       decoration: style.shortAnnouncementContainer(),
-      child: GestureDetector(
-        onTap: () {
-          Get.to(() => const AnnouncementView());
-        },
-        child: Column(
+      margin: const EdgeInsets.symmetric(horizontal: 20) + const EdgeInsets.only(top: 20),
+      child: ListTile(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        style: ListTileStyle.list,
+        onTap: () => Get.toNamed(AppRoute.announcement),
+        title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
