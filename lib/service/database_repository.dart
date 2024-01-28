@@ -1,5 +1,6 @@
 import 'package:laundry/constant/snackbar_message.dart';
 import 'package:laundry/locator.dart';
+import 'package:laundry/model/announcement.dart';
 import 'package:laundry/model/auth_base.dart';
 import 'package:laundry/model/machine.dart';
 import 'package:laundry/model/note.dart';
@@ -102,5 +103,9 @@ class DatabaseRepository implements AuthBase {
 
   Future<bool> deleteMachine(String id) async {
     return _firestore.deleteMachine(id);
+  }
+
+  Future<List<Announcement>> getAnnouncements() async {
+    return await _firestore.getAnnouncements();
   }
 }

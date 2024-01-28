@@ -19,7 +19,8 @@ class AuthController extends GetxController {
       if (registerFormKey.currentState!.validate()) {
         registerFormKey.currentState!.save();
         LoadingBar.open();
-        AppUser? user = await repository.register(email.value, password.value);
+        name.value = name.value.trim();
+        AppUser? user = await repository.register(email.value.trim(), password.value.trim());
         LoadingBar.close();
         if (user != null) {
           Get.toNamed(AppRoute.home);
@@ -35,7 +36,7 @@ class AuthController extends GetxController {
       if (loginFormKey.currentState!.validate()) {
         loginFormKey.currentState!.save();
         LoadingBar.open();
-        AppUser? user = await repository.signIn(email.value, password.value);
+        AppUser? user = await repository.signIn(email.value.trim(), password.value.trim());
         LoadingBar.close();
         if (user != null) {
           Get.toNamed(AppRoute.home);

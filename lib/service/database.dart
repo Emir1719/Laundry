@@ -1,3 +1,4 @@
+import 'package:laundry/model/announcement.dart';
 import 'package:laundry/model/machine.dart';
 import 'package:laundry/model/note.dart';
 import 'package:laundry/model/user.dart';
@@ -16,4 +17,5 @@ abstract class Database {
   Future<List<Machine>> getMachines();
   Future<Machine> addMachine();
   Future<bool> deleteMachine(String id);
+  Future<List<Announcement>> getAnnouncements();
 }

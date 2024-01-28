@@ -41,7 +41,9 @@ class AppStyle {
       fontSize: 18,
       fontWeight: FontWeight.w500,
     );
-    announcementContent = baseTextStyle;
+    announcementContent = baseTextStyle.copyWith(
+      height: 1.6,
+    );
   }
 
   Color? getColorListTile(int index) {

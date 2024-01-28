@@ -1,7 +1,8 @@
 // ignore_for_file: avoid_print
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:laundry/model/database.dart';
+import 'package:laundry/model/announcement.dart';
+import 'package:laundry/service/database.dart';
 import 'package:laundry/model/machine.dart';
 import 'package:laundry/model/note.dart';
 import 'package:laundry/model/user.dart';
@@ -185,5 +186,12 @@ class Firestore implements Database {
     } catch (e) {
       return false;
     }
+  }
+
+  @override
+  Future<List<Announcement>> getAnnouncements() async {
+    var ref = await _firestore.collection("announcements").get();
+    List<Announcement> announcements = ref.docs.map((doc) => Announcement.fromMap(doc.data())).toList();
+    return announcements;
   }
 }
