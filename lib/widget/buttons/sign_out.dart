@@ -13,9 +13,18 @@ class BtnSignOut extends StatelessWidget {
 
     return ElevatedButton.icon(
       onPressed: () async {
-        bool result = await auth.signOut();
-        if (result) {
-          Get.toNamed(AppRoute.register);
+        try {
+          bool result = await auth.signOut();
+          if (result) {
+            //Navigator.pushNamed(context, AppRoute.register);
+            //Get.toNamed(AppRoute.register);
+            // Burada kullanılan (route) => false ifadesi, Get.offNamedUntil fonksiyonunun
+            // geçmişteki rotaları temizlemesini sağlar. Yani, bu sayede kayıt sayfasına
+            // geçtikten sonra geri dönülebilecek bir geçmiş oluşmaz.
+            Get.offNamedUntil(AppRoute.register, (route) => false);
+          }
+        } catch (e) {
+          print("hata: $e");
         }
       },
       label: const Text("Çıkış Yap"),

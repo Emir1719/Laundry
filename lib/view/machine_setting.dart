@@ -16,19 +16,24 @@ class MachineSetting extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       width: MediaQuery.of(context).size.width,
+      decoration: style.machineSettingContainer(),
       child: Column(
         children: [
           Text("Makine Ayarları", style: style.machineSettingTitle, textAlign: TextAlign.center),
           space,
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Durum: ", style: style.machineSettingOption),
-              space,
-              const BtnMachineSetting(),
+              Row(
+                children: [
+                  Text("Durum: ", style: style.machineSettingOption),
+                  space,
+                  const BtnMachineSetting(),
+                ],
+              ),
+              const BtnDeleteMachine(),
             ],
           ),
-          const SizedBox(height: 10),
-          const BtnDeleteMachine(),
           space,
           const NotDetail(),
         ],

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:laundry/constant/color.dart';
+import 'package:laundry/locator.dart';
 
 class AppStyle {
+  final color = locator<AppColor>();
+
   TextStyle baseTextStyle = const TextStyle(
     fontSize: 16,
     color: Colors.black,
@@ -13,7 +17,9 @@ class AppStyle {
       machineSettingOption,
       announcementTitle,
       announcementContent,
-      queueCount;
+      queueCount,
+      alertYesNoBtn,
+      alertTitle;
 
   AppStyle() {
     listTileTitle = baseTextStyle.copyWith(
@@ -49,6 +55,11 @@ class AppStyle {
       color: Colors.white,
       fontWeight: FontWeight.w500,
     );
+    alertYesNoBtn = baseTextStyle.copyWith(fontSize: 18);
+    alertTitle = baseTextStyle.copyWith(
+      fontSize: 20,
+      fontWeight: FontWeight.w500,
+    );
   }
 
   Color? getColorListTile(int index) {
@@ -75,6 +86,16 @@ class AppStyle {
           offset: Offset(0, 3),
         ),
       ],
+    );
+  }
+
+  BoxDecoration machineSettingContainer() {
+    return BoxDecoration(
+      color: color.background,
+      borderRadius: const BorderRadius.only(
+        topLeft: Radius.circular(15),
+        topRight: Radius.circular(15),
+      ),
     );
   }
 }

@@ -84,7 +84,7 @@ class Firestore implements Database {
   @override
   Future<List<Machine>> getMachines() async {
     try {
-      var docRef = await _firestore.collection("machines").get();
+      var docRef = await _firestore.collection("machines").orderBy("date", descending: false).get();
       List<Machine> machines = docRef.docs.map((e) => Machine.fromMap(e.data())).toList();
       return machines;
     } catch (e) {

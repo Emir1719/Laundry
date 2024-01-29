@@ -13,6 +13,7 @@ class UsersAtQueue extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       width: MediaQuery.of(context).size.width,
+      decoration: style.machineSettingContainer(),
       child: FutureBuilder(
         future: locator<DatabaseRepository>().getAllUserFromQueue(),
         builder: (context, snapshot) {

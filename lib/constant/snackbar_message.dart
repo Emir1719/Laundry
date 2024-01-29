@@ -1,6 +1,8 @@
 // ignore_for_file: unused_field
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:laundry/constant/style.dart';
+import 'package:laundry/locator.dart';
 
 class AppMessage {
   static void show({required String title, required String message, Type type = Type.success}) {
@@ -13,6 +15,44 @@ class AppMessage {
       duration: const Duration(seconds: 3),
       backgroundColor: type.color,
     ));
+  }
+
+  static void showAlertDialog({
+    required BuildContext context,
+    required void Function()? onSuccess,
+    void Function()? onFail,
+  }) {
+    final style = locator<AppStyle>();
+
+    AlertDialog alert = AlertDialog(
+      title: Text("Silmek istediğinize emin misiniz?", style: style.alertTitle),
+      content: Text("Makine kalıcı olarak silinecek", style: style.alertYesNoBtn),
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+      actions: [
+        TextButton(
+          child: Text("Evet", style: style.alertYesNoBtn),
+          onPressed: () {
+            Navigator.pop(context);
+            onSuccess!();
+          },
+        ),
+        TextButton(
+          child: Text("Hayır", style: style.alertYesNoBtn),
+          onPressed: () {
+            Navigator.pop(context);
+            //onFail!();
+          },
+        ),
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 }
 

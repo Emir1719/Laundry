@@ -10,9 +10,13 @@ class AuthController extends GetxController {
   var email = "".obs;
   var password = "".obs;
   var name = "".obs;
-  final registerFormKey = GlobalKey<FormState>();
-  final loginFormKey = GlobalKey<FormState>();
+  late var registerFormKey, loginFormKey;
   final repository = locator<DatabaseRepository>();
+
+  AuthController() {
+    registerFormKey = GlobalKey<FormState>();
+    loginFormKey = GlobalKey<FormState>();
+  }
 
   void register() async {
     try {

@@ -28,6 +28,7 @@ class MainApp extends StatelessWidget {
       theme: ThemeLight().theme(),
       getPages: AppRoute.appRoutes(),
       initialRoute: repository.isUserLogin() ? AppRoute.home : AppRoute.register,
+      defaultGlobalState: true,
       //home: repository.isUserLogin() ? const HomeView() : const RegisterView(),
     );
   }
