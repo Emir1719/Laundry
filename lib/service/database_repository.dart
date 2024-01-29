@@ -108,4 +108,12 @@ class DatabaseRepository implements AuthBase {
   Future<List<Announcement>> getAnnouncements() async {
     return await _firestore.getAnnouncements();
   }
+
+  Future<bool> deleteAnnouncement(String id) async {
+    return _firestore.deleteAnnouncement(id);
+  }
+
+  Future<bool> saveAnnouncement(Announcement announcement) async {
+    return _firestore.saveAnnouncement(announcement);
+  }
 }

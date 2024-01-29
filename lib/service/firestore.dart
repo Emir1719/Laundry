@@ -190,8 +190,40 @@ class Firestore implements Database {
 
   @override
   Future<List<Announcement>> getAnnouncements() async {
-    var ref = await _firestore.collection("announcements").get();
-    List<Announcement> announcements = ref.docs.map((doc) => Announcement.fromMap(doc.data())).toList();
-    return announcements;
+    try {
+      var ref = await _firestore.collection("announcements").orderBy("date", descending: true).get();
+      List<Announcement> announcements = ref.docs.map((doc) => Announcement.fromMap(doc.data())).toList();
+      return announcements;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  @override
+  Future<bool> deleteAnnouncement(String id) async {
+    try {
+      await _firestore.collection("announcements").doc(id).delete();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> saveAnnouncement(Announcement announcement) async {
+    try {
+      Map<String, dynamic> map = announcement.toMap();
+      var ref = await _firestore.collection("announcements").add(map);
+      String documentId = ref.id;
+
+      var data = await _firestore.collection("announcements").doc(documentId).get();
+      var announ = Announcement.fromMap(data.data() as Map<String, dynamic>);
+
+      announ.id = documentId;
+      await _firestore.collection("announcements").doc(documentId).update(announ.toMap());
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }

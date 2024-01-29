@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:laundry/view/add_announcement.dart';
 import 'package:laundry/view/announcement.dart';
 import 'package:laundry/view/form.dart';
 import 'package:laundry/view/home.dart';
@@ -18,6 +19,7 @@ class AppRoute {
   static const machineControl = "/machineControl";
   static const qr = "/qr";
   static const setting = "/setting";
+  static const addAnnouncement = "/addAnnouncement";
 
   static appRoutes() {
     Transition? transition = Transition.native;
@@ -68,6 +70,11 @@ class AppRoute {
       GetPage(
         name: '/setting',
         page: () => const SettingsView(),
+        transition: transition,
+      ),
+      GetPage(
+        name: '/addAnnouncement',
+        page: () => const AddAnnouncementView(),
         transition: transition,
       ),
     ];

@@ -28,6 +28,7 @@ class ThemeLight {
   TextButtonThemeData _textButtonThemeData() {
     return TextButtonThemeData(
       style: ButtonStyle(
+        fixedSize: MaterialStateProperty.all(const Size.fromHeight(45)),
         foregroundColor: MaterialStateProperty.resolveWith((states) {
           return _color.primary;
         }),

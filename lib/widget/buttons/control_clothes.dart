@@ -36,7 +36,7 @@ class BtnControlClothes extends StatelessWidget {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton.icon(
-                        onPressed: () {},
+                        onPressed: () => Get.toNamed(AppRoute.addAnnouncement),
                         label: const Text("Duyuru Gir"),
                         icon: const Icon(Icons.control_point),
                       ),

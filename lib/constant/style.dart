@@ -12,7 +12,8 @@ class AppStyle {
       machineSettingTitle,
       machineSettingOption,
       announcementTitle,
-      announcementContent;
+      announcementContent,
+      queueCount;
 
   AppStyle() {
     listTileTitle = baseTextStyle.copyWith(
@@ -43,6 +44,10 @@ class AppStyle {
     );
     announcementContent = baseTextStyle.copyWith(
       height: 1.6,
+    );
+    queueCount = baseTextStyle.copyWith(
+      color: Colors.white,
+      fontWeight: FontWeight.w500,
     );
   }
 

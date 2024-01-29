@@ -17,5 +17,7 @@ abstract class Database {
   Future<List<Machine>> getMachines();
   Future<Machine> addMachine();
   Future<bool> deleteMachine(String id);
+  Future<bool> deleteAnnouncement(String id);
+  Future<bool> saveAnnouncement(Announcement announcement);
   Future<List<Announcement>> getAnnouncements();
 }
