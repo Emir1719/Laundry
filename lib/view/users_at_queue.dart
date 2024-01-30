@@ -28,7 +28,6 @@ class UsersAtQueue extends StatelessWidget {
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  //tileColor: style.getColorListTile(index),
                   title: Text("${index + 1}. ${snapshot.data![index].name}", style: style.listTileTitle),
                 );
               },

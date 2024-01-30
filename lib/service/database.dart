@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:laundry/model/announcement.dart';
 import 'package:laundry/model/machine.dart';
 import 'package:laundry/model/note.dart';
@@ -20,4 +21,7 @@ abstract class Database {
   Future<bool> deleteAnnouncement(String id);
   Future<bool> saveAnnouncement(Announcement announcement);
   Future<List<Announcement>> getAnnouncements();
+  Stream<QuerySnapshot<Map<String, dynamic>>>? getMachinesStream();
+  Stream<QuerySnapshot<Map<String, dynamic>>>? getAllUserFromQueueStream();
+  Stream<QuerySnapshot<Map<String, dynamic>>>? getAnnouncementsStream();
 }

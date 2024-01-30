@@ -93,6 +93,16 @@ class Firestore implements Database {
   }
 
   @override
+  Stream<QuerySnapshot<Map<String, dynamic>>>? getMachinesStream() {
+    try {
+      var docRef = _firestore.collection("machines").orderBy("date", descending: false).snapshots();
+      return docRef;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  @override
   Future<bool> updateMachineActive(String id, bool active) async {
     try {
       await _firestore.collection("machines").doc(id).update({"isActive": active});
@@ -224,6 +234,26 @@ class Firestore implements Database {
       return true;
     } catch (e) {
       return false;
+    }
+  }
+
+  @override
+  Stream<QuerySnapshot<Map<String, dynamic>>>? getAllUserFromQueueStream() {
+    try {
+      var querySnapshot = _firestore.collection("queue").orderBy("date", descending: false).snapshots();
+      return querySnapshot;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  @override
+  Stream<QuerySnapshot<Map<String, dynamic>>>? getAnnouncementsStream() {
+    try {
+      var ref = _firestore.collection("announcements").orderBy("date", descending: true).snapshots();
+      return ref;
+    } catch (e) {
+      return null;
     }
   }
 }

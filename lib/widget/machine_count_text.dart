@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:laundry/constant/style.dart';
 import 'package:laundry/locator.dart';
+import 'package:laundry/model/machine.dart';
 import 'package:laundry/service/database_repository.dart';
 
 class MachineCountText extends StatelessWidget {
@@ -14,7 +15,7 @@ class MachineCountText extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: StreamBuilder(
-        stream: repository.getMachines().asStream(),
+        stream: repository.getMachinesSnapshot(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -22,7 +23,14 @@ class MachineCountText extends StatelessWidget {
             return Text('Hata: ${snapshot.error}');
           } else {
             var count = 0, activeMachineCount = 0;
-            for (var element in snapshot.data!) {
+
+            // Veri başarıyla yüklendiğinde
+            List<Machine> machineList = [];
+            for (var doc in snapshot.data!.docs) {
+              machineList.add(Machine.fromMap(doc.data()));
+            }
+
+            for (var element in machineList) {
               // Makineyi kullanan kaç kişi varsa belirlenir.
               if (element.userId.isNotEmpty) {
                 count++;

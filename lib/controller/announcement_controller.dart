@@ -10,21 +10,6 @@ class AnnouncementController extends GetxController {
   final repository = locator<DatabaseRepository>();
   String title = "", content = "";
 
-  Future<List<Announcement>> getAllData() async {
-    try {
-      announcements = [];
-      announcements.addAll(await repository.getAnnouncements());
-      update(); // GetX'e durumu güncellediğimizi bildiriyoruz.
-      return announcements;
-    } catch (e) {
-      return announcements;
-    }
-  }
-
-  Announcement getFirstData() {
-    return announcements.first;
-  }
-
   void setTitle(String value) {
     title = value;
   }
@@ -34,7 +19,9 @@ class AnnouncementController extends GetxController {
   }
 
   void publish() async {
-    if (title.trim().isNotEmpty && content.trim().isNotEmpty) {
+    setTitle(title.trim());
+    setContent(content.trim());
+    if (title.isNotEmpty && content.isNotEmpty) {
       LoadingBar.open();
       Announcement announ = Announcement();
       announ.title = title;

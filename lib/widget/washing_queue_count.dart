@@ -15,16 +15,17 @@ class WashingQueueCount extends StatelessWidget {
 
     return GetBuilder<MachineController>(
       builder: (controller) {
-        return FutureBuilder(
-          future: repo.getAllUserFromQueue(),
+        return StreamBuilder(
+          stream: repo.getAllUserFromQueueStream(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             }
+
             return CircleAvatar(
               backgroundColor: Colors.deepOrange,
               child: Text(
-                snapshot.data!.length.toString(),
+                snapshot.data!.docs.length.toString(),
                 style: style.queueCount,
               ),
             );

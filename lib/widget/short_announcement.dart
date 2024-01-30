@@ -4,6 +4,7 @@ import 'package:laundry/constant/route.dart';
 import 'package:laundry/constant/style.dart';
 import 'package:laundry/controller/announcement_controller.dart';
 import 'package:laundry/locator.dart';
+import 'package:laundry/model/announcement.dart';
 
 class ShortAnnouncement extends StatelessWidget {
   const ShortAnnouncement({super.key});
@@ -20,8 +21,8 @@ class ShortAnnouncement extends StatelessWidget {
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         onTap: () => Get.toNamed(AppRoute.announcement),
-        title: FutureBuilder(
-          future: controller.getAllData(),
+        title: StreamBuilder(
+          stream: controller.repository.getAnnouncementsStream(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
@@ -29,19 +30,23 @@ class ShortAnnouncement extends StatelessWidget {
             if (snapshot.hasError) {
               return Text("Hata: ${snapshot.error}");
             }
+            List<Announcement> announcements = [];
+            for (var doc in snapshot.data!.docs) {
+              announcements.add(Announcement.fromMap(doc.data()));
+            }
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  controller.getFirstData().title,
+                  announcements.first.title,
                   style: style.announcementTitle,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
                 space,
                 Text(
-                  controller.getFirstData().content,
+                  announcements.first.content,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                   style: style.announcementContent,

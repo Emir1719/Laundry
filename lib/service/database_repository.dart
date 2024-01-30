@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:laundry/constant/snackbar_message.dart';
 import 'package:laundry/locator.dart';
 import 'package:laundry/model/announcement.dart';
@@ -115,5 +116,17 @@ class DatabaseRepository implements AuthBase {
 
   Future<bool> saveAnnouncement(Announcement announcement) async {
     return _firestore.saveAnnouncement(announcement);
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>>? getMachinesSnapshot() {
+    return _firestore.getMachinesStream();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>>? getAllUserFromQueueStream() {
+    return _firestore.getAllUserFromQueueStream();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>>? getAnnouncementsStream() {
+    return _firestore.getAnnouncementsStream();
   }
 }
