@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:laundry/controller/notification.dart';
 import 'package:laundry/widget/buttons/control_clothes.dart';
 import 'package:laundry/widget/buttons/goto_settings.dart';
 import 'package:laundry/widget/buttons/scan_qr.dart';
@@ -11,6 +13,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const space = SizedBox(height: 20);
+    Get.put(NotificationController());
 
     return PopScope(
       canPop: false,

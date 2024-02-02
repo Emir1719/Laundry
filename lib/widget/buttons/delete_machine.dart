@@ -16,6 +16,8 @@ class BtnDeleteMachine extends StatelessWidget {
         onPressed: () {
           AppMessage.showAlertDialog(
             context: context,
+            title: "Silmek istediğinize emin misiniz?",
+            message: "Makine kalıcı olarak silinecek",
             onSuccess: () {
               controller.deleteMachine();
             },

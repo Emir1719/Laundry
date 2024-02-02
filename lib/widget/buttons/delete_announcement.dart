@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:laundry/constant/snackbar_message.dart';
 import 'package:laundry/controller/announcement_controller.dart';
 import 'package:laundry/locator.dart';
 import 'package:laundry/model/announcement.dart';
@@ -23,8 +24,15 @@ class BtnDeleteAnnouncement extends StatelessWidget {
         if (snapshot.data!.isAdmin) {
           return TextButton.icon(
             onPressed: () {
-              repository.deleteAnnouncement(announ.id);
-              controller.update();
+              AppMessage.showAlertDialog(
+                context: context,
+                title: "Silmek istediğinize emin misiniz?",
+                message: "Duyuru kalıcı olarak silinecek",
+                onSuccess: () {
+                  repository.deleteAnnouncement(announ.id);
+                  controller.update();
+                },
+              );
             },
             icon: const Icon(Icons.delete),
             label: const Text("Sil"),

@@ -30,6 +30,9 @@ class ShortAnnouncement extends StatelessWidget {
             if (snapshot.hasError) {
               return Text("Hata: ${snapshot.error}");
             }
+            if (snapshot.data!.docs.isEmpty) {
+              return const Center(child: Text("Duyuru Yok"));
+            }
             List<Announcement> announcements = [];
             for (var doc in snapshot.data!.docs) {
               announcements.add(Announcement.fromMap(doc.data()));
