@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
-import 'package:laundry/constant/snackbar_message.dart';
+import 'package:laundry/constant/app_message.dart';
+import 'package:laundry/controller/notification.dart';
 import 'package:laundry/locator.dart';
 import 'package:laundry/model/announcement.dart';
 import 'package:laundry/service/database_repository.dart';
@@ -29,7 +30,8 @@ class AnnouncementController extends GetxController {
       announ.date = DateTime.now();
       bool result = await repository.saveAnnouncement(announ);
       if (result) {
-        AppMessage.show(title: "Duyuru Yayınlandı", message: "Bütün kullanıcılara bildirim gönderilecek");
+        //Bütün kullanıcılara bildirim gönderilecek
+        AppMessage.show(title: "Duyuru Yayınlandı", message: "İşlem başarılı");
       } else {
         AppMessage.show(
           title: "Duyuru Yayınlanamadı",
@@ -38,6 +40,7 @@ class AnnouncementController extends GetxController {
         );
       }
       LoadingBar.close();
+      sendNoti(result);
     } else {
       AppMessage.show(
         title: "Boş Duyuru Gönderilemez",
@@ -45,5 +48,23 @@ class AnnouncementController extends GetxController {
         type: Type.warning,
       );
     }
+  }
+
+  void sendNoti(bool result) async {
+    if (!result) {
+      return;
+    }
+    final noti = Get.put(NotificationController());
+    var list = await repository.getAllToken();
+    noti.sendNotifications(tokens: list, title: "Yeni Duyuru Yayınlandı", body: "Okumak için uygulamaya giriniz");
+
+    /*for (String token in list.reversed) {
+      print("token: $token");
+      noti.sendNotification(
+        token: token,
+        title: "Yeni Duyuru Yayınlandı",
+        body: "Okumak için uygulamaya giriniz",
+      );
+    }*/
   }
 }

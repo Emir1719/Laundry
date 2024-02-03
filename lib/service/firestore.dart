@@ -256,4 +256,39 @@ class Firestore implements Database {
       return null;
     }
   }
+
+  @override
+  Future<bool> saveToken(String token) async {
+    try {
+      var docRef = _firestore.collection("tokens").doc(_auth.currentUser!.uid);
+      await docRef.set({"token": token});
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  @override
+  Future<String?> getToken(String id) async {
+    try {
+      var docSnapshot = await _firestore.collection("tokens").doc(id).get();
+
+      if (docSnapshot.exists) {
+        // Eğer doküman varsa, 'token' alanındaki değeri döndür
+        return docSnapshot['token'] as String?;
+      } else {
+        // Eğer doküman yoksa, null döndür
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  @override
+  Future<List<String>> getAllToken() async {
+    var ref = await _firestore.collection("tokens").get();
+    List<String> tokens = ref.docs.map((doc) => doc.data().toString()).toList();
+    return tokens;
+  }
 }

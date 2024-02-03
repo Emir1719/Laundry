@@ -1,11 +1,14 @@
 import 'dart:convert';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:laundry/constant/app_message.dart';
+import 'package:laundry/locator.dart';
+import 'package:laundry/service/database_repository.dart';
 
 class NotificationController extends GetxController {
   late final FirebaseMessaging messaging;
+  final repo = locator<DatabaseRepository>();
 
   @override
   void onInit() {
@@ -23,20 +26,21 @@ class NotificationController extends GetxController {
     messaging = FirebaseMessaging.instance;
     messaging.setForegroundNotificationPresentationOptions(alert: true, badge: true, sound: true);
     setting();
-    messaging.getToken().then((value) => print("token: $value"));
+    messaging.getToken().then((value) {
+      repo.saveToken(value ?? "");
+      print("token: $value");
+    });
   }
 
   void listenNoti() {
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print('Bildirim alındı: ${message.notification?.title}');
-      /*sendNotification(
-        token:
-            "e7s3AzSLQMGirkrMW2zPpE:APA91bFwiIG7irmWxEpWZh-d18utBAX9ZJ1NgEv9y5ttvQ0Np4g4KSgj2IOR-tLjW8bUAd25SwHooCQZCATstqBQbYqsYgWZa07ypzKULjww6w_5OMViK7u9NjhoP28xIKXnPI6R9Bcy",
-        title: message.notification?.title ?? "Bildirim Başlık",
-        body: "Lütfen çamaşırhaneye gelip kıyafetlerinizi alınız",
-      );*/
+    FirebaseMessaging.onMessage.listen((RemoteMessage event) {
+      AppMessage.showAlertDialog(
+        context: Get.context!,
+        title: event.notification!.title!,
+        message: event.notification!.body!,
+        onSuccess: () {},
+      );
     });
-    //messaging.sendMessage(),
   }
 
   // In this example, suppose that all messages contain a data field with the key 'type'.
@@ -79,6 +83,38 @@ class NotificationController extends GetxController {
       headers: headers,
       body: jsonEncode({
         'to': token.trim(),
+        'data': {'via': 'FlutterFire Cloud Messaging!!!', 'count': 1},
+        'notification': {
+          'title': title.trim(),
+          'body': body.trim(),
+        },
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      print('Bildirim gönderildi: ${response.body}');
+    } else {
+      print('Bildirim gönderme hatası: ${response.reasonPhrase}');
+    }
+  }
+
+  void sendNotifications({required List<String> tokens, required String title, required String body}) async {
+    // Firebase Console'dan alınan server key'i
+    const String serverKey =
+        'AAAAB7vH1TY:APA91bEcVve7tP5AyCXThgH6nR0_-Ns2X4ibj03d7_-r8t57PAUYY1L5-PQ_4UzdkKoFgQsDbv_EjFl1LkBxqdRXinXKOFYU3sszELGj69XvdfBOQMxqiuc86IPpiSD1JeSfF47iRqbx';
+
+    final Uri uri = Uri.parse('https://fcm.googleapis.com/fcm/send');
+
+    final Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'key=$serverKey',
+    };
+
+    final http.Response response = await http.post(
+      uri,
+      headers: headers,
+      body: jsonEncode({
+        'registration_ids': tokens.map((token) => token.trim()).toList(),
         'data': {'via': 'FlutterFire Cloud Messaging!!!', 'count': 1},
         'notification': {
           'title': title.trim(),

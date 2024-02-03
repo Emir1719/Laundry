@@ -24,6 +24,7 @@ class MainApp extends StatelessWidget {
     final repository = locator<DatabaseRepository>();
 
     return GetMaterialApp(
+      title: "Çamaşırhane",
       debugShowCheckedModeBanner: false,
       theme: ThemeLight().theme(),
       getPages: AppRoute.appRoutes(),

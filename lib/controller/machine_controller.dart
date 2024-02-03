@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:laundry/constant/snackbar_message.dart';
+import 'package:laundry/constant/app_message.dart';
+import 'package:laundry/controller/notification.dart';
 import 'package:laundry/locator.dart';
 import 'package:laundry/model/machine.dart';
 import 'package:laundry/model/note.dart';
@@ -76,18 +77,30 @@ class MachineController extends GetxController {
   void onTabIconBtnAdd(int i) async {
     try {
       LoadingBar.open();
-      AppUser? lastUser = await repository.getUserFromQueue();
-      if (lastUser == null) {
+      AppUser? tempUser = await repository.getUserFromQueue();
+      if (tempUser == null) {
         AppMessage.show(
-            title: "Sırada kimse yok", message: "Sıra boş olduğu için ekleme yapılamaz.", type: Type.warning);
+          title: "Sırada kimse yok",
+          message: "Sıra boş olduğu için ekleme yapılamaz.",
+          type: Type.warning,
+        );
         LoadingBar.close();
         return;
       }
-      user[i] = lastUser;
-      await repository.updateMachineUserId(machines[i].id, lastUser.id);
+      user[i] = tempUser;
+      await repository.updateMachineUserId(machines[i].id, tempUser.id);
       iconBtnStates[i] = false;
       update();
       LoadingBar.close();
+      String? token = await repository.getToken(tempUser.id);
+      if (token != null || token!.isNotEmpty) {
+        final noti = Get.put(NotificationController());
+        noti.sendNotification(
+          token: token,
+          title: "Kıyafetleriniz ${i + 1}. Makineye Koyuldu",
+          body: "İşleminiz bitince sizi bilgilendireceğiz",
+        );
+      }
     } catch (e) {
       print(e);
     }
@@ -96,10 +109,23 @@ class MachineController extends GetxController {
   /// Icon butona kullanıcı silmek için tıklandığında
   void onTabIconBtnRemove(int i) async {
     try {
+      AppUser? tempUser = user[i];
       LoadingBar.open();
       deleteUserFromMachine(i);
       iconBtnStates[i] = true;
       LoadingBar.close();
+
+      if (tempUser != null) {
+        String? token = await repository.getToken(tempUser.id);
+        if (token != null || token!.isNotEmpty) {
+          final noti = Get.put(NotificationController());
+          noti.sendNotification(
+            token: token,
+            title: "Kıyafetleriniz Hazır",
+            body: "Lütfen çamaşırhaneye gelip kıyafetlerinizi alınız",
+          );
+        }
+      }
     } catch (e) {
       print(e);
     }

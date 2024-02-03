@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:laundry/constant/snackbar_message.dart';
+import 'package:laundry/constant/app_message.dart';
 import 'package:laundry/controller/announcement_controller.dart';
 import 'package:laundry/locator.dart';
 import 'package:laundry/model/announcement.dart';

@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:laundry/constant/snackbar_message.dart';
+import 'package:laundry/constant/app_message.dart';
 import 'package:laundry/locator.dart';
 import 'package:laundry/model/announcement.dart';
 import 'package:laundry/model/auth_base.dart';
@@ -128,5 +128,17 @@ class DatabaseRepository implements AuthBase {
 
   Stream<QuerySnapshot<Map<String, dynamic>>>? getAnnouncementsStream() {
     return _firestore.getAnnouncementsStream();
+  }
+
+  Future<bool> saveToken(String token) async {
+    return _firestore.saveToken(token);
+  }
+
+  Future<String?> getToken(String id) async {
+    return _firestore.getToken(id);
+  }
+
+  Future<List<String>> getAllToken() async {
+    return _firestore.getAllToken();
   }
 }

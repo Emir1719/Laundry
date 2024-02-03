@@ -24,4 +24,7 @@ abstract class Database {
   Stream<QuerySnapshot<Map<String, dynamic>>>? getMachinesStream();
   Stream<QuerySnapshot<Map<String, dynamic>>>? getAllUserFromQueueStream();
   Stream<QuerySnapshot<Map<String, dynamic>>>? getAnnouncementsStream();
+  Future<bool> saveToken(String token);
+  Future<String?> getToken(String id);
+  Future<List<String>> getAllToken();
 }
