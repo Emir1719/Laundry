@@ -56,15 +56,6 @@ class AnnouncementController extends GetxController {
     }
     final noti = Get.put(NotificationController());
     var list = await repository.getAllToken();
-    noti.sendNotifications(tokens: list, title: "Yeni Duyuru Yayınlandı", body: "Okumak için uygulamaya giriniz");
-
-    /*for (String token in list.reversed) {
-      print("token: $token");
-      noti.sendNotification(
-        token: token,
-        title: "Yeni Duyuru Yayınlandı",
-        body: "Okumak için uygulamaya giriniz",
-      );
-    }*/
+    noti.sendNotifications(tokens: list, title: "Yeni Duyuru: $title", body: content);
   }
 }

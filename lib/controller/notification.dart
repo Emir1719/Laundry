@@ -28,18 +28,21 @@ class NotificationController extends GetxController {
     setting();
     messaging.getToken().then((value) {
       repo.saveToken(value ?? "");
-      print("token: $value");
     });
   }
 
   void listenNoti() {
-    FirebaseMessaging.onMessage.listen((RemoteMessage event) {
-      AppMessage.showAlertDialog(
-        context: Get.context!,
-        title: event.notification!.title!,
-        message: event.notification!.body!,
-        onSuccess: () {},
-      );
+    repo.currentUser().then((user) {
+      if (!user!.isAdmin) {
+        FirebaseMessaging.onMessage.listen((RemoteMessage event) {
+          AppMessage.showAlertDialog(
+            context: Get.context!,
+            title: event.notification!.title!,
+            message: event.notification!.body!,
+            onSuccess: () {},
+          );
+        });
+      }
     });
   }
 
@@ -110,11 +113,13 @@ class NotificationController extends GetxController {
       'Authorization': 'key=$serverKey',
     };
 
+    var tokenss = tokens.map((token) => token).toList();
+
     final http.Response response = await http.post(
       uri,
       headers: headers,
       body: jsonEncode({
-        'registration_ids': tokens.map((token) => token.trim()).toList(),
+        'registration_ids': tokenss, // Use 'registration_ids' for multiple tokens
         'data': {'via': 'FlutterFire Cloud Messaging!!!', 'count': 1},
         'notification': {
           'title': title.trim(),

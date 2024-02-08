@@ -59,9 +59,6 @@ class MachineController extends GetxController {
 
   void addMachine() async {
     machines.add(await repository.addMachine());
-    for (var i = 0; i < machines.length; i++) {
-      print(machines[i].id);
-    }
     update();
   }
 

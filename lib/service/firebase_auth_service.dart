@@ -2,6 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:laundry/controller/auth_controller.dart';
+import 'package:laundry/controller/auth_validator.dart';
 import 'package:laundry/locator.dart';
 import 'package:laundry/model/user.dart';
 import 'package:laundry/service/firestore.dart';
@@ -32,8 +33,8 @@ class FirebaseAuthService implements AuthBase {
       User? user = _auth.currentUser;
       AppUser? appUser = await _database.getUser(user!.uid);
       return appUser;
-    } catch (e) {
-      print("currentUser fonksiyonunda hata çıktı: ${e.toString()}");
+    } on FirebaseAuthException catch (e) {
+      AuthValidator.getMessageAuth(e);
     }
     return null;
   }
@@ -43,8 +44,8 @@ class FirebaseAuthService implements AuthBase {
     try {
       await _auth.signOut();
       return true;
-    } catch (e) {
-      print("signOut fonksiyonunda hata çıktı: ${e.toString()}");
+    } on FirebaseAuthException catch (e) {
+      AuthValidator.getMessageAuth(e);
       return false;
     }
   }
@@ -54,7 +55,8 @@ class FirebaseAuthService implements AuthBase {
     try {
       UserCredential userCredential = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       return _createUser(userCredential.user, false);
-    } on FirebaseException catch (e) {
+    } on FirebaseAuthException catch (e) {
+      AuthValidator.getMessageAuth(e);
       return null;
     }
   }
@@ -65,8 +67,8 @@ class FirebaseAuthService implements AuthBase {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(email: email, password: password);
       AppUser? appUser = await _database.getUser(userCredential.user!.uid);
       return _createUser(userCredential.user, appUser!.isAdmin);
-    } on FirebaseException catch (e) {
-      //print("signInWithEmailAndPassword fonksiyonunda hata çıktı: ${e.toString()}");
+    } on FirebaseAuthException catch (e) {
+      AuthValidator.getMessageAuth(e);
     }
     return null;
   }

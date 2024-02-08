@@ -14,7 +14,6 @@ class FormController extends GetxController {
       mode = TextEditingController(),
       comment = TextEditingController();
   final _repository = locator<DatabaseRepository>();
-  var isValueLoaded = false.obs;
 
   FormController() {
     getValues();
@@ -36,7 +35,6 @@ class FormController extends GetxController {
       setComment(comment.text);
       setDegree(degree.text);
       setMode(mode.text);
-      isValueLoaded.value = true;
     }
     LoadingBar.close();
   }
@@ -73,6 +71,8 @@ class FormController extends GetxController {
         if (result) {
           AppMessage.show(title: "İşlem Başarılı", message: "Kıyafetleriniz Sıraya Alınmıştır.");
         }
+      } else {
+        AppMessage.show(title: "İlk üç alanı lütfen doldurun", message: "Bazı alanlar zorunlu");
       }
     } catch (e) {
       print(e);

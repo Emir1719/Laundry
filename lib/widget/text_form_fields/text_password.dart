@@ -4,9 +4,18 @@ import 'package:laundry/controller/password_controller.dart';
 import 'package:laundry/widget/text_form_fields/text_form_field.dart';
 
 class TextPassword extends StatelessWidget {
-  const TextPassword({super.key, this.onChanged, this.validator});
+  const TextPassword({
+    super.key,
+    this.onChanged,
+    this.validator,
+    this.controllerr,
+    this.hint = "Şifre giriniz",
+    this.label = "Şifre",
+  });
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
+  final TextEditingController? controllerr;
+  final String hint, label;
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +25,10 @@ class TextPassword extends StatelessWidget {
       () => AppTextField(
         onChanged: (value) => onChanged!(value),
         validator: (value) => validator!(value),
-        hintText: "Şifre giriniz",
-        labelText: "Şifre",
+        hintText: hint,
+        labelText: label,
         obscureText: controller.obscure.value,
+        controller: controllerr,
         suffixIcon: IconButton(
           onPressed: controller.toggle,
           icon: controller.obscure.value ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),

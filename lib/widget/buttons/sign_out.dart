@@ -9,13 +9,11 @@ class BtnSignOut extends StatelessWidget {
   Widget build(BuildContext context) {
     final cont = Get.put(SignOutController());
 
-    return ElevatedButton.icon(
+    return IconButton(
       onPressed: cont.onTab,
-      label: const Text("Çıkış Yap"),
       icon: const Icon(Icons.group_off_outlined),
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.red,
-        side: const BorderSide(color: Colors.red),
       ),
     );
   }
