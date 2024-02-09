@@ -6,7 +6,7 @@ import 'package:laundry/controller/auth_validator.dart';
 import 'package:laundry/locator.dart';
 import 'package:laundry/model/user.dart';
 import 'package:laundry/service/firestore.dart';
-import '../model/auth_base.dart';
+import 'auth_base.dart';
 
 class FirebaseAuthService implements AuthBase {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -71,5 +71,37 @@ class FirebaseAuthService implements AuthBase {
       AuthValidator.getMessageAuth(e);
     }
     return null;
+  }
+
+  @override
+  Future<void> updateUser(Map<String, dynamic> map) async {
+    try {
+      // Auth'da kullanıcı bilgilerini güncelle
+      if (map["email"] == "" && map["password"] == "") {
+        print("fdsc");
+        return;
+      }
+      /*final credentials = EmailAuthProvider.credential(email: _auth.currentUser!.email!, password: map["password"]);
+      final user = _auth.currentUser!;
+      final authResult = await user.reauthenticateWithCredential(credentials);
+
+      // Eğer kimlik doğrulama başarılıysa, yeni şifreyi ayarlayın
+      if (authResult.user != null) {
+        await user.updatePassword(map["newPassword"]);
+        await user.updateEmail(map["email"]);
+        print('Şifre başarıyla güncellendi');
+      } else {
+        print('Şifre güncelleme sırasında bir hata oluştu: Kullanıcı kimlik doğrulaması başarısız.');
+      }*/
+      final user = _auth.currentUser!;
+      if (map["email"] != "") {
+        await user.updateEmail(map["email"]).then((value) => print("güncellendi"));
+      }
+      if (map["password"] != "") {
+        await user.updatePassword(map["newPassword"]);
+      }
+    } catch (e) {
+      print('Hata oluştu: $e');
+    }
   }
 }

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:laundry/constant/app_message.dart';
 import 'package:laundry/locator.dart';
 import 'package:laundry/model/announcement.dart';
-import 'package:laundry/model/auth_base.dart';
+import 'package:laundry/service/auth_base.dart';
 import 'package:laundry/model/machine.dart';
 import 'package:laundry/model/note.dart';
 import 'package:laundry/model/user.dart';
@@ -140,5 +140,15 @@ class DatabaseRepository implements AuthBase {
 
   Future<List<String>> getAllToken() async {
     return _firestore.getAllToken();
+  }
+
+  @override
+  Future<void> updateUser(Map<String, dynamic> map) async {
+    //await _authService.updateUser(map);
+    await _firestore.updateUser(map);
+  }
+
+  Future<void> deleteToken() async {
+    await _firestore.deleteToken();
   }
 }

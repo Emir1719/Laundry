@@ -81,30 +81,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.1"
-  firebase_analytics:
-    dependency: "direct main"
-    description:
-      name: firebase_analytics
-      sha256: "95ebf6fbf9634abd5343aed011c45d491a347094161ec00bae0c180baa849b9f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "10.8.1"
-  firebase_analytics_platform_interface:
-    dependency: transitive
-    description:
-      name: firebase_analytics_platform_interface
-      sha256: bcdcf7e6f8595a69486ce2e45bb4a1350f89232319e200c6167760afcb284f90
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.9.1"
-  firebase_analytics_web:
-    dependency: transitive
-    description:
-      name: firebase_analytics_web
-      sha256: "94ce20f5a24b02bc0b219fa109795406bcfb3bd2f0b169899256ca58ca503963"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.5.5+13"
   firebase_auth:
     dependency: "direct main"
     description:

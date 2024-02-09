@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:laundry/constant/app_message.dart';
 import 'package:laundry/model/announcement.dart';
 import 'package:laundry/service/database.dart';
 import 'package:laundry/model/machine.dart';
@@ -288,7 +289,29 @@ class Firestore implements Database {
   @override
   Future<List<String>> getAllToken() async {
     var ref = await _firestore.collection("tokens").get();
-    List<String> tokens = ref.docs.map((doc) => doc.data()["token"].toString()).toList();
+    List<String> tokens = ref.docs.map((doc) => doc.data()["token"].toString().trim()).toList();
     return tokens;
+  }
+
+  @override
+  Future<void> updateUser(Map<String, dynamic> map) async {
+    try {
+      if (map.containsKey('password') && map.containsKey('newPassword')) {
+        map.remove('password');
+        map.remove('newPassword');
+      }
+      // Firestore'da kullanıcı belgesini al ve güncelle
+      await _firestore.collection('users').doc(_auth.currentUser!.uid).update(map);
+
+      // Başarılı bir şekilde güncellendi
+      AppMessage.show(title: "Kullanıcı ayarları güncellendi", message: "Başarılı");
+    } catch (error) {
+      AppMessage.show(title: "Güncelleme sırasında bir hata oluştu", message: error.toString(), type: Type.error);
+    }
+  }
+
+  @override
+  Future<void> deleteToken() async {
+    await _firestore.collection("tokens").doc(_auth.currentUser!.uid).delete();
   }
 }

@@ -32,18 +32,25 @@ class NotificationController extends GetxController {
   }
 
   void listenNoti() {
-    repo.currentUser().then((user) {
-      if (!user!.isAdmin) {
-        FirebaseMessaging.onMessage.listen((RemoteMessage event) {
-          AppMessage.showAlertDialog(
-            context: Get.context!,
-            title: event.notification!.title!,
-            message: event.notification!.body!,
-            onSuccess: () {},
-          );
-        });
-      }
-    });
+    var isListening = true;
+    if (isListening) {
+      repo.currentUser().then((user) {
+        print(!user!.isAdmin);
+        if (!user.isAdmin) {
+          FirebaseMessaging.onMessage.listen((RemoteMessage event) {
+            AppMessage.showAlertDialog(
+              context: Get.context!,
+              title: event.notification!.title!,
+              message: event.notification!.body!,
+              onSuccess: () {},
+            );
+            // Dinleme işlemini sonlandır
+            FirebaseMessaging.onMessage.drain();
+            isListening = false;
+          });
+        }
+      });
+    }
   }
 
   // In this example, suppose that all messages contain a data field with the key 'type'.

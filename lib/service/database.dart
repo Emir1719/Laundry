@@ -26,5 +26,7 @@ abstract class Database {
   Stream<QuerySnapshot<Map<String, dynamic>>>? getAnnouncementsStream();
   Future<bool> saveToken(String token);
   Future<String?> getToken(String id);
+  Future<void> deleteToken();
   Future<List<String>> getAllToken();
+  Future<void> updateUser(Map<String, dynamic> map);
 }
