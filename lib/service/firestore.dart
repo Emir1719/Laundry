@@ -289,7 +289,7 @@ class Firestore implements Database {
   @override
   Future<List<String>> getAllToken() async {
     var ref = await _firestore.collection("tokens").get();
-    List<String> tokens = ref.docs.map((doc) => doc.data()["token"].toString().trim()).toList();
+    List<String> tokens = ref.docs.map((doc) => doc.data()["token"].toString().trim()).toSet().toList();
     return tokens;
   }
 

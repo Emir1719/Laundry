@@ -13,7 +13,7 @@ import 'package:laundry/widget/loading_bar.dart';
 
 class MachineController extends GetxController {
   var machines = <Machine>[].obs;
-  var user = <AppUser?>[].obs;
+  var users = <AppUser?>[].obs;
   final repository = locator<DatabaseRepository>();
   var subtitle = <String>[].obs;
   AppUser? currentUser;
@@ -34,14 +34,13 @@ class MachineController extends GetxController {
         userList.add(null);
       }
     }
-    user.assignAll(userList); // Listeyi atama
+    users.assignAll(userList); // Listeyi atama
     return userList;
   }
 
   /// Makineye tıklandığında ayarlar ve notları çıkartır.
   void onTab(int i) {
-    currentUser = user[i];
-    currentMachine = machines[i];
+    _setCurrentValue(i);
     showModalBottomSheet(
       context: Get.context!,
       useSafeArea: true,
@@ -49,6 +48,7 @@ class MachineController extends GetxController {
     );
   }
 
+  /// Yıkama sırasındaki kişilerin adını listeler.
   void onTabShowQueue() {
     showModalBottomSheet(
       context: Get.context!,
@@ -57,14 +57,18 @@ class MachineController extends GetxController {
     );
   }
 
+  /// Veri tabanına yeni makine ekler.
   void addMachine() async {
     machines.add(await repository.addMachine());
     update();
   }
 
+  /// Aktif makineyi siler.
   void deleteMachine() async {
     String id = currentMachine!.id;
+    // Listeden siler
     machines.remove(currentMachine);
+    // Veri tabanından siler
     await repository.deleteMachine(id);
     Navigator.pop(Get.context!);
     update();
@@ -74,8 +78,9 @@ class MachineController extends GetxController {
   void onTabIconBtnAdd(int i) async {
     try {
       LoadingBar.open();
-      AppUser? tempUser = await repository.getUserFromQueue();
-      if (tempUser == null) {
+      users[i] = await repository.getUserFromQueue();
+      _setCurrentValue(i);
+      if (currentUser == null) {
         AppMessage.show(
           title: "Sırada kimse yok",
           message: "Sıra boş olduğu için ekleme yapılamaz.",
@@ -84,54 +89,61 @@ class MachineController extends GetxController {
         LoadingBar.close();
         return;
       }
-      user[i] = tempUser;
-      await repository.updateMachineUserId(machines[i].id, tempUser.id);
-      iconBtnStates[i] = false;
+      // Makineye kullanıcıyı ekler.
+      await repository.updateMachineUserId(currentMachine!.id, currentUser!.id);
+      iconBtnStates[i] = false; // Butonu - yapmak için
       update();
       LoadingBar.close();
-      String? token = await repository.getToken(tempUser.id);
-      if (token != null || token!.isNotEmpty) {
-        final noti = Get.put(NotificationController());
-        noti.sendNotification(
-          token: token,
-          title: "Kıyafetleriniz ${i + 1}. Makineye Koyuldu",
-          body: "İşleminiz bitince sizi bilgilendireceğiz",
-        );
-      }
+
+      _sendNotification(
+        title: "Kıyafetleriniz ${i + 1}. Makineye Koyuldu",
+        subtitle: "İşleminiz bitince sizi bilgilendireceğiz",
+      );
     } catch (e) {
-      print(e);
+      AppMessage.show(title: "Bilinmeyen bir hata oluştu", message: e.toString(), type: Type.warning);
     }
   }
 
   /// Icon butona kullanıcı silmek için tıklandığında
   void onTabIconBtnRemove(int i) async {
     try {
-      AppUser? tempUser = user[i];
+      /// Aktif kullanıcı belirlenir ve hem ui'dan hem de veri tabanından silinir.
+      _setCurrentValue(i);
       LoadingBar.open();
-      deleteUserFromMachine(i);
-      iconBtnStates[i] = true;
+      deleteUserFromMachine(); // vt için
+      iconBtnStates[i] = true; // ui için
       LoadingBar.close();
 
-      if (tempUser != null) {
-        String? token = await repository.getToken(tempUser.id);
-        if (token != null || token!.isNotEmpty) {
-          final noti = Get.put(NotificationController());
-          noti.sendNotification(
-            token: token,
-            title: "Kıyafetleriniz Hazır",
-            body: "Lütfen çamaşırhaneye gelip kıyafetlerinizi alınız",
-          );
-        }
-      }
+      _sendNotification(
+        title: "Kıyafetleriniz Hazır",
+        subtitle: "Lütfen çamaşırhaneye gelip kıyafetlerinizi alınız",
+      );
     } catch (e) {
-      print(e);
+      AppMessage.show(title: "Bilinmeyen bir hata oluştu", message: e.toString(), type: Type.warning);
     }
   }
 
-  void deleteUserFromMachine(int i) async {
-    bool result = await repository.updateMachineUserId(machines[i].id, "");
+  void _sendNotification({required String title, required String subtitle}) async {
+    /// Eğer aktif kullanıcı boşsa bildirim gönderme.
+    if (currentUser == null) {
+      return;
+    }
+
+    /// Şu anki aktif kullanıcının token değerini alır.,
+    /// Boş değilse bildirim gönderir.
+    String? token = await repository.getToken(currentUser!.id);
+    if (token != null || token!.isNotEmpty) {
+      final noti = Get.put(NotificationController());
+      noti.sendNotification(token: token, title: title, body: subtitle);
+    }
+  }
+
+  /// Aktif kullanıcıyı makineden çıkartır ve veri tabanında da bunu günceller.
+  void deleteUserFromMachine() async {
+    bool result = await repository.updateMachineUserId(currentMachine!.id, "");
     if (result) {
-      user[i] = null;
+      users.remove(currentUser);
+      currentUser = null;
       update();
     } else {
       AppMessage.show(title: "Hata! Silinemedi", message: "İnterneti vb. kontrol ediniz.", type: Type.error);
@@ -149,15 +161,12 @@ class MachineController extends GetxController {
   /// Makineyi aktif ya da devre dışı bırakmayı ayarlar.
   void setActive(bool? result) async {
     LoadingBar.open();
+    // makineyi aktif mi servis dışı mı belirlenir.
     await repository.updateMachineActive(currentMachine!.id, result ?? true);
     currentMachine!.isActive = result!;
     if (result == false) {
-      // Hangi i değerine sahip makineyi tespit edip kullanıcıyı siler.
-      for (var i = 0; i < user.length; i++) {
-        if (currentUser == user[i]) {
-          deleteUserFromMachine(i);
-        }
-      }
+      // Eğer makine servis dışı olursa içindeki kullanıcıyı sil.
+      deleteUserFromMachine();
     } else {
       update();
     }
@@ -168,13 +177,15 @@ class MachineController extends GetxController {
   /// Duruma göre Boş ya da Servis dışı da yazabilir.
   String getSubtitle(int i) {
     if (machines[i].isActive) {
-      return user[i]?.name ?? "Boş";
+      return users[i]?.name ?? "Boş";
     } else {
       return "Servis Dışı";
     }
   }
 
-  void setSubtitle(int i, String text) {
-    subtitle[i] = text;
+  /// Aktif kullanıcı ve makineyi belirler.
+  void _setCurrentValue(int i) {
+    currentUser = users[i];
+    currentMachine = machines[i];
   }
 }
