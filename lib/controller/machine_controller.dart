@@ -173,6 +173,10 @@ class MachineController extends GetxController {
     LoadingBar.close();
   }
 
+  void setType(String? value) {
+    update();
+  }
+
   /// Makinenin altına kişinin adını yazar.
   /// Duruma göre Boş ya da Servis dışı da yazabilir.
   String getSubtitle(int i) {
@@ -187,5 +191,10 @@ class MachineController extends GetxController {
   void _setCurrentValue(int i) {
     currentUser = users[i];
     currentMachine = machines[i];
+  }
+
+  String getType(int i) {
+    _setCurrentValue(i);
+    return currentMachine!.type.value;
   }
 }

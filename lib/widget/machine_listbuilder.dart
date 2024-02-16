@@ -37,7 +37,7 @@ class MachineListBuilder extends StatelessWidget {
           onTap: () => controller.onTab(index),
           contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
           tileColor: style.getColorListTile(index),
-          title: Text("${index + 1}. Makine", style: style.listTileTitle),
+          title: Text("${index + 1}. Makine (${controller.getType(index)})", style: style.listTileTitle),
           subtitle: Text(controller.getSubtitle(index), style: style.listTileSubtitle),
           trailing: controller.machines[index].isActive
               ? BtnMachine(index: index)

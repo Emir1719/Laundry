@@ -66,7 +66,7 @@ class AppStyle {
     // Tek ve çift sıradaki elemanları belirle
     bool isOdd = index % 2 != 1;
     // Arka plan rengini belirle
-    Color? backgroundColor = isOdd ? Colors.grey[300] : Colors.grey[100];
+    Color? backgroundColor = isOdd ? const Color(0xffA6DAF4) : Colors.grey[100];
     return backgroundColor;
   }
 
@@ -98,4 +98,15 @@ class AppStyle {
       ),
     );
   }
+
+  ButtonStyle getMainButtons() {
+    return ButtonStyle(
+      alignment: Alignment.center,
+      fixedSize: MaterialStateProperty.all(const Size.fromWidth(100)),
+    );
+  }
+
+  /// Ana ekrandaki butonlardaki icon boyutu
+  double get mainButtonIconSize => 32.0;
+  double get mainButtonSpaceBetween => 6.0;
 }

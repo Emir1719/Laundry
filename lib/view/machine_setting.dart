@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:laundry/constant/style.dart';
 import 'package:laundry/locator.dart';
 import 'package:laundry/widget/buttons/delete_machine.dart';
-import 'package:laundry/widget/buttons/machine_setting.dart';
+import 'package:laundry/widget/buttons/machine_setting_active.dart';
+import 'package:laundry/widget/buttons/machine_setting_type.dart';
 import 'package:laundry/widget/note_detail.dart';
 
 class MachineSetting extends StatelessWidget {
@@ -23,12 +24,25 @@ class MachineSetting extends StatelessWidget {
           space,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Durum: ", style: style.machineSettingOption),
-                  space,
-                  const BtnMachineSetting(),
+                  Row(
+                    children: [
+                      Text("Durum: ", style: style.machineSettingOption),
+                      space,
+                      const BtnMachineSetting(),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text("Tür: ", style: style.machineSettingOption),
+                      space,
+                      const BtnMachineSettingType(),
+                    ],
+                  ),
                 ],
               ),
               const BtnDeleteMachine(),

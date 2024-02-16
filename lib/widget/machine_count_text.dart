@@ -42,7 +42,7 @@ class MachineCountText extends StatelessWidget {
               }
             }
             return Text(
-              "Makinelerin Doluluk Oranı\n($count / $activeMachineCount)",
+              "Makinelerin Doluluk Oranı\n$count / $activeMachineCount",
               style: style.countText,
               textAlign: TextAlign.center,
             );

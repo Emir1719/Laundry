@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laundry/constant/route.dart';
+import 'package:laundry/constant/style.dart';
 import 'package:laundry/locator.dart';
 import 'package:laundry/model/user.dart';
 import 'package:laundry/service/database_repository.dart';
@@ -11,6 +12,7 @@ class BtnControlClothes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final repository = locator<DatabaseRepository>();
+    final style = locator<AppStyle>();
 
     return FutureBuilder<AppUser?>(
       future: repository.currentUser(),
@@ -22,26 +24,17 @@ class BtnControlClothes extends StatelessWidget {
         } else {
           AppUser? user = snapshot.data;
           return user!.isAdmin == true
-              ? Column(
-                  children: [
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton.icon(
-                        onPressed: () => Get.toNamed(AppRoute.machineControl),
-                        label: const Text("Makineleri Kontrol Et"),
-                        icon: const Icon(Icons.settings),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton.icon(
-                        onPressed: () => Get.toNamed(AppRoute.addAnnouncement),
-                        label: const Text("Duyuru Gir"),
-                        icon: const Icon(Icons.control_point),
-                      ),
-                    ),
-                  ],
+              ? TextButton(
+                  onPressed: () => Get.toNamed(AppRoute.machineControl),
+                  style: style.getMainButtons(),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.settings, size: style.mainButtonIconSize),
+                      SizedBox(height: style.mainButtonSpaceBetween),
+                      const Text("Makine Kontrol", textAlign: TextAlign.center),
+                    ],
+                  ),
                 )
               : const SizedBox();
         }
