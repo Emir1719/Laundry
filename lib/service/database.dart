@@ -12,6 +12,7 @@ abstract class Database {
   Future<bool> getQueue();
   Future<List<AppUser>?> getAllUserFromQueue();
   Future<bool> updateMachineActive(String id, bool active);
+  Future<bool> updateMachineType(String id, String value);
   Future<bool> updateMachineUserId(String id, String userId);
   Future<bool> addQueue();
   Future<AppUser?> getUserFromQueue();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laundry/constant/app_message.dart';
+import 'package:laundry/constant/enums/machine_enum.dart';
 import 'package:laundry/controller/notification.dart';
 import 'package:laundry/locator.dart';
 import 'package:laundry/model/machine.dart';
@@ -173,8 +174,15 @@ class MachineController extends GetxController {
     LoadingBar.close();
   }
 
-  void setType(String? value) {
-    update();
+  /// Makinenin türünü belirler.
+  void setType(String? value) async {
+    LoadingBar.open();
+    var result = await repository.updateMachineType(currentMachine!.id, value ?? MachineType.wash.value);
+    if (result) {
+      currentMachine!.type = MachineType.getTypeFromString(value!);
+      update();
+    }
+    LoadingBar.close();
   }
 
   /// Makinenin altına kişinin adını yazar.

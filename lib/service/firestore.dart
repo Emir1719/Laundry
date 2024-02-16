@@ -314,4 +314,14 @@ class Firestore implements Database {
   Future<void> deleteToken() async {
     await _firestore.collection("tokens").doc(_auth.currentUser!.uid).delete();
   }
+
+  @override
+  Future<bool> updateMachineType(String id, String value) async {
+    try {
+      await _firestore.collection("machines").doc(id).update({"type": value});
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 }

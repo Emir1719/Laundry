@@ -151,4 +151,8 @@ class DatabaseRepository implements AuthBase {
   Future<void> deleteToken() async {
     await _firestore.deleteToken();
   }
+
+  Future<bool> updateMachineType(String id, String value) async {
+    return _firestore.updateMachineType(id, value);
+  }
 }
