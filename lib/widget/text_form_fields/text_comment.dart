@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:laundry/widget/text_form_fields/text_form_field.dart';
 
 class TextComment extends StatelessWidget {
-  const TextComment({Key? key, this.onChanged, this.validator, this.controller}) : super(key: key);
+  const TextComment({super.key, this.onChanged, this.validator, this.controller});
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
   final TextEditingController? controller;

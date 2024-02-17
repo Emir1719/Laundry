@@ -4,6 +4,7 @@ import 'package:laundry/controller/form_controller.dart';
 import 'package:laundry/widget/text_form_fields/text_comment.dart';
 import 'package:laundry/widget/text_form_fields/text_degree.dart';
 import 'package:laundry/widget/text_form_fields/text_file_no.dart';
+import 'package:laundry/widget/text_form_fields/text_form_field.dart';
 import 'package:laundry/widget/text_form_fields/text_wash_mod.dart';
 
 class FormView extends StatelessWidget {
@@ -20,13 +21,21 @@ class FormView extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: [
-            TextFileNo(controller: controller.fileNo, onChanged: controller.setFileNo),
+            TextFileNo(controller: controller.fileNo, onChanged: (_) => ""),
             space,
-            TextDegree(controller: controller.degree, onChanged: controller.setDegree),
+            TextDegree(controller: controller.degree, onChanged: (_) => ""),
             space,
-            TextWashMode(controller: controller.mode, onChanged: controller.setMode),
+            TextWashMode(controller: controller.mode, onChanged: (_) => ""),
             space,
-            TextComment(controller: controller.comment, onChanged: controller.setComment),
+            AppTextField(
+              onChanged: (_) => "",
+              controller: controller.modeDry,
+              hintText: "Kurutma türünü giriniz",
+              labelText: "Kurutma Türü",
+              keyboardType: TextInputType.text,
+            ),
+            space,
+            TextComment(controller: controller.comment, onChanged: (_) => ""),
             space,
             ElevatedButton(onPressed: controller.onTab, child: const Text("Onayla ve Sıraya Gir"))
           ],

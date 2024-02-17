@@ -35,8 +35,7 @@ class NotificationController extends GetxController {
     var isListening = true;
     if (isListening) {
       repo.currentUser().then((user) {
-        print(!user!.isAdmin);
-        if (!user.isAdmin) {
+        if (!user!.isAdmin) {
           FirebaseMessaging.onMessage.listen((RemoteMessage event) {
             AppMessage.showAlertDialog(
               context: Get.context!,

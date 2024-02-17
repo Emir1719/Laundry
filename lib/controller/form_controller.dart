@@ -12,6 +12,7 @@ class FormController extends GetxController {
   var fileNo = TextEditingController(),
       degree = TextEditingController(),
       mode = TextEditingController(),
+      modeDry = TextEditingController(),
       comment = TextEditingController();
   final _repository = locator<DatabaseRepository>();
 
@@ -31,12 +32,17 @@ class FormController extends GetxController {
       degree.text = note.degree;
       comment.text = note.comment;
       mode.text = note.mode;
-      setFileNo(fileNo.text);
-      setComment(comment.text);
-      setDegree(degree.text);
-      setMode(mode.text);
+      modeDry.text = note.modeDry;
     }
     LoadingBar.close();
+  }
+
+  void saveValues() {
+    note.value.fileNo = fileNo.text;
+    note.value.comment = comment.text;
+    note.value.degree = degree.text;
+    note.value.mode = mode.text;
+    note.value.modeDry = modeDry.text;
   }
 
   @override
@@ -48,24 +54,10 @@ class FormController extends GetxController {
     comment.dispose();
   }
 
-  void setFileNo(String value) {
-    note.value.fileNo = value;
-  }
-
-  void setDegree(String value) {
-    note.value.degree = value;
-  }
-
-  void setMode(String value) {
-    note.value.mode = value;
-  }
-
-  void setComment(String value) {
-    note.value.comment = value;
-  }
-
   void onTab() async {
     try {
+      saveValues();
+
       if (note.value.fileNo.isNotEmpty && note.value.degree.isNotEmpty && note.value.mode.isNotEmpty) {
         bool result = await _repository.saveNote(note.value);
         if (result) {
@@ -75,7 +67,7 @@ class FormController extends GetxController {
         AppMessage.show(title: "İlk üç alanı lütfen doldurun", message: "Bazı alanlar zorunlu");
       }
     } catch (e) {
-      print(e);
+      AppMessage.show(title: "Hata", message: e.toString(), type: Type.error);
     }
   }
 }

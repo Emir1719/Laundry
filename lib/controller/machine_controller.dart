@@ -17,7 +17,7 @@ class MachineController extends GetxController {
   var users = <AppUser?>[].obs;
   final repository = locator<DatabaseRepository>();
   var subtitle = <String>[].obs;
-  AppUser? currentUser;
+  AppUser? currentUser, tempUser;
   Machine? currentMachine;
   var iconBtnStates = <bool>[]; // Icon button için swich yapısı sağlandı
 
@@ -78,6 +78,13 @@ class MachineController extends GetxController {
   /// Icon butona kullanıcı eklemek için tıklandığında
   void onTabIconBtnAdd(int i) async {
     try {
+      _setCurrentValue(i);
+      if (tempUser != null) {
+        await repository.updateMachineUserId(currentMachine!.id, tempUser!.id);
+        tempUser = null;
+        update();
+        return;
+      }
       LoadingBar.open();
       users[i] = await repository.getUserFromQueue();
       _setCurrentValue(i);
@@ -115,6 +122,11 @@ class MachineController extends GetxController {
       iconBtnStates[i] = true; // ui için
       LoadingBar.close();
 
+      /// Eğer makinenin türü yıkamaysa bildirim gönderme.
+      if (currentMachine!.type == MachineType.wash) {
+        return;
+      }
+
       _sendNotification(
         title: "Kıyafetleriniz Hazır",
         subtitle: "Lütfen çamaşırhaneye gelip kıyafetlerinizi alınız",
@@ -130,7 +142,7 @@ class MachineController extends GetxController {
       return;
     }
 
-    /// Şu anki aktif kullanıcının token değerini alır.,
+    /// Şu anki aktif kullanıcının token değerini alır.
     /// Boş değilse bildirim gönderir.
     String? token = await repository.getToken(currentUser!.id);
     if (token != null || token!.isNotEmpty) {
@@ -141,6 +153,12 @@ class MachineController extends GetxController {
 
   /// Aktif kullanıcıyı makineden çıkartır ve veri tabanında da bunu günceller.
   void deleteUserFromMachine() async {
+    // Yıkama türündeki makineden çıkan kişinin kıyafetleri hazır olmayacak
+    // Diğer türlerden çıkarıldığında kişinin tempde bilgisi tutulmaz.
+    if (currentMachine!.type == MachineType.wash) {
+      tempUser = currentUser;
+    }
+
     bool result = await repository.updateMachineUserId(currentMachine!.id, "");
     if (result) {
       users.remove(currentUser);

@@ -34,6 +34,7 @@ class NotDetail extends StatelessWidget {
                   _createRow("File No", note.fileNo),
                   _createRow("Derece", "${note.degree} °C"),
                   _createRow("Yıkama Modu", note.mode),
+                  _createRow("Kurutma Modu", note.modeDry),
                   _createRow("Not", note.comment),
                 ],
               );

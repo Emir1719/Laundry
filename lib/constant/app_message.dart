@@ -43,7 +43,9 @@ class AppMessage {
           child: Text("Hayır", style: style.alertYesNoBtn),
           onPressed: () {
             Navigator.pop(context);
-            //onFail!();
+            if (onFail != null) {
+              onFail();
+            }
           },
         ),
       ],
