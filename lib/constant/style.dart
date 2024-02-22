@@ -66,7 +66,7 @@ class AppStyle {
     // Tek ve çift sıradaki elemanları belirle
     bool isOdd = index % 2 != 1;
     // Arka plan rengini belirle
-    Color? backgroundColor = isOdd ? const Color(0xffA6DAF4) : Colors.grey[100];
+    Color? backgroundColor = isOdd ? color.machineBold : color.machineLight;
     return backgroundColor;
   }
 

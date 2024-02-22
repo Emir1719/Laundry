@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laundry/constant/app_message.dart';
 import 'package:laundry/constant/enums/machine_enum.dart';
+import 'package:laundry/constant/util/device.dart';
 import 'package:laundry/controller/notification.dart';
 import 'package:laundry/locator.dart';
 import 'package:laundry/model/machine.dart';
 import 'package:laundry/model/note.dart';
 import 'package:laundry/model/user.dart';
 import 'package:laundry/service/database_repository.dart';
-import 'package:laundry/view/machine_setting.dart';
+import 'package:laundry/view/machine_info_sheet/machine_setting.dart';
 import 'package:laundry/view/users_at_queue.dart';
 import 'package:laundry/widget/loading_bar.dart';
 
@@ -45,7 +46,11 @@ class MachineController extends GetxController {
     showModalBottomSheet(
       context: Get.context!,
       useSafeArea: true,
-      builder: (context) => const MachineSetting(),
+      builder: (context) => const SingleChildScrollView(child: MachineSetting()),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      isScrollControlled: AppDevice.isPortrait ? false : true,
     );
   }
 
@@ -198,6 +203,9 @@ class MachineController extends GetxController {
     var result = await repository.updateMachineType(currentMachine!.id, value ?? MachineType.wash.value);
     if (result) {
       currentMachine!.type = MachineType.getTypeFromString(value!);
+      if (Navigator.canPop(Get.context!)) {
+        Navigator.pop(Get.context!);
+      }
       update();
     }
     LoadingBar.close();
