@@ -15,22 +15,24 @@ class MachineControlView extends StatelessWidget {
         children: [
           const BtnRowMachineSetting(),
           Expanded(
-            child: GetBuilder<MachineController>(builder: (controller) {
-              return FutureBuilder(
-                future: controller.repository.getMachines(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  if (snapshot.hasError) {
-                    return Text("Hata: ${snapshot.error}");
-                  }
-                  controller.machines.value = snapshot.data!;
+            child: GetBuilder<MachineController>(
+              builder: (controller) {
+                return FutureBuilder(
+                  future: controller.repository.getMachines(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    if (snapshot.hasError) {
+                      return Text("Hata: ${snapshot.error}");
+                    }
+                    controller.machines.value = snapshot.data!;
 
-                  return const MachineListBuilder();
-                },
-              );
-            }),
+                    return const MachineListBuilder();
+                  },
+                );
+              },
+            ),
           ),
         ],
       ),

@@ -4,8 +4,8 @@ class AppColor {
   final primary = Colors.deepOrange;
   final background = const Color(0xffF8F9FA); //white
   final green = Colors.green[700];
-  final machineBold = const Color(0xffE1C6B2);
-  final machineLight = const Color(0xffF2EBE2);
+  final machineBold = Colors.grey.shade300;
+  final machineLight = Colors.grey.shade200;
 
   ///primary rengi Color'dan MaterialColor'a çevrildi.
   late MaterialColor primaryMaterialColor;

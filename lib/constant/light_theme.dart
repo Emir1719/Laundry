@@ -14,6 +14,14 @@ class ThemeLight {
       elevatedButtonTheme: _elevatedButtonTheme(),
       textButtonTheme: _textButtonThemeData(),
       textSelectionTheme: _textSelectionTheme(),
+      dialogTheme: _dialogTheme(),
+    );
+  }
+
+  DialogTheme _dialogTheme() {
+    return const DialogTheme(
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.transparent,
     );
   }
 
@@ -28,6 +36,9 @@ class ThemeLight {
   TextButtonThemeData _textButtonThemeData() {
     return TextButtonThemeData(
       style: ButtonStyle(
+        surfaceTintColor: MaterialStateProperty.resolveWith((states) {
+          return Colors.transparent;
+        }),
         fixedSize: MaterialStateProperty.all(const Size.fromHeight(45)),
         foregroundColor: MaterialStateProperty.resolveWith((states) {
           return _color.primary;
@@ -45,15 +56,16 @@ class ThemeLight {
   AppBarTheme _appBarTheme() {
     return AppBarTheme(
       centerTitle: true,
-      elevation: 0,
-      actionsIconTheme: IconThemeData(color: _color.primary),
-      iconTheme: IconThemeData(color: _color.primary, size: 24),
-      color: _color.background,
-      titleTextStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: Colors.black),
+      elevation: 5,
+      actionsIconTheme: IconThemeData(color: _color.background),
+      iconTheme: IconThemeData(color: _color.background, size: 24),
+      color: _color.primary,
+      surfaceTintColor: Colors.transparent,
+      titleTextStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: Colors.white),
       systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: _color.background,
-        statusBarIconBrightness: Brightness.dark, //for android light icon
-        statusBarBrightness: Brightness.light, //for ios light icon
+        statusBarColor: _color.primary,
+        statusBarIconBrightness: Brightness.light, //for android light icon
+        statusBarBrightness: Brightness.dark, //for ios light icon
         systemNavigationBarColor: _color.background,
         systemNavigationBarIconBrightness: Brightness.dark,
       ),

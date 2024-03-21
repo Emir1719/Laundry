@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:laundry/widget/progress_bar.dart';
 
 class AppFutureBuilder<T> extends StatelessWidget {
@@ -11,10 +10,11 @@ class AppFutureBuilder<T> extends StatelessWidget {
     this.onEmpty,
     this.loadingWidget = const AppCircleProgress(),
   });
+
   final Future<T>? future;
-  final Function(AsyncSnapshot<T> snapshot) onSuccess;
-  final Function(Object? error)? onError;
-  final Function()? onEmpty;
+  final Widget Function(AsyncSnapshot<T> snapshot) onSuccess;
+  final Widget Function(Object? error)? onError;
+  final Widget Function()? onEmpty;
   final Widget loadingWidget;
 
   @override
@@ -23,25 +23,21 @@ class AppFutureBuilder<T> extends StatelessWidget {
       future: future,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return onError!(snapshot.error);
+          return onError != null ? onError!(snapshot.error) : Text('Error: ${snapshot.error}');
         }
 
-        if (!snapshot.isBlank!) {
-          onEmpty != null ? onEmpty!() : null;
+        if (!snapshot.hasData) {
+          return onEmpty != null ? onEmpty!() : const Text('No data available');
         }
 
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
             return loadingWidget;
           case ConnectionState.done:
-            if (!snapshot.hasData) {
-              return onEmpty!();
-            }
             return onSuccess(snapshot);
           default:
+            return const SizedBox();
         }
-
-        return const SizedBox();
       },
     );
   }

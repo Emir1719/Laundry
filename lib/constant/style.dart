@@ -106,6 +106,31 @@ class AppStyle {
     );
   }
 
+  BoxDecoration announcementContainer() {
+    return const BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.all(Radius.circular(10)),
+      boxShadow: [
+        BoxShadow(color: Colors.grey, blurRadius: 2),
+        BoxShadow(
+          color: Colors.deepOrange,
+          blurRadius: 5,
+          blurStyle: BlurStyle.inner,
+          offset: Offset(0, 3),
+        ),
+      ],
+    );
+  }
+
+  BoxDecoration machineSettingTopContainer() {
+    return const BoxDecoration(
+      color: Colors.white,
+      boxShadow: [
+        BoxShadow(color: Colors.grey, blurRadius: 2, offset: Offset(0, 1)),
+      ],
+    );
+  }
+
   /// Ana ekrandaki butonlardaki icon boyutu
   double get mainButtonIconSize => 32.0;
   double get mainButtonSpaceBetween => 6.0;

@@ -13,7 +13,7 @@ class BtnSignOut extends StatelessWidget {
       onPressed: cont.onTab,
       icon: const Icon(Icons.group_off_outlined),
       style: ElevatedButton.styleFrom(
-        foregroundColor: Colors.red,
+        foregroundColor: Colors.white,
       ),
     );
   }

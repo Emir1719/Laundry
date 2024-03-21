@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:laundry/constant/color.dart';
+import 'package:laundry/constant/style.dart';
 import 'package:laundry/controller/machine_controller.dart';
 import 'package:laundry/locator.dart';
 import 'package:laundry/widget/washing_queue_count.dart';
@@ -11,10 +11,11 @@ class BtnRowMachineSetting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(MachineController());
-    final color = locator<AppColor>();
+    final style = locator<AppStyle>();
 
     return Container(
-      color: color.background,
+      decoration: style.machineSettingTopContainer(),
+      padding: const EdgeInsets.symmetric(vertical: 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

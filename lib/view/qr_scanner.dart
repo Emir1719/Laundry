@@ -23,7 +23,7 @@ class QRCodeScannerViewState extends State<QRCodeScannerView> {
       body: Column(
         children: [
           Expanded(
-            flex: 5,
+            flex: 7,
             child: QRView(key: qrKey, onQRViewCreated: _onQRViewCreated),
           ),
           Expanded(

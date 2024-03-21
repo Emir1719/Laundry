@@ -29,7 +29,7 @@ class AnnouncementView extends StatelessWidget {
               return ListView.separated(
                 itemCount: snapshot.data!.length,
                 padding: const EdgeInsets.all(20),
-                separatorBuilder: (context, index) => const Divider(height: 40),
+                separatorBuilder: (context, index) => const SizedBox(height: 20),
                 itemBuilder: (context, index) {
                   Announcement announ = snapshot.data![index];
                   return AnnouncementStructure(announ: announ);
