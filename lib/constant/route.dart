@@ -9,6 +9,7 @@ import 'package:laundry/view/machine_control.dart';
 import 'package:laundry/view/qr_scanner.dart';
 import 'package:laundry/view/register.dart';
 import 'package:laundry/view/settings.dart';
+import 'package:laundry/view/verify_email.dart';
 
 class AppRoute {
   static const register = "/register";
@@ -20,6 +21,7 @@ class AppRoute {
   static const qr = "/qr";
   static const setting = "/setting";
   static const addAnnouncement = "/addAnnouncement";
+  static const verifyEmail = "/verifyEmail";
 
   static appRoutes() {
     Transition? transition = Transition.native;
@@ -30,51 +32,56 @@ class AppRoute {
 
     return [
       GetPage(
-        name: '/home',
+        name: home,
         page: () => const HomeView(),
         popGesture: false,
         transition: transition,
         //transitionDuration: const Duration(milliseconds: 500),
       ),
       GetPage(
-        name: '/login',
+        name: login,
         page: () => const LoginView(),
         transition: transition,
       ),
       GetPage(
-        name: '/register',
+        name: register,
         page: () => const RegisterView(),
         popGesture: false,
         transition: transition,
       ),
       GetPage(
-        name: '/announcement',
+        name: announcement,
         page: () => const AnnouncementView(),
         transition: transition,
       ),
       GetPage(
-        name: '/form',
+        name: form,
         page: () => const FormView(),
         transition: transition,
       ),
       GetPage(
-        name: '/machineControl',
+        name: machineControl,
         page: () => const MachineControlView(),
         transition: transition,
       ),
       GetPage(
-        name: '/qr',
+        name: qr,
         page: () => const QRCodeScannerView(),
         transition: transition,
       ),
       GetPage(
-        name: '/setting',
+        name: setting,
         page: () => const SettingsView(),
         transition: transition,
       ),
       GetPage(
-        name: '/addAnnouncement',
+        name: addAnnouncement,
         page: () => const AddAnnouncementView(),
+        transition: transition,
+      ),
+      GetPage(
+        name: verifyEmail,
+        page: () => const VerifyEmailView(),
         transition: transition,
       ),
     ];

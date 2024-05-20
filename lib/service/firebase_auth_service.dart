@@ -12,6 +12,8 @@ class FirebaseAuthService implements AuthBase {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final _database = locator<Firestore>();
 
+  User? get user => _auth.currentUser;
+
   ///Firebase'in kullanıcısından kendi kullanıcı nesnemizi oluşturuyoruz.
   ///[user] Firebase kullanıcısı
   AppUser? _createUser(User? user, bool isAdmin) {

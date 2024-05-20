@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:laundry/constant/app_message.dart';
 import 'package:laundry/locator.dart';
 import 'package:laundry/model/announcement.dart';
@@ -12,6 +13,8 @@ import 'package:laundry/service/firestore.dart';
 class DatabaseRepository implements AuthBase {
   final _authService = locator<FirebaseAuthService>();
   final _firestore = locator<Firestore>();
+
+  User? get user => _authService.user;
 
   @override
   Future<AppUser?> currentUser() async {
@@ -28,6 +31,7 @@ class DatabaseRepository implements AuthBase {
     try {
       AppUser? user = await _authService.register(email, password);
       await _firestore.saveUser(user!);
+      await this.user!.sendEmailVerification();
       //Auth'dan değil veritabanından veriler çekiliyor:
       return _firestore.getUser(user.id);
     } catch (e) {

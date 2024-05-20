@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laundry/constant/app_message.dart';
 import 'package:laundry/constant/enums/machine_enum.dart';
-import 'package:laundry/constant/util/device.dart';
+import 'package:laundry/util/device.dart';
 import 'package:laundry/controller/notification.dart';
 import 'package:laundry/locator.dart';
 import 'package:laundry/model/machine.dart';

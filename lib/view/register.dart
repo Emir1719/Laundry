@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:laundry/constant/image.dart';
-import 'package:laundry/constant/route.dart';
 import 'package:laundry/controller/auth_controller.dart';
 import 'package:laundry/widget/auth_form.dart';
+import 'package:laundry/widget/buttons/any_have_account.dart';
 import 'package:laundry/widget/buttons/register_btn.dart';
-import 'package:laundry/widget/text_form_fields/text_name.dart';
+import 'package:laundry/widget/logo.dart';
 
 class RegisterView extends StatelessWidget {
   const RegisterView({super.key});
@@ -13,8 +12,7 @@ class RegisterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(AuthController());
-    const space = 20.0;
-    final image = AppImage.getInstance();
+    const space = SizedBox(height: 20);
 
     return PopScope(
       canPop: false,
@@ -23,20 +21,11 @@ class RegisterView extends StatelessWidget {
         body: ListView(
           padding: const EdgeInsets.all(20),
           children: [
-            image.logo,
-            TextName(
-              onChanged: (value) => controller.name.value = value,
-            ),
-            const SizedBox(height: space),
+            const KoskLogo(),
+            space,
             AuthForm(formKey: controller.registerFormKey),
             const BtnRegister(),
-            TextButton.icon(
-              onPressed: () {
-                Get.toNamed(AppRoute.login);
-              },
-              icon: const Icon(Icons.person),
-              label: const Text("Hesabınız var mı? Giriş yapın"),
-            ),
+            const BtnAnyHaveAccount(),
           ],
         ),
       ),

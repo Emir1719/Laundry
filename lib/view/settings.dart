@@ -44,6 +44,14 @@ class SettingsView extends StatelessWidget {
             const Text("İsim güncellemek için şifre girmenize gerek yoktur. Mail ve şifre değiştirmek için gerekli."),*/
             space,
             const BtnUpdate(),
+            space,
+            const Card(
+              color: Colors.white,
+              shadowColor: Colors.grey,
+              child: ListTile(
+                title: Text("İsmi Değiştir"),
+              ),
+            )
           ],
         ),
       ),

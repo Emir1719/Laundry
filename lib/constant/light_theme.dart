@@ -75,7 +75,7 @@ class ThemeLight {
   ElevatedButtonThemeData _elevatedButtonTheme() {
     return ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        fixedSize: const Size.fromHeight(45),
+        fixedSize: const Size.fromHeight(50),
         backgroundColor: Colors.transparent,
         foregroundColor: _color.primary,
         shadowColor: Colors.transparent,

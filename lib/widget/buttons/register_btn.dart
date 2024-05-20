@@ -10,7 +10,7 @@ class BtnRegister extends StatelessWidget {
     final controller = Get.put(AuthController());
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20),
+      padding: const EdgeInsets.only(bottom: 30),
       child: ElevatedButton.icon(
         onPressed: controller.register,
         label: const Text("Kayıt Ol"),
