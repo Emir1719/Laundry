@@ -50,6 +50,7 @@ class AppStyle {
     );
     announcementContent = baseTextStyle.copyWith(
       height: 1.6,
+      color: Colors.grey.shade600,
     );
     queueCount = baseTextStyle.copyWith(
       color: Colors.white,

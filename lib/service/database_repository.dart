@@ -3,35 +3,31 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:laundry/constant/app_message.dart';
 import 'package:laundry/locator.dart';
 import 'package:laundry/model/announcement.dart';
-import 'package:laundry/service/auth_base.dart';
 import 'package:laundry/model/machine.dart';
 import 'package:laundry/model/note.dart';
 import 'package:laundry/model/user.dart';
 import 'package:laundry/service/firebase_auth_service.dart';
 import 'package:laundry/service/firestore.dart';
 
-class DatabaseRepository implements AuthBase {
+class DatabaseRepository {
   final _authService = locator<FirebaseAuthService>();
   final _firestore = locator<Firestore>();
 
   User? get user => _authService.user;
 
-  @override
   Future<AppUser?> currentUser() async {
     return await _authService.currentUser();
   }
 
-  @override
   Future<bool> signOut() async {
     return await _authService.signOut();
   }
 
-  @override
   Future<AppUser?> register(String email, String password) async {
     try {
       AppUser? user = await _authService.register(email, password);
       await _firestore.saveUser(user!);
-      await this.user!.sendEmailVerification();
+      //await this.user!.sendEmailVerification();
       //Auth'dan değil veritabanından veriler çekiliyor:
       return _firestore.getUser(user.id);
     } catch (e) {
@@ -39,7 +35,6 @@ class DatabaseRepository implements AuthBase {
     }
   }
 
-  @override
   Future<AppUser?> signIn(String email, String password) async {
     try {
       AppUser? user = await _authService.signIn(email, password);
@@ -49,7 +44,6 @@ class DatabaseRepository implements AuthBase {
     }
   }
 
-  @override
   bool isUserLogin() {
     return _authService.isUserLogin();
   }
@@ -146,7 +140,6 @@ class DatabaseRepository implements AuthBase {
     return _firestore.getAllToken();
   }
 
-  @override
   Future<void> updateUser(Map<String, dynamic> map) async {
     //await _authService.updateUser(map);
     await _firestore.updateUser(map);
