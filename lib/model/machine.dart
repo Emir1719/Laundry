@@ -12,7 +12,7 @@ class Machine {
     userId = "";
     isActive = true;
     date = DateTime.now();
-    type = MachineType.wash;
+    type = MachineType.both;
   }
 
   Machine.fromMap(Map<String, dynamic> map) {

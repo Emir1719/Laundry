@@ -78,6 +78,7 @@ class ThemeLight {
         fixedSize: const Size.fromHeight(50),
         backgroundColor: Colors.transparent,
         foregroundColor: _color.primary,
+        surfaceTintColor: Colors.transparent,
         shadowColor: Colors.transparent,
         side: BorderSide(width: 1, color: _color.primary),
         textStyle: TextStyle(fontSize: 16, color: _color.primary),

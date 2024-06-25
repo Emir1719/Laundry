@@ -30,7 +30,6 @@ class AnnouncementStructure extends StatelessWidget {
               ],
             ),
           ),
-          space,
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20).copyWith(bottom: 10),
             child: Row(

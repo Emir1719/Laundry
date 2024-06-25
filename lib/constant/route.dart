@@ -9,7 +9,6 @@ import 'package:laundry/view/machine_control.dart';
 import 'package:laundry/view/qr_scanner.dart';
 import 'package:laundry/view/register.dart';
 import 'package:laundry/view/settings.dart';
-import 'package:laundry/view/verify_email.dart';
 
 class AppRoute {
   static const register = "/register";
@@ -21,7 +20,7 @@ class AppRoute {
   static const qr = "/qr";
   static const setting = "/setting";
   static const addAnnouncement = "/addAnnouncement";
-  static const verifyEmail = "/verifyEmail";
+  //static const verifyEmail = "/verifyEmail";
 
   static appRoutes() {
     Transition? transition = Transition.native;
@@ -79,11 +78,11 @@ class AppRoute {
         page: () => const AddAnnouncementView(),
         transition: transition,
       ),
-      GetPage(
+      /*GetPage(
         name: verifyEmail,
         page: () => const VerifyEmailView(),
         transition: transition,
-      ),
+      ),*/
     ];
   }
 }
