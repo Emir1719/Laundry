@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:laundry/util/constant/style.dart';
-import 'package:laundry/locator.dart';
+import 'package:laundry/config/locator.dart';
 import 'package:laundry/presentation/widget/buttons/delete_machine.dart';
 import 'package:laundry/presentation/widget/buttons/machine_setting_active.dart';
 import 'package:laundry/presentation/widget/buttons/machine_setting_type.dart';

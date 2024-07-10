@@ -3,7 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:laundry/util/constant/app_message.dart';
-import 'package:laundry/locator.dart';
+import 'package:laundry/config/locator.dart';
 import 'package:laundry/domain/repository/database_repository.dart';
 
 class NotificationController extends GetxController {

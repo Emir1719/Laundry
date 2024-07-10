@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:laundry/util/constant/app_message.dart';
-import 'package:laundry/locator.dart';
+import 'package:laundry/config/locator.dart';
 import 'package:laundry/domain/model/announcement.dart';
 import 'package:laundry/domain/model/machine.dart';
 import 'package:laundry/domain/model/note.dart';

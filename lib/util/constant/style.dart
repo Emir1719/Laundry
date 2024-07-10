@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:laundry/util/constant/color.dart';
-import 'package:laundry/locator.dart';
+import 'package:laundry/config/locator.dart';
 
 class AppStyle {
   final color = locator<AppColor>();
@@ -50,7 +50,7 @@ class AppStyle {
     );
     announcementContent = baseTextStyle.copyWith(
       height: 1.6,
-      color: Colors.grey.shade600,
+      color: Colors.grey.shade800,
     );
     queueCount = baseTextStyle.copyWith(
       color: Colors.white,

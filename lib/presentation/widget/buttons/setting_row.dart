@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laundry/util/constant/style.dart';
 import 'package:laundry/presentation/controller/machine_controller.dart';
-import 'package:laundry/locator.dart';
+import 'package:laundry/config/locator.dart';
 import 'package:laundry/presentation/widget/washing_queue_count.dart';
 
 class BtnRowMachineSetting extends StatelessWidget {

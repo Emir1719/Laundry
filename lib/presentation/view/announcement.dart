@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laundry/presentation/controller/announcement_controller.dart';
-import 'package:laundry/locator.dart';
+import 'package:laundry/config/locator.dart';
 import 'package:laundry/domain/model/announcement.dart';
 import 'package:laundry/domain/repository/database_repository.dart';
 import 'package:laundry/presentation/widget/announcement_structure.dart';

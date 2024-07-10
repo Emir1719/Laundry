@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:laundry/util/constant/app_message.dart';
 import 'package:laundry/presentation/controller/notification.dart';
-import 'package:laundry/locator.dart';
+import 'package:laundry/config/locator.dart';
 import 'package:laundry/domain/model/announcement.dart';
 import 'package:laundry/domain/repository/database_repository.dart';
 import 'package:laundry/presentation/widget/loading_bar.dart';

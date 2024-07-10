@@ -2,7 +2,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:laundry/util/constant/style.dart';
-import 'package:laundry/locator.dart';
+import 'package:laundry/config/locator.dart';
 
 class AppMessage {
   static void show({required String title, required String message, Type type = Type.success}) {

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:laundry/config/route.dart';
 import 'package:laundry/util/constant/style.dart';
 import 'package:laundry/presentation/controller/announcement_controller.dart';
-import 'package:laundry/locator.dart';
+import 'package:laundry/config/locator.dart';
 import 'package:laundry/domain/model/announcement.dart';
 
 class ShortAnnouncement extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:laundry/util/constant/style.dart';
-import 'package:laundry/locator.dart';
+import 'package:laundry/config/locator.dart';
 import 'package:laundry/domain/model/announcement.dart';
 import 'package:laundry/presentation/widget/buttons/delete_announcement.dart';
 

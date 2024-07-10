@@ -4,7 +4,7 @@ import 'package:laundry/util/constant/app_message.dart';
 import 'package:laundry/util/constant/enums/machine_enum.dart';
 import 'package:laundry/util/device.dart';
 import 'package:laundry/presentation/controller/notification.dart';
-import 'package:laundry/locator.dart';
+import 'package:laundry/config/locator.dart';
 import 'package:laundry/domain/model/machine.dart';
 import 'package:laundry/domain/model/note.dart';
 import 'package:laundry/domain/model/user.dart';

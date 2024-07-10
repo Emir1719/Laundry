@@ -10,6 +10,7 @@ import 'package:laundry/presentation/view/machine_control.dart';
 import 'package:laundry/presentation/view/qr_scanner.dart';
 import 'package:laundry/presentation/view/register.dart';
 import 'package:laundry/presentation/view/settings.dart';
+import 'package:laundry/presentation/view/splash.dart';
 
 class AppRoute {
   static const register = "/register";
@@ -21,6 +22,7 @@ class AppRoute {
   static const qr = "/qr";
   static const setting = "/setting";
   static const addAnnouncement = "/addAnnouncement";
+  static const splash = "/splash";
   //static const verifyEmail = "/verifyEmail";
 
   static appRoutes() {
@@ -81,11 +83,11 @@ class AppRoute {
         page: () => const AddAnnouncementView(),
         transition: transition,
       ),
-      /*GetPage(
-        name: verifyEmail,
-        page: () => const VerifyEmailView(),
+      GetPage(
+        name: splash,
+        page: () => const SplashView(),
         transition: transition,
-      ),*/
+      ),
     ];
   }
 }

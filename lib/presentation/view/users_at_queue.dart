@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:laundry/util/constant/style.dart';
-import 'package:laundry/locator.dart';
+import 'package:laundry/config/locator.dart';
 import 'package:laundry/domain/repository/database_repository.dart';
 
 class UsersAtQueue extends StatelessWidget {

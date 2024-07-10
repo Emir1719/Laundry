@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:laundry/config/light_theme.dart';
 import 'package:laundry/config/route.dart';
 import 'package:laundry/firebase_options.dart';
-import 'package:laundry/locator.dart';
-import 'package:laundry/domain/repository/database_repository.dart';
+import 'package:laundry/config/locator.dart';
+import 'package:laundry/presentation/controller/user_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,16 +21,15 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final repository = locator<DatabaseRepository>();
+    Get.put(UserController());
 
     return GetMaterialApp(
       title: "Çamaşırhane",
       debugShowCheckedModeBanner: false,
       theme: ThemeLight().theme(),
       getPages: AppRoute.appRoutes(),
-      initialRoute: repository.isUserLogin() ? AppRoute.home : AppRoute.register,
+      initialRoute: AppRoute.splash,
       defaultGlobalState: true,
-      //home: repository.isUserLogin() ? const HomeView() : const RegisterView(),
     );
   }
 }

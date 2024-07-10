@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:laundry/presentation/controller/user_controller.dart';
 import 'package:laundry/util/constant/app_message.dart';
 import 'package:laundry/presentation/controller/announcement_controller.dart';
-import 'package:laundry/locator.dart';
+import 'package:laundry/config/locator.dart';
 import 'package:laundry/domain/model/announcement.dart';
 import 'package:laundry/domain/repository/database_repository.dart';
 
@@ -14,15 +15,14 @@ class BtnDeleteAnnouncement extends StatelessWidget {
   Widget build(BuildContext context) {
     final repository = locator<DatabaseRepository>();
     final controller = Get.put(AnnouncementController());
+    final cont = UserController.call;
 
-    return FutureBuilder(
-      future: repository.currentUser(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const SizedBox();
-        }
-        if (snapshot.data!.isAdmin) {
-          return TextButton.icon(
+    if (cont.user == null) {
+      return const SizedBox();
+    }
+
+    return cont.user!.isAdmin
+        ? TextButton.icon(
             onPressed: () {
               AppMessage.showAlertDialog(
                 context: context,
@@ -36,10 +36,7 @@ class BtnDeleteAnnouncement extends StatelessWidget {
             },
             icon: const Icon(Icons.delete),
             label: const Text("Sil"),
-          );
-        }
-        return const SizedBox();
-      },
-    );
+          )
+        : const SizedBox();
   }
 }

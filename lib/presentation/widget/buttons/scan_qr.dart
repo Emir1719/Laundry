@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laundry/config/route.dart';
 import 'package:laundry/util/constant/style.dart';
-import 'package:laundry/locator.dart';
+import 'package:laundry/config/locator.dart';
 
 class BtnScanQR extends StatelessWidget {
   const BtnScanQR({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:laundry/util/constant/style.dart';
-import 'package:laundry/locator.dart';
+import 'package:laundry/config/locator.dart';
 import 'package:laundry/presentation/view/machine_info_sheet/machine_detail.dart';
 import 'package:laundry/presentation/view/machine_info_sheet/note_detail.dart';
 

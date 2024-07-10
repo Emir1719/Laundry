@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:laundry/presentation/controller/auth_controller.dart';
 import 'package:laundry/presentation/controller/auth_validator.dart';
-import 'package:laundry/locator.dart';
+import 'package:laundry/config/locator.dart';
 import 'package:laundry/domain/model/user.dart';
 import 'package:laundry/domain/repository/firestore.dart';
 import '../../data/auth_base.dart';

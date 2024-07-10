@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laundry/config/route.dart';
-import 'package:laundry/locator.dart';
+import 'package:laundry/config/locator.dart';
 import 'package:laundry/domain/model/user.dart';
 import 'package:laundry/domain/repository/database_repository.dart';
 import 'package:laundry/presentation/widget/loading_bar.dart';
