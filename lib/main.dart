@@ -1,11 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:laundry/constant/light_theme.dart';
-import 'package:laundry/constant/route.dart';
+import 'package:laundry/config/light_theme.dart';
+import 'package:laundry/config/route.dart';
 import 'package:laundry/firebase_options.dart';
 import 'package:laundry/locator.dart';
-import 'package:laundry/service/database_repository.dart';
+import 'package:laundry/domain/repository/database_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

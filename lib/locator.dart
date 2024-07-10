@@ -1,10 +1,10 @@
 import 'package:get_it/get_it.dart';
-import 'package:laundry/constant/color.dart';
-import 'package:laundry/constant/app_message.dart';
-import 'package:laundry/constant/style.dart';
-import 'package:laundry/service/database_repository.dart';
-import 'package:laundry/service/firebase_auth_service.dart';
-import 'package:laundry/service/firestore.dart';
+import 'package:laundry/util/constant/color.dart';
+import 'package:laundry/util/constant/app_message.dart';
+import 'package:laundry/util/constant/style.dart';
+import 'package:laundry/domain/repository/database_repository.dart';
+import 'package:laundry/domain/repository/firebase_auth_service.dart';
+import 'package:laundry/domain/repository/firestore.dart';
 
 GetIt locator = GetIt.instance;
 

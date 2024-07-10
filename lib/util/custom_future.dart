@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:laundry/widget/progress_bar.dart';
+import 'package:laundry/presentation/widget/progress_bar.dart';
 
 class AppFutureBuilder<T> extends StatelessWidget {
   const AppFutureBuilder({
