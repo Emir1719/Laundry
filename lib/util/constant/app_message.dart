@@ -58,6 +58,38 @@ class AppMessage {
       },
     );
   }
+
+  static void showAlertDialogDone({
+    required BuildContext context,
+    required void Function()? onDone,
+    required String title,
+    required String message,
+  }) {
+    final style = locator<AppStyle>();
+
+    AlertDialog alert = AlertDialog(
+      title: Text(title, style: style.alertTitle),
+      content: Text(message, style: style.alertYesNoBtn),
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+      actions: [
+        TextButton(
+          child: Text("Tamam", style: style.alertYesNoBtn),
+          onPressed: () {
+            Navigator.pop(context);
+            onDone!();
+          },
+        ),
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 }
 
 enum Type {

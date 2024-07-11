@@ -23,7 +23,7 @@ class AuthForm extends StatelessWidget {
           formKey == authController.registerFormKey
               ? TextName(
                   onChanged: (value) => authController.name.value = value,
-                  validator: (value) => val.isName(value),
+                  validator: (value) => val.isNull(value),
                 )
               : const SizedBox(),
           space,

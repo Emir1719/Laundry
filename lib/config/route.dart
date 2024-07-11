@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:laundry/presentation/controller/notification.dart';
+import 'package:laundry/presentation/controller/user_controller.dart';
 import 'package:laundry/presentation/view/add_announcement.dart';
 import 'package:laundry/presentation/view/announcement.dart';
 import 'package:laundry/presentation/view/form.dart';
@@ -23,7 +24,6 @@ class AppRoute {
   static const setting = "/setting";
   static const addAnnouncement = "/addAnnouncement";
   static const splash = "/splash";
-  //static const verifyEmail = "/verifyEmail";
 
   static appRoutes() {
     Transition? transition = Transition.native;
@@ -39,6 +39,7 @@ class AppRoute {
         popGesture: false,
         transition: transition,
         binding: BindingsBuilder(() {
+          Get.lazyPut(() => UserController());
           Get.lazyPut(() => NotificationController());
         }),
       ),
@@ -87,6 +88,9 @@ class AppRoute {
         name: splash,
         page: () => const SplashView(),
         transition: transition,
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => UserController());
+        }),
       ),
     ];
   }

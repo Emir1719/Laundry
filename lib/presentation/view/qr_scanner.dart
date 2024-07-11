@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laundry/config/route.dart';
+import 'package:laundry/util/constant/string.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QRCodeScannerView extends StatefulWidget {
@@ -14,7 +15,7 @@ class QRCodeScannerViewState extends State<QRCodeScannerView> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? result;
   QRViewController? controller;
-  final String qrResult = "sozlerkosku"; // Tanımlanan karekod değeri
+  final String qrResult = AppString().qrPassword; // Tanımlanan karekod değeri
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class QRCodeScannerViewState extends State<QRCodeScannerView> {
       body: Column(
         children: [
           Expanded(
-            flex: 7,
+            flex: 8,
             child: QRView(key: qrKey, onQRViewCreated: _onQRViewCreated),
           ),
           Expanded(

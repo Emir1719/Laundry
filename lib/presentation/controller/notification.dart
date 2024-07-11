@@ -2,19 +2,25 @@ import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:laundry/domain/model/user.dart';
+import 'package:laundry/presentation/controller/user_controller.dart';
 import 'package:laundry/util/constant/app_message.dart';
 import 'package:laundry/config/locator.dart';
 import 'package:laundry/domain/repository/database_repository.dart';
+import 'package:laundry/util/constant/string.dart';
 
 class NotificationController extends GetxController {
   late final FirebaseMessaging messaging;
   final repo = locator<DatabaseRepository>();
+  final _string = AppString();
+  AppUser? _user;
 
   @override
   void onInit() {
     super.onInit();
     connect();
     setupInteractedMessage();
+    _user = UserController.call.user;
     listenNoti();
   }
 
@@ -34,21 +40,19 @@ class NotificationController extends GetxController {
   void listenNoti() {
     var isListening = true;
     if (isListening) {
-      repo.currentUser().then((user) {
-        if (!user!.isAdmin) {
-          FirebaseMessaging.onMessage.listen((RemoteMessage event) {
-            AppMessage.showAlertDialog(
-              context: Get.context!,
-              title: event.notification!.title!,
-              message: event.notification!.body!,
-              onSuccess: () {},
-            );
-            // Dinleme işlemini sonlandır
-            FirebaseMessaging.onMessage.drain();
-            isListening = false;
-          });
-        }
-      });
+      if (!_user!.isAdmin) {
+        FirebaseMessaging.onMessage.listen((RemoteMessage event) {
+          AppMessage.showAlertDialogDone(
+            context: Get.context!,
+            title: event.notification!.title!,
+            message: event.notification!.body!,
+            onDone: () {},
+          );
+          // Dinleme işlemini sonlandır
+          FirebaseMessaging.onMessage.drain();
+          isListening = false;
+        });
+      }
     }
   }
 
@@ -77,10 +81,9 @@ class NotificationController extends GetxController {
 
   void sendNotification({required String token, required String title, required String body}) async {
     // Firebase Console'dan alınan server key'i
-    const String serverKey =
-        'AAAAB7vH1TY:APA91bEcVve7tP5AyCXThgH6nR0_-Ns2X4ibj03d7_-r8t57PAUYY1L5-PQ_4UzdkKoFgQsDbv_EjFl1LkBxqdRXinXKOFYU3sszELGj69XvdfBOQMxqiuc86IPpiSD1JeSfF47iRqbx';
+    String serverKey = _string.serverKey;
 
-    final Uri uri = Uri.parse('https://fcm.googleapis.com/fcm/send');
+    final Uri uri = Uri.parse(_string.notificationUrl);
 
     final Map<String, String> headers = {
       'Content-Type': 'application/json',
@@ -108,11 +111,9 @@ class NotificationController extends GetxController {
   }
 
   void sendNotifications({required List<String> tokens, required String title, required String body}) async {
-    // Firebase Console'dan alınan server key'i
-    const String serverKey =
-        'AAAAB7vH1TY:APA91bEcVve7tP5AyCXThgH6nR0_-Ns2X4ibj03d7_-r8t57PAUYY1L5-PQ_4UzdkKoFgQsDbv_EjFl1LkBxqdRXinXKOFYU3sszELGj69XvdfBOQMxqiuc86IPpiSD1JeSfF47iRqbx';
+    String serverKey = _string.serverKey;
 
-    final Uri uri = Uri.parse('https://fcm.googleapis.com/fcm/send');
+    final Uri uri = Uri.parse(_string.notificationUrl);
 
     final Map<String, String> headers = {
       'Content-Type': 'application/json',

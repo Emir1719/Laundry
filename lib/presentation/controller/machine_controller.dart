@@ -43,6 +43,8 @@ class MachineController extends GetxController {
   /// Makineye tıklandığında ayarlar ve notları çıkartır.
   void onTab(int i) {
     _setCurrentValue(i);
+    bool isPortrait = AppDevice.isPortrait;
+
     showModalBottomSheet(
       context: Get.context!,
       useSafeArea: true,
@@ -50,7 +52,11 @@ class MachineController extends GetxController {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
-      isScrollControlled: AppDevice.isPortrait ? false : true,
+      constraints: BoxConstraints(
+        maxHeight: isPortrait ? AppDevice.height * 0.8 : AppDevice.height,
+        maxWidth: isPortrait ? AppDevice.width : AppDevice.width,
+      ),
+      isScrollControlled: !isPortrait, // Yatay modda tam ekran olsun
     );
   }
 
@@ -72,6 +78,14 @@ class MachineController extends GetxController {
   /// Aktif makineyi siler.
   void deleteMachine() async {
     String id = currentMachine!.id;
+    if (currentUser != null) {
+      AppMessage.show(
+        title: "Makine Dolu!",
+        message: "Makine doluyken silinemez",
+        type: Type.error,
+      );
+      return;
+    }
     // Listeden siler
     machines.remove(currentMachine);
     // Veri tabanından siler

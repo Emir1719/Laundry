@@ -6,6 +6,7 @@ import 'package:laundry/presentation/widget/text_form_fields/text_degree.dart';
 import 'package:laundry/presentation/widget/text_form_fields/text_file_no.dart';
 import 'package:laundry/presentation/widget/text_form_fields/text_form_field.dart';
 import 'package:laundry/presentation/widget/text_form_fields/text_wash_mod.dart';
+import 'package:laundry/util/validator.dart';
 
 class FormView extends StatelessWidget {
   const FormView({super.key});
@@ -14,18 +15,32 @@ class FormView extends StatelessWidget {
   Widget build(BuildContext context) {
     const space = SizedBox(height: 20);
     final controller = Get.put(FormController());
+    final val = AppValidator();
 
     return Scaffold(
       appBar: AppBar(title: const Text("Yıkama Bilgileri")),
       body: Form(
+        key: controller.key,
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: [
-            TextFileNo(controller: controller.fileNo, onChanged: (_) => ""),
+            TextFileNo(
+              controller: controller.fileNo,
+              onChanged: (_) => "",
+              validator: (value) => val.isNull(value),
+            ),
             space,
-            TextDegree(controller: controller.degree, onChanged: (_) => ""),
+            TextDegree(
+              controller: controller.degree,
+              onChanged: (_) => "",
+              validator: (value) => val.isNull(value),
+            ),
             space,
-            TextWashMode(controller: controller.mode, onChanged: (_) => ""),
+            TextWashMode(
+              controller: controller.mode,
+              onChanged: (_) => "",
+              validator: (value) => val.isNull(value),
+            ),
             space,
             AppTextField(
               onChanged: (_) => "",
@@ -33,9 +48,14 @@ class FormView extends StatelessWidget {
               hintText: "Kurutma türünü giriniz",
               labelText: "Kurutma Türü",
               keyboardType: TextInputType.text,
+              validator: (value) => val.isNull(value),
             ),
             space,
-            TextComment(controller: controller.comment, onChanged: (_) => ""),
+            TextComment(
+              controller: controller.comment,
+              onChanged: (_) => "",
+              validator: (_) => null,
+            ),
             space,
             ElevatedButton(onPressed: controller.onTab, child: const Text("Onayla ve Sıraya Gir"))
           ],

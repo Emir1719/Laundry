@@ -15,6 +15,7 @@ class FormController extends GetxController {
       modeDry = TextEditingController(),
       comment = TextEditingController();
   final _repository = locator<DatabaseRepository>();
+  final key = GlobalKey<FormState>();
 
   FormController() {
     getValues();
@@ -52,19 +53,20 @@ class FormController extends GetxController {
     degree.dispose();
     mode.dispose();
     comment.dispose();
+    modeDry.dispose();
   }
 
   void onTab() async {
     try {
       saveValues();
 
-      if (note.value.fileNo.isNotEmpty && note.value.degree.isNotEmpty && note.value.mode.isNotEmpty) {
+      if (key.currentState!.validate()) {
+        key.currentState!.save();
+
         bool result = await _repository.saveNote(note.value);
         if (result) {
           AppMessage.show(title: "İşlem Başarılı", message: "Kıyafetleriniz Sıraya Alınmıştır.");
         }
-      } else {
-        AppMessage.show(title: "İlk üç alanı lütfen doldurun", message: "Bazı alanlar zorunlu");
       }
     } catch (e) {
       AppMessage.show(title: "Hata", message: e.toString(), type: Type.error);

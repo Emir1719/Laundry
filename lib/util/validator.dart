@@ -29,10 +29,10 @@ class AppValidator {
     return "Lütfen şifre giriniz";
   }
 
-  String? isName(String? value) {
+  String? isNull(String? value) {
     if (value!.isNotEmpty) {
       return null;
     }
-    return "Lütfen bir isim giriniz";
+    return "Lütfen bir değer giriniz";
   }
 }

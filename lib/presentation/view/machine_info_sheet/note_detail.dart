@@ -31,11 +31,23 @@ class NotDetail extends StatelessWidget {
 
             return Column(
               children: [
-                _createRow("File No", note.fileNo),
-                _createRow("Derece", "${note.degree} °C"),
-                _createRow("Yıkama Modu", note.mode),
-                _createRow("Kurutma Modu", note.modeDry),
-                _createRow("Not", note.comment),
+                Table(
+                  columnWidths: const {
+                    0: FlexColumnWidth(1),
+                    1: FlexColumnWidth(2),
+                  },
+                  border: TableBorder.all(
+                    color: Colors.grey,
+                  ),
+                  defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                  children: [
+                    _createTableRow("File No", note.fileNo),
+                    _createTableRow("Derece", "${note.degree} °C"),
+                    _createTableRow("Yıkama Modu", note.mode),
+                    _createTableRow("Kurutma Modu", note.modeDry),
+                    _createTableRow("Not", note.comment),
+                  ],
+                ),
               ],
             );
           },
@@ -44,17 +56,21 @@ class NotDetail extends StatelessWidget {
     );
   }
 
-  Widget _createRow(String title, String value) {
+  TableRow _createTableRow(String title, String value) {
     final style = locator<AppStyle>();
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text("$title: ", style: style.machineSettingOption),
-          Expanded(child: Text(value, style: style.machineSetting, maxLines: 6)),
-        ],
-      ),
+    const padding = EdgeInsets.symmetric(vertical: 5, horizontal: 15);
+
+    return TableRow(
+      children: [
+        Padding(
+          padding: padding,
+          child: Text(title, style: style.machineSettingOption),
+        ),
+        Padding(
+          padding: padding,
+          child: Text(value, style: style.machineSetting),
+        ),
+      ],
     );
   }
 }
