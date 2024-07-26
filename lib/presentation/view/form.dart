@@ -8,13 +8,12 @@ import 'package:laundry/presentation/widget/text_form_fields/text_form_field.dar
 import 'package:laundry/presentation/widget/text_form_fields/text_wash_mod.dart';
 import 'package:laundry/util/validator.dart';
 
-class FormView extends StatelessWidget {
+class FormView extends GetView<FormController> {
   const FormView({super.key});
 
   @override
   Widget build(BuildContext context) {
     const space = SizedBox(height: 20);
-    final controller = Get.put(FormController());
     final val = AppValidator();
 
     return Scaffold(

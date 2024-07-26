@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:laundry/presentation/controller/announcement_controller.dart';
+import 'package:laundry/presentation/controller/form_controller.dart';
 import 'package:laundry/presentation/controller/notification.dart';
 import 'package:laundry/presentation/controller/user_controller.dart';
 import 'package:laundry/presentation/view/add_announcement.dart';
 import 'package:laundry/presentation/view/announcement.dart';
+import 'package:laundry/presentation/view/change_name.dart';
 import 'package:laundry/presentation/view/form.dart';
 import 'package:laundry/presentation/view/home.dart';
 import 'package:laundry/presentation/view/login.dart';
@@ -24,6 +27,7 @@ class AppRoute {
   static const setting = "/setting";
   static const addAnnouncement = "/addAnnouncement";
   static const splash = "/splash";
+  static const changeName = "/changeName";
 
   static appRoutes() {
     Transition? transition = Transition.native;
@@ -39,6 +43,8 @@ class AppRoute {
         popGesture: false,
         transition: transition,
         binding: BindingsBuilder(() {
+          // Normal kullanıcıdan admine geçince bazı butonlar gözükmüyor.
+          // Bu yüzden user'ı tekrar güncelledik
           Get.lazyPut(() => UserController());
           Get.lazyPut(() => NotificationController());
         }),
@@ -58,11 +64,17 @@ class AppRoute {
         name: announcement,
         page: () => const AnnouncementView(),
         transition: transition,
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => AnnouncementController());
+        }),
       ),
       GetPage(
         name: form,
         page: () => const FormView(),
         transition: transition,
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => FormController());
+        }),
       ),
       GetPage(
         name: machineControl,
@@ -91,6 +103,11 @@ class AppRoute {
         binding: BindingsBuilder(() {
           Get.lazyPut(() => UserController());
         }),
+      ),
+      GetPage(
+        name: changeName,
+        page: () => const ChangeNameView(),
+        transition: transition,
       ),
     ];
   }

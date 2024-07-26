@@ -18,8 +18,14 @@ class UserController extends GetxController {
 
   void _load() async {
     user = await _repository.currentUser();
+    route();
+  }
+
+  void route() {
     if (user != null) {
       Get.offAllNamed(AppRoute.home);
+    } else {
+      Get.offAllNamed(AppRoute.register);
     }
   }
 }

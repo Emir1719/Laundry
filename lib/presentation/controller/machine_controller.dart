@@ -71,6 +71,18 @@ class MachineController extends GetxController {
 
   /// Veri tabanına yeni makine ekler.
   void addMachine() async {
+    bool isConntection = await AppDevice.hasNetwork();
+
+    // Bağlantı yoksa makine eklemesin.
+    if (!isConntection) {
+      AppMessage.show(
+        title: "Bağlantı Hatası",
+        message: "Lütfen internet bağlantısını kontrol edin",
+        type: Type.error,
+      );
+      return;
+    }
+
     machines.add(await repository.addMachine());
     update();
   }

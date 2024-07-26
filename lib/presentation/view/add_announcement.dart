@@ -3,12 +3,11 @@ import 'package:get/get.dart';
 import 'package:laundry/presentation/controller/announcement_controller.dart';
 import 'package:laundry/presentation/widget/text_form_fields/text_form_field.dart';
 
-class AddAnnouncementView extends StatelessWidget {
+class AddAnnouncementView extends GetView<AnnouncementController> {
   const AddAnnouncementView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(AnnouncementController());
     const space = SizedBox(height: 20);
 
     return Scaffold(
@@ -21,6 +20,8 @@ class AddAnnouncementView extends StatelessWidget {
               onChanged: controller.setTitle,
               labelText: "Başlık",
               hintText: "Başlık Ekleyin",
+              minLines: 2,
+              maxLines: 4,
             ),
             space,
             AppTextField(

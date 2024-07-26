@@ -40,7 +40,7 @@ class NotificationController extends GetxController {
   void listenNoti() {
     var isListening = true;
     if (isListening) {
-      if (!_user!.isAdmin) {
+      if (!(_user?.isAdmin ?? true)) {
         FirebaseMessaging.onMessage.listen((RemoteMessage event) {
           AppMessage.showAlertDialogDone(
             context: Get.context!,

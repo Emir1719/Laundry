@@ -16,7 +16,7 @@ class AnnouncementView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text("Duyurular")),
       body: GetBuilder<AnnouncementController>(
-        builder: (context) {
+        builder: (controller) {
           return FutureBuilder(
             future: repository.getAnnouncements(),
             builder: (context, snapshot) {

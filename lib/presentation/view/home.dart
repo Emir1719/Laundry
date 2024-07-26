@@ -10,7 +10,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(NotificationController());
+    Get.find<NotificationController>();
 
     return const PopScope(
       canPop: false,

@@ -4,12 +4,10 @@ import 'package:laundry/config/locator.dart';
 import 'package:laundry/domain/model/user.dart';
 import 'package:laundry/domain/repository/database_repository.dart';
 import 'package:laundry/presentation/widget/loading_bar.dart';
+import 'package:laundry/util/constant/app_message.dart';
 
 class SettingController extends GetxController {
-  var name = TextEditingController(),
-      mail = TextEditingController(),
-      password = TextEditingController(),
-      newPassword = TextEditingController();
+  var name = TextEditingController(), mail = TextEditingController(), password = TextEditingController();
   final _repository = locator<DatabaseRepository>();
   AppUser? user;
 
@@ -30,12 +28,17 @@ class SettingController extends GetxController {
 
   void onTab() async {
     Map<String, dynamic> map = {};
-    map["name"] = name.text;
-    map["email"] = mail.text;
-    map["password"] = password.text;
-    map["newPassword"] = newPassword.text;
-    LoadingBar.open();
-    await _repository.updateUser(map);
-    LoadingBar.close();
+    map["name"] = name.text.trim();
+
+    AppMessage.showAlertDialog(
+      context: Get.context!,
+      title: "Emin misiniz?",
+      message: "İsminiz ${name.text} olarak değiştirilecek. Onaylıyor musunuz? Daha sonra tekrar değiştirebilirsiniz.",
+      onSuccess: () async {
+        LoadingBar.open();
+        await _repository.updateUser(map);
+        LoadingBar.close();
+      },
+    );
   }
 }

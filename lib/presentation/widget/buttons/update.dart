@@ -12,10 +12,10 @@ class BtnUpdate extends StatelessWidget {
     return ElevatedButton.icon(
       onPressed: cont.onTab,
       label: const Text("Güncelle"),
-      icon: const Icon(Icons.update),
+      icon: const Icon(Icons.refresh_rounded),
       style: ElevatedButton.styleFrom(
-        foregroundColor: Colors.red,
-        side: const BorderSide(color: Colors.red),
+        foregroundColor: Colors.deepOrange,
+        side: const BorderSide(color: Colors.deepOrange),
       ),
     );
   }

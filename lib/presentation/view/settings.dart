@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:laundry/presentation/controller/setting.dart';
-import 'package:laundry/presentation/widget/buttons/sign_out.dart';
-import 'package:laundry/presentation/widget/buttons/update.dart';
-import 'package:laundry/presentation/widget/text_form_fields/text_name.dart';
+import 'package:laundry/config/route.dart';
+import 'package:laundry/presentation/controller/signout_controller.dart';
+import 'package:laundry/util/constant/style.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
@@ -11,48 +10,49 @@ class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const space = SizedBox(height: 20);
-    final cont = Get.put(SettingController());
+    final cont = Get.put(SignOutController());
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Ayarlar"), actions: const [BtnSignOut()]),
+      appBar: AppBar(title: const Text("Ayarlar")),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            TextName(
-              controller: cont.name,
-              onChanged: (value) => "",
-            ),
-            /*space,
-            TextMail(
-              controller: cont.mail,
-              onChanged: (value) => "",
-            ),
-            space,
-            TextPassword(
-              label: "Eski Şifre",
-              controllerr: cont.password,
-              onChanged: (value) => "",
+            _listTile(
+              onTap: () {
+                Get.toNamed(AppRoute.changeName);
+              },
+              title: "İsim Güncelleme",
+              color: Colors.grey.shade900,
+              icon: Icons.person,
             ),
             space,
-            TextPassword(
-              label: "Yeni Şifre",
-              controllerr: cont.newPassword,
-              onChanged: (value) => "",
+            _listTile(
+              onTap: cont.onTab,
+              title: "Çıkış Yap",
+              color: Colors.red.shade900,
+              icon: Icons.exit_to_app,
             ),
-            space,
-            const Text("İsim güncellemek için şifre girmenize gerek yoktur. Mail ve şifre değiştirmek için gerekli."),*/
-            space,
-            const BtnUpdate(),
-            /*space,
-            const Card(
-              color: Colors.white,
-              shadowColor: Colors.grey,
-              child: ListTile(
-                title: Text("İsmi Değiştir"),
-              ),
-            )*/
           ],
+        ),
+      ),
+    );
+  }
+
+  GestureDetector _listTile({
+    required void Function()? onTap,
+    required String title,
+    required IconData icon,
+    required Color color,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+        decoration: AppStyle().announcementContainer(),
+        child: ListTile(
+          leading: Icon(icon, color: color),
+          title: Text(title.trim()),
         ),
       ),
     );

@@ -33,7 +33,7 @@ class FirebaseAuthService implements AuthBase {
   Future<AppUser?> currentUser() async {
     try {
       User? user = _auth.currentUser;
-      AppUser? appUser = await _database.getUser(user!.uid);
+      AppUser? appUser = user != null ? await _database.getUser(user.uid) : null;
       return appUser;
     } on FirebaseAuthException catch (e) {
       AuthValidator.getMessageAuth(e);
