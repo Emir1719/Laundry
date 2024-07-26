@@ -19,7 +19,8 @@ class AppStyle {
       announcementContent,
       queueCount,
       alertYesNoBtn,
-      alertTitle;
+      alertTitle,
+      userQueue;
 
   AppStyle() {
     listTileTitle = baseTextStyle.copyWith(
@@ -35,6 +36,10 @@ class AppStyle {
     );
     listTileSubtitle = baseTextStyle.copyWith(
       fontWeight: FontWeight.w400,
+    );
+    userQueue = baseTextStyle.copyWith(
+      fontSize: 20,
+      fontWeight: FontWeight.w500,
     );
     countText = baseTextStyle.copyWith(
       fontSize: 20,

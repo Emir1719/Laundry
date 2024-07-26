@@ -62,10 +62,17 @@ class MachineController extends GetxController {
 
   /// Yıkama sırasındaki kişilerin adını listeler.
   void onTabShowQueue() {
+    bool isPortrait = AppDevice.isPortrait;
+
     showModalBottomSheet(
       context: Get.context!,
       useSafeArea: true,
       builder: (context) => const UsersAtQueue(),
+      constraints: BoxConstraints(
+        maxHeight: isPortrait ? AppDevice.height * 0.8 : AppDevice.height,
+        maxWidth: isPortrait ? AppDevice.width : AppDevice.width,
+      ),
+      isScrollControlled: !isPortrait,
     );
   }
 

@@ -11,7 +11,6 @@ class UsersAtQueue extends StatelessWidget {
     final style = locator<AppStyle>();
 
     return Container(
-      padding: const EdgeInsets.all(20),
       width: MediaQuery.of(context).size.width,
       decoration: style.machineSettingContainer(),
       child: FutureBuilder(
@@ -26,6 +25,7 @@ class UsersAtQueue extends StatelessWidget {
           if (snapshot.data!.isNotEmpty) {
             return ListView.builder(
               itemCount: snapshot.data!.length,
+              padding: const EdgeInsets.all(20),
               itemBuilder: (context, index) {
                 return ListTile(
                   title: Text("${index + 1}. ${snapshot.data![index].name}", style: style.listTileTitle),
@@ -33,7 +33,7 @@ class UsersAtQueue extends StatelessWidget {
               },
             );
           }
-          return Center(child: Text("Yıkama sırası boş", style: style.listTileSubtitle));
+          return Center(child: Text("Yıkama sırası boş", style: style.userQueue));
         },
       ),
     );

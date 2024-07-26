@@ -24,7 +24,7 @@ class BtnControlClothes extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.settings, size: style.mainButtonIconSize),
+                Icon(Icons.local_laundry_service_outlined, size: style.mainButtonIconSize),
                 SizedBox(height: style.mainButtonSpaceBetween),
                 const Text("Makine Kontrol", textAlign: TextAlign.center),
               ],
