@@ -27,7 +27,7 @@ class SignOutController extends GetxController {
         },
       );
     } catch (e) {
-      print("hata: $e");
+      AppMessage.show(title: "Hata", message: e.toString(), type: Type.error);
     }
   }
 }

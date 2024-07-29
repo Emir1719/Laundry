@@ -4,13 +4,11 @@ import 'package:laundry/presentation/controller/auth_controller.dart';
 import 'package:laundry/presentation/widget/auth_form.dart';
 import 'package:laundry/presentation/widget/logo.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends GetView<AuthController> {
   const LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(AuthController());
-
     return Scaffold(
       appBar: AppBar(title: const Text("Giriş")),
       body: ListView(

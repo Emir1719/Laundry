@@ -103,10 +103,8 @@ class NotificationController extends GetxController {
       }),
     );
 
-    if (response.statusCode == 200) {
-      print('Bildirim gönderildi: ${response.body}');
-    } else {
-      print('Bildirim gönderme hatası: ${response.reasonPhrase}');
+    if (response.statusCode != 200) {
+      AppMessage.show(title: "Hata", message: response.reasonPhrase ?? "", type: Type.error);
     }
   }
 
@@ -135,10 +133,8 @@ class NotificationController extends GetxController {
       }),
     );
 
-    if (response.statusCode == 200) {
-      print('Bildirim gönderildi: ${response.body}');
-    } else {
-      print('Bildirim gönderme hatası: ${response.reasonPhrase}');
+    if (response.statusCode != 200) {
+      AppMessage.show(title: "Hata", message: response.reasonPhrase ?? "", type: Type.error);
     }
   }
 }

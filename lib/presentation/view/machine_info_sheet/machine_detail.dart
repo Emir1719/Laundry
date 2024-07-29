@@ -15,8 +15,6 @@ class MachineDetail extends StatelessWidget {
 
     return Column(
       children: [
-        Text("Makine Ayarları", style: style.machineSettingTitle, textAlign: TextAlign.center),
-        space,
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,

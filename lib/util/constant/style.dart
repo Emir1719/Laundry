@@ -46,7 +46,7 @@ class AppStyle {
       fontWeight: FontWeight.w500,
     );
     machineSettingTitle = baseTextStyle.copyWith(
-      fontSize: 20,
+      fontSize: 18,
       fontWeight: FontWeight.w500,
     );
     announcementTitle = baseTextStyle.copyWith(

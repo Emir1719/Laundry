@@ -4,13 +4,12 @@ import 'package:laundry/config/route.dart';
 import 'package:laundry/presentation/controller/signout_controller.dart';
 import 'package:laundry/util/constant/style.dart';
 
-class SettingsView extends StatelessWidget {
+class SettingsView extends GetView<SignOutController> {
   const SettingsView({super.key});
 
   @override
   Widget build(BuildContext context) {
     const space = SizedBox(height: 20);
-    final cont = Get.put(SignOutController());
 
     return Scaffold(
       appBar: AppBar(title: const Text("Ayarlar")),
@@ -28,7 +27,7 @@ class SettingsView extends StatelessWidget {
             ),
             space,
             _listTile(
-              onTap: cont.onTab,
+              onTap: controller.onTab,
               title: "Çıkış Yap",
               color: Colors.red.shade900,
               icon: Icons.exit_to_app,

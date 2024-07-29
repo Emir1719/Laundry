@@ -5,12 +5,11 @@ import 'package:laundry/presentation/controller/machine_controller.dart';
 import 'package:laundry/config/locator.dart';
 import 'package:laundry/presentation/widget/washing_queue_count.dart';
 
-class BtnRowMachineSetting extends StatelessWidget {
+class BtnRowMachineSetting extends GetView<MachineController> {
   const BtnRowMachineSetting({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(MachineController());
     final style = locator<AppStyle>();
 
     return Container(

@@ -4,13 +4,12 @@ import 'package:laundry/presentation/controller/setting.dart';
 import 'package:laundry/presentation/widget/buttons/update.dart';
 import 'package:laundry/presentation/widget/text_form_fields/text_name.dart';
 
-class ChangeNameView extends StatelessWidget {
+class ChangeNameView extends GetView<SettingController> {
   const ChangeNameView({super.key});
 
   @override
   Widget build(BuildContext context) {
     const space = SizedBox(height: 20);
-    final cont = Get.put(SettingController());
 
     return Scaffold(
       appBar: AppBar(title: const Text("Ayarlar - İsim Değiştirme")),
@@ -19,7 +18,7 @@ class ChangeNameView extends StatelessWidget {
         child: Column(
           children: [
             TextName(
-              controller: cont.name,
+              controller: controller.name,
               onChanged: (value) => "",
             ),
             space,

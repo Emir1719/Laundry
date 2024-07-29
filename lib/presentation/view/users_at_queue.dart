@@ -33,7 +33,7 @@ class UsersAtQueue extends StatelessWidget {
               },
             );
           }
-          return Center(child: Text("Yıkama sırası boş", style: style.userQueue));
+          return Center(child: Text("Yıkama Sırası Boş", style: style.userQueue));
         },
       ),
     );

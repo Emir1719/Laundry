@@ -5,6 +5,7 @@ import 'package:laundry/config/locator.dart';
 import 'package:laundry/domain/model/announcement.dart';
 import 'package:laundry/domain/repository/database_repository.dart';
 import 'package:laundry/presentation/widget/announcement_structure.dart';
+import 'package:laundry/util/constant/app_message.dart';
 
 class AnnouncementView extends StatelessWidget {
   const AnnouncementView({super.key});
@@ -24,8 +25,10 @@ class AnnouncementView extends StatelessWidget {
                 return const Center(child: CircularProgressIndicator());
               }
               if (snapshot.hasError) {
-                return Text("Hata: ${snapshot.error}");
+                AppMessage.show(title: "Hata", message: snapshot.error.toString(), type: Type.error);
+                return const SizedBox();
               }
+
               return ListView.separated(
                 itemCount: snapshot.data!.length,
                 padding: const EdgeInsets.all(20),

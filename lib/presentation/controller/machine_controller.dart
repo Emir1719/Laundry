@@ -227,6 +227,11 @@ class MachineController extends GetxController {
     } else {
       update();
     }
+
+    if (Get.context != null) {
+      Navigator.pop(Get.context!);
+    }
+
     LoadingBar.close();
   }
 

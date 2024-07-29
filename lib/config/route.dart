@@ -2,7 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:laundry/presentation/controller/announcement_controller.dart';
 import 'package:laundry/presentation/controller/form_controller.dart';
+import 'package:laundry/presentation/controller/machine_controller.dart';
 import 'package:laundry/presentation/controller/notification.dart';
+import 'package:laundry/presentation/controller/setting.dart';
+import 'package:laundry/presentation/controller/signout_controller.dart';
 import 'package:laundry/presentation/controller/user_controller.dart';
 import 'package:laundry/presentation/view/add_announcement.dart';
 import 'package:laundry/presentation/view/announcement.dart';
@@ -64,9 +67,6 @@ class AppRoute {
         name: announcement,
         page: () => const AnnouncementView(),
         transition: transition,
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => AnnouncementController());
-        }),
       ),
       GetPage(
         name: form,
@@ -80,6 +80,9 @@ class AppRoute {
         name: machineControl,
         page: () => const MachineControlView(),
         transition: transition,
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => MachineController());
+        }),
       ),
       GetPage(
         name: qr,
@@ -90,11 +93,17 @@ class AppRoute {
         name: setting,
         page: () => const SettingsView(),
         transition: transition,
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => SignOutController());
+        }),
       ),
       GetPage(
         name: addAnnouncement,
         page: () => const AddAnnouncementView(),
         transition: transition,
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => AnnouncementController());
+        }),
       ),
       GetPage(
         name: splash,
@@ -108,6 +117,9 @@ class AppRoute {
         name: changeName,
         page: () => const ChangeNameView(),
         transition: transition,
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => SettingController());
+        }),
       ),
     ];
   }

@@ -6,12 +6,11 @@ import 'package:laundry/presentation/widget/buttons/any_have_account.dart';
 import 'package:laundry/presentation/widget/buttons/register_btn.dart';
 import 'package:laundry/presentation/widget/logo.dart';
 
-class RegisterView extends StatelessWidget {
+class RegisterView extends GetView<AuthController> {
   const RegisterView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(AuthController());
     const space = SizedBox(height: 20);
 
     return PopScope(
