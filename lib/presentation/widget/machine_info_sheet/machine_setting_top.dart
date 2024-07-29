@@ -11,18 +11,18 @@ class MachineSettingTopSection extends StatelessWidget {
     final style = locator<AppStyle>();
 
     return Container(
-      width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.symmetric(horizontal: 20),
+      decoration: const BoxDecoration(borderRadius: BorderRadius.zero),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.max,
         children: [
-          Text(title, style: style.machineSettingTitle),
+          Text(title, style: style.machineSettingTitle.copyWith(color: Colors.white)),
           IconButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: const Icon(Icons.close),
+            icon: const Icon(Icons.close, color: Colors.white),
           ),
         ],
       ),

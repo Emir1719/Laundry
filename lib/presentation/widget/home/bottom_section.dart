@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:laundry/presentation/widget/buttons/add_announcement.dart';
 import 'package:laundry/presentation/widget/buttons/control_clothes.dart';
 import 'package:laundry/presentation/widget/buttons/scan_qr.dart';
+import 'package:laundry/presentation/widget/buttons/video.dart';
 import 'package:laundry/presentation/widget/machine_count_text.dart';
 
 class HomeBottomSection extends StatelessWidget {
@@ -25,6 +26,7 @@ class HomeBottomSection extends StatelessWidget {
                 BtnControlClothes(),
               ],
             ),
+            BtnVideo(),
           ],
         ),
       ),

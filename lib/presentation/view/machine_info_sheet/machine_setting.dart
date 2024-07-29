@@ -18,7 +18,10 @@ class MachineSetting extends StatelessWidget {
 
     return Container(
       width: MediaQuery.of(context).size.width,
-      decoration: style.machineSettingContainer().copyWith(color: Colors.grey.shade300),
+      decoration: style.machineSettingContainer().copyWith(
+            color: Colors.deepOrange,
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+          ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,

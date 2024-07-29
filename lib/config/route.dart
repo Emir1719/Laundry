@@ -7,6 +7,7 @@ import 'package:laundry/presentation/controller/notification.dart';
 import 'package:laundry/presentation/controller/setting.dart';
 import 'package:laundry/presentation/controller/signout_controller.dart';
 import 'package:laundry/presentation/controller/user_controller.dart';
+import 'package:laundry/presentation/controller/video_controller.dart';
 import 'package:laundry/presentation/view/add_announcement.dart';
 import 'package:laundry/presentation/view/announcement.dart';
 import 'package:laundry/presentation/view/change_name.dart';
@@ -18,6 +19,7 @@ import 'package:laundry/presentation/view/qr_scanner.dart';
 import 'package:laundry/presentation/view/register.dart';
 import 'package:laundry/presentation/view/settings.dart';
 import 'package:laundry/presentation/view/splash.dart';
+import 'package:laundry/presentation/view/video.dart';
 
 class AppRoute {
   static const register = "/register";
@@ -31,6 +33,7 @@ class AppRoute {
   static const addAnnouncement = "/addAnnouncement";
   static const splash = "/splash";
   static const changeName = "/changeName";
+  static const video = "/video";
 
   static appRoutes() {
     Transition? transition = Transition.native;
@@ -119,6 +122,14 @@ class AppRoute {
         transition: transition,
         binding: BindingsBuilder(() {
           Get.lazyPut(() => SettingController());
+        }),
+      ),
+      GetPage(
+        name: video,
+        page: () => const VideoView(),
+        transition: transition,
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => VideoController());
         }),
       ),
     ];

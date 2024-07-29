@@ -10,7 +10,7 @@ class MachineControlView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Makine Ayarları")),
+      appBar: AppBar(title: const Text("Makine Kontrol")),
       body: Column(
         children: [
           const BtnRowMachineSetting(),

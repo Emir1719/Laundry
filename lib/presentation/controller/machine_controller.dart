@@ -49,9 +49,6 @@ class MachineController extends GetxController {
       context: Get.context!,
       useSafeArea: true,
       builder: (context) => const SingleChildScrollView(child: MachineSetting()),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
       constraints: BoxConstraints(
         maxHeight: isPortrait ? AppDevice.height * 0.8 : AppDevice.height,
         maxWidth: isPortrait ? AppDevice.width : AppDevice.width,
