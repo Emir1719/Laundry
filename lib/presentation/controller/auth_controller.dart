@@ -28,7 +28,7 @@ class AuthController extends GetxController {
         AppUser? user = await repository.register(email.value.trim(), password.value.trim());
         LoadingBar.close();
         if (user != null) {
-          Get.toNamed(AppRoute.home);
+          Get.toNamed(AppRoute.splash);
           clearTexts();
           return;
         }
@@ -44,7 +44,7 @@ class AuthController extends GetxController {
         AppUser? user = await repository.signIn(email.value.trim(), password.value.trim());
         LoadingBar.close();
         if (user != null) {
-          Get.toNamed(AppRoute.home);
+          Get.toNamed(AppRoute.splash);
           clearTexts();
           return;
         }

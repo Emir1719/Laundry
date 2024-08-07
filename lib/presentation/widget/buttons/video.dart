@@ -13,6 +13,10 @@ class BtnVideo extends StatelessWidget {
     final style = locator<AppStyle>();
     final cont = UserController.call;
 
+    if (cont.user == null) {
+      return const SizedBox();
+    }
+
     return cont.user!.isAdmin
         ? TextButton(
             onPressed: () => Get.toNamed(AppRoute.video),

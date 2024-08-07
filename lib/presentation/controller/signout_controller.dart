@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:laundry/config/route.dart';
+import 'package:laundry/presentation/controller/user_controller.dart';
 import 'package:laundry/util/constant/app_message.dart';
 import 'package:laundry/config/locator.dart';
 import 'package:laundry/domain/repository/database_repository.dart';
@@ -19,6 +20,7 @@ class SignOutController extends GetxController {
           await repo.deleteToken();
           bool result = await auth.signOut();
           if (result) {
+            UserController.call.user = null;
             // Burada kullanılan (route) => false ifadesi, Get.offNamedUntil fonksiyonunun
             // geçmişteki rotaları temizlemesini sağlar. Yani, bu sayede kayıt sayfasına
             // geçtikten sonra geri dönülebilecek bir geçmiş oluşmaz.

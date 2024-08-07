@@ -11,12 +11,12 @@ class UserController extends GetxController {
   static UserController get call => Get.find();
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    _load();
+    await load();
   }
 
-  void _load() async {
+  Future<void> load() async {
     user = await _repository.currentUser();
     route();
   }

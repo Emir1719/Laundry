@@ -29,6 +29,8 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
+    UserController.call.load();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final userController = UserController.call;
 

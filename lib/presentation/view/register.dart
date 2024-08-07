@@ -12,6 +12,7 @@ class RegisterView extends GetView<AuthController> {
   @override
   Widget build(BuildContext context) {
     const space = SizedBox(height: 20);
+    Get.put(AuthController());
 
     return PopScope(
       canPop: false,

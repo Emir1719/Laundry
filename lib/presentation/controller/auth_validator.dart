@@ -17,8 +17,14 @@ class AuthValidator extends GetxController {
         errorMessage = "Kullanıcı bulunamadı";
         break;
       case "user-disabled":
-        errorMessage = "Bu hesap bloke olmuştur";
+        errorMessage = "Bu hesap bloke olmuştur. Yeni hesap oluşturun";
         break;
+      case 'email-already-in-use':
+        errorMessage = 'Bu email başkası tarafından kullanılıyor';
+      case 'operation-not-allowed':
+        errorMessage = 'İşlem engellendi';
+      case 'weak-password':
+        errorMessage = 'Parola çok zayıf';
       default:
         errorMessage = "Bilinmeyen bir hata oluştu";
     }
