@@ -11,13 +11,7 @@ class VideoListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () async {
-        try {
-          await video.launch();
-        } catch (e) {
-          AppMessage.show(title: "Hata", message: e.toString(), type: Type.error);
-        }
-      },
+      onTap: _onTab,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
         decoration: AppStyle().announcementContainer(),
@@ -27,9 +21,21 @@ class VideoListTile extends StatelessWidget {
             color: Colors.blue,
             size: 32,
           ),
-          title: Text(video.title.trim()),
+          title: Text(
+            video.title.trim(),
+            maxLines: 4,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
       ),
     );
+  }
+
+  void _onTab() async {
+    try {
+      await video.launch();
+    } catch (e) {
+      AppMessage.show(title: "Hata", message: e.toString(), type: Type.error);
+    }
   }
 }

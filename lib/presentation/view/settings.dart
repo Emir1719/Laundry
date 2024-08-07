@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laundry/config/route.dart';
 import 'package:laundry/presentation/controller/signout_controller.dart';
+import 'package:laundry/presentation/controller/user_controller.dart';
+import 'package:laundry/util/constant/app_message.dart';
 import 'package:laundry/util/constant/style.dart';
 
 class SettingsView extends GetView<SignOutController> {
@@ -10,6 +12,7 @@ class SettingsView extends GetView<SignOutController> {
   @override
   Widget build(BuildContext context) {
     const space = SizedBox(height: 20);
+    final user = UserController.call.user;
 
     return Scaffold(
       appBar: AppBar(title: const Text("Ayarlar")),
@@ -19,6 +22,10 @@ class SettingsView extends GetView<SignOutController> {
           children: [
             _listTile(
               onTap: () {
+                if (user?.id == "CS7oa3eEd2g6KMVhsP9mX8l7eY42" || user?.email == "admin@gmail.com") {
+                  AppMessage.show(title: "Görevli İsim Değiştiremez", message: "Hata", type: Type.error);
+                  return;
+                }
                 Get.toNamed(AppRoute.changeName);
               },
               title: "İsim Güncelleme",

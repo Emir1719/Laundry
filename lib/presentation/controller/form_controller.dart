@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:laundry/presentation/controller/notification.dart';
+import 'package:laundry/presentation/controller/user_controller.dart';
 import 'package:laundry/util/constant/app_message.dart';
 import 'package:laundry/config/locator.dart';
 import 'package:laundry/domain/model/note.dart';
@@ -63,9 +65,23 @@ class FormController extends GetxController {
       if (key.currentState!.validate()) {
         key.currentState!.save();
 
+        // Yıkama notu veri tabanına kaydedilir
         bool result = await _repository.saveNote(note.value);
         if (result) {
           AppMessage.show(title: "İşlem Başarılı", message: "Kıyafetleriniz Sıraya Alınmıştır.");
+
+          // Yıkama sırasına katılan kişi, görevliye bildirilir.
+          final user = UserController.call.user!;
+          String? token = await _repository.getToken("CS7oa3eEd2g6KMVhsP9mX8l7eY42");
+
+          if (token != null || token!.isNotEmpty) {
+            final noti = Get.put(NotificationController());
+            noti.sendNotification(
+              token: token,
+              title: "Yıkama Sırası",
+              body: "${user.name.trim()} Sıraya Girdi",
+            );
+          }
         }
       }
     } catch (e) {

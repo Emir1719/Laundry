@@ -53,6 +53,7 @@ class AppRoute {
           // Bu yüzden user'ı tekrar güncelledik
           Get.lazyPut(() => UserController());
           Get.lazyPut(() => NotificationController());
+          Get.lazyPut(() => AnnouncementController());
         }),
       ),
       GetPage(
@@ -104,9 +105,6 @@ class AppRoute {
         name: addAnnouncement,
         page: () => const AddAnnouncementView(),
         transition: transition,
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => AnnouncementController());
-        }),
       ),
       GetPage(
         name: splash,
